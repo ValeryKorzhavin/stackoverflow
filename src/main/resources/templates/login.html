@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link th:replace="~{fragments/head-styles}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar-dark}"></div>
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-lg-4 mx-auto">
+<!--                <h1 th:text="#{common.header.login}">login</h1>-->
+                <div class="form-wrapper shadow mt-3">
+                    <form th:action="@{/login}" class="my-3 mx-3">
+                        <div class="form-group">
+                            <label for="user_email" th:text="#{auth.email}">email</label>
+                            <input autofocus="autofocus" id="user_email" name="email"
+                                   type="email" class="form-control" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="user_password" th:text="#{auth.password}">password</label>
+                            <input id="user_password" name="password"
+                                   type="password" class="form-control" autocomplete="current-password">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="login"
+                                   class="btn btn-primary col" th:value="#{auth.login}">
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

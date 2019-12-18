@@ -1,0 +1,8 @@
+body {
+    background:  url("/public/images/image-background.jpg");
+}
+.form-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+}
