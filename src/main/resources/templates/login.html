@@ -12,13 +12,27 @@
 </head>
 <body>
 <div th:replace="~{fragments/header :: navbar-dark}"></div>
-<div class="main">
+<main>
+<!--    <div th:text="${module}"></div>-->
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-lg-4 mx-auto">
 <!--                <h1 th:text="#{common.header.login}">login</h1>-->
                 <div class="form-wrapper shadow mt-3">
-                    <form th:action="@{/login}" class="my-3 mx-3">
+                    <form th:action="@{/login}" method="post" accept-charset="UTF-8" class="my-3 mx-3">
+
+                        <div th:if="${error}">
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h6 class="alert-heading" th:text="#{alert.login}"></h6>
+                                <ul class="mb-0" >
+                                    <li th:text="${error}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="user_email" th:text="#{auth.email}">email</label>
                             <input autofocus="autofocus" id="user_email" name="email"
@@ -39,6 +53,6 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 </body>
 </html>

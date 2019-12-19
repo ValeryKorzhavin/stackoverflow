@@ -1,11 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       lang="ru">
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar-dark">
-        <a href="#" class="navbar-brand">IT exp exchange</a>
+        <a href="/" class="navbar-brand" th:text="#{common.header.title}">stack overflow clone</a>
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
@@ -26,8 +26,11 @@
             <form action="#" class="form-inline my-2 my-lg-0">
                 <input type="search" placeholder="Search" aria-label="Search" class="form-control mr-sm-2">
             </form>
-            <a href="/login" class="btn btn-outline-secondary mr-2">Log in</a>
-            <a href="/registration" class="btn btn-primary">Sign up</a>
+            <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" class="form-inline">
+                <input type="submit" th:value="#{common.header.logout}" class="btn btn-primary"/>
+            </form>
+            <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-outline-secondary mr-2">Log in</a>
+            <a sec:authorize="!isAuthenticated()" href="/registration" class="btn btn-primary">Sign up</a>
         </div>
     </nav>
 </body>
