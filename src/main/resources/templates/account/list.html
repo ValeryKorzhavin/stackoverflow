@@ -1,0 +1,48 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title th:text="#{common.header.title}">Stack Overflow Clone</title>
+    <link th:replace="~{fragments/styles}">
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-lg-2">
+                first column
+            </div>
+            <div class="col-md-9 col-lg-10 bg-white shadow" style="height: 80vh;">
+                <div><h3>Users</h3></div>
+                <div>
+                    <form action="#" class="form-inline">
+                        <label for="search"></label>
+                        <input type="text" id="search" placeholder="Filter by user" class="form-control">
+                    </form>
+                </div>
+                <div>list of users</div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="mt-auto">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col">contacts</div>
+            <div class="col">information</div>
+            <div class="col">links</div>
+            <div class="col">copyright</div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
