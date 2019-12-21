@@ -9,6 +9,11 @@ import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.repository.AccountRepository;
 import ru.valerykorzh.springdemo.service.AccountService;
 
+import javax.xml.bind.DatatypeConverter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,8 +55,20 @@ public class AccountServiceImpl implements AccountService {
             return accountRepository.save(accountToPut);
         }
 
-        account.setPassword(passwordEncoder.encode(account.getPassword()));
+        int avatarSize = 40;
 
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(account.getEmail().getBytes());
+            byte[] digest = md.digest();
+            String hash = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            String avatar = String.format("https://www.gravatar.com/avatar/%s?d=wavatar&s=%d", hash, avatarSize);
+            account.setAvatar(avatar);
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
 

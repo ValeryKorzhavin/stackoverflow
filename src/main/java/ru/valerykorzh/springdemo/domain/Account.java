@@ -35,6 +35,9 @@ public class Account {
     @NotBlank(message = "Password can't be empty")
     private String password;
 
+    @Column(name = "avatar")
+    private String avatar;
+
 //    private List<Question> questions;
 
 }

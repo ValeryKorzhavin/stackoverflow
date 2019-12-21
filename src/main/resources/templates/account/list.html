@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      lang="ru">
+      lang="ru" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,32 +14,88 @@
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
-<main>
+<main class="d-flex h-100">
     <div class="container">
-        <div class="row">
+        <div class="row d-flex h-100">
             <div class="col-md-3 col-lg-2">
-                first column
-            </div>
-            <div class="col-md-9 col-lg-10 bg-white shadow" style="height: 80vh;">
-                <div><h3>Users</h3></div>
-                <div>
-                    <form action="#" class="form-inline">
-                        <label for="search"></label>
-                        <input type="text" id="search" placeholder="Filter by user" class="form-control">
-                    </form>
+                <div class="left-sidebar mt-3">
+                    <nav role="navigation">
+                        <ul class="nav-links">
+                            <li class="nav-item">
+                                <a href="/accounts" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/questions" class="nav-link">Questions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/accounts" class="nav-link">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/accounts" class="nav-link">Tags</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <div>list of users</div>
+
+            </div>
+            <div class="col-md-9 col-lg-10 bg-white shadow">
+                <div class="content m-3 ">
+                    <div class="section-title mb-3"><h3>Users</h3></div>
+                    <div class="search-form-wrapper mb-3">
+                        <form action="#" class="form-inline">
+                            <label for="search"></label>
+                            <input type="text" id="search" placeholder="Filter by user" class="form-control">
+                        </form>
+                    </div>
+                    <div class="user-browser">
+                        <div class="d-flex flex-wrap">
+                            <div class="user-info w-25 mb-2" th:each="account : ${accounts}">
+                                <div class="user-gravatar">
+                                    <img th:src="${account.avatar}" src="#" th:alt="${account.name}" alt="avatar">
+                                </div>
+                                <div class="user-details">
+                                    <div th:text="${account.name}"></div>
+                                    <div th:text="${account.email}"></div>
+                                </div>
+                                <div class="user-tags"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
-<footer class="mt-auto">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col">contacts</div>
-            <div class="col">information</div>
-            <div class="col">links</div>
-            <div class="col">copyright</div>
+<footer class="footer">
+<!--    <footer class="footer mt-auto">-->
+    <div class="footer-container">
+        <div class="container mt-3">
+            <div class="row justify-content-center my-3">
+                <div class="col">
+                    <div><a href="#">Tour</a></div>
+                    <div><a href="#">Help</a></div>
+                    <div><a href="#">Chat</a></div>
+                    <div><a href="#">Contact</a></div>
+                    <div><a href="#">Feedback</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">About</a></div>
+                    <div><a href="#">Press</a></div>
+                    <div><a href="#">Legal</a></div>
+                    <div><a href="#">Private Policy</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">Technology</a></div>
+                    <div><a href="#">Life / Arts</a></div>
+                    <div><a href="#">Science</a></div>
+                    <div><a href="#">Other</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">Developer jobs</a></div>
+                    <div><a href="#">Mobile</a></div>
+                    <div><a href="#">Culture / Recreation</a></div>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

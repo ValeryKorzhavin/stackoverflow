@@ -6,3 +6,19 @@ body {
     border-radius: 10px;
     padding: 10px;
 }
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-item > a:active {
+    color: #0c0d0e;
+}
+
+.nav-item > a {
+    color: #535a60;
+}
+
+.footer-container a {
+    color: #535a60;
+}
