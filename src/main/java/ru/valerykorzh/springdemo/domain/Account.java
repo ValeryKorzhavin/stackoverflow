@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +39,14 @@ public class Account {
     @Column(name = "avatar")
     private String avatar;
 
-//    private List<Question> questions;
+    @OneToMany(mappedBy = "author", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Question> questions;
+
+    @OneToMany(mappedBy = "author", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Answer> answers;
 
 }

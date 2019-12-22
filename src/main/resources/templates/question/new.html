@@ -35,35 +35,36 @@
             </div>
             <div class="col-lg-10 col-md-9 bg-white shadow">
                 <div class="content m-3 ">
-                    <div class="section-title mb-3"><h3>Users</h3></div>
-                    <div class="search-form-wrapper mb-3 d-flex justify-content-between">
-                        <form action="#" class="form-inline d-inline-block">
-                            <label for="search"></label>
-                            <input type="text" id="search" placeholder="Filter by user" class="form-control">
-                        </form>
-                        <a class="btn btn-info" th:text="#{question.action.new}" th:href="@{/questions/new}">Ask Question</a>
-                    </div>
-                    <div class="user-browser">
-                        <div class="d-flex flex-wrap">
-                            <div class="user-info w-25 mb-2" th:each="account : ${accounts}">
-                                <div class="user-gravatar">
-                                    <img th:src="${account.avatar}" src="#" th:alt="${account.name}" alt="avatar">
-                                </div>
-                                <div class="user-details">
-                                    <div th:text="${account.name}"></div>
-                                    <div th:text="${account.email}"></div>
-                                </div>
-                                <div class="user-tags"></div>
+                    <div class="section-title mb-3"><h3 th:text="#{question.action.new}">Users</h3></div>
+                    <div class="form-wrapper">
+                        <form th:action="@{/questions}" method="post" th:object="${question}">
+                            <div class="form-group">
+                                <label for="question_title"
+                                       th:text="#{question.form.title}">Question title</label>
+                                <input id="question_title" type="text" th:field="*{title}"
+                                       name="title" class="form-control">
                             </div>
-                        </div>
+
+                            <div class="form-group">
+                                <label for="question_content"
+                                       th:text="#{question.form.content}">Question content</label>
+                                <input id="question_content" type="text" th:field="*{title}"
+                                       name="content" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" th:value="#{question.form.submit}"
+                                       class="btn btn-primary form-control">
+                            </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </main>
 <footer class="footer">
-<!--    <footer class="footer mt-auto">-->
+    <!--    <footer class="footer mt-auto">-->
     <div class="footer-container">
         <div class="container mt-3">
             <div class="row justify-content-center my-3">
