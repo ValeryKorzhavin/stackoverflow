@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -24,8 +26,8 @@ public class Question {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "content")
-    private String content;
+    @Column(name = "body")
+    private String body;
 
     @Column(name = "rating")
     private Integer rating;
@@ -48,5 +50,23 @@ public class Question {
         inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags;
 
+    public void addTag(Tag tag) {
+        if (tags == null) {
+            tags = new ArrayList<>();
+        }
+        tags.add(tag);
+    }
+
+    public void addAnswer(Answer answer) {
+        if (answers == null) {
+            answers = new ArrayList<>();
+        }
+        answers.add(answer);
+    }
+
+    public void setTags(String tagList) {
+        String[] tags = tagList.split("\\s+");
+        Arrays.stream(tags).forEach(tag -> addTag(new Tag(tag)));
+    }
 
 }

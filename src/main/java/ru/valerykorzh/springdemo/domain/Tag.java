@@ -1,9 +1,6 @@
 package ru.valerykorzh.springdemo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,5 +29,9 @@ public class Tag {
         joinColumns = @JoinColumn(name = "tag_id"),
         inverseJoinColumns = @JoinColumn(name = "question_id"))
     List<Question> questions;
+
+    public Tag(String name) {
+        this.name = name;
+    }
 
 }
