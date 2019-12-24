@@ -11,6 +11,8 @@ public interface TagService {
 
     Optional<Tag> findById(Long id);
 
+    Optional<Tag> findByName(String name);
+
     Tag save(Tag tag);
 
     void deleteById(Long id);

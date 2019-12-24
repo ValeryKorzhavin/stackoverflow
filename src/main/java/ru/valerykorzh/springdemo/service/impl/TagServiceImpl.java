@@ -30,8 +30,16 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public Optional<Tag> findByName(String name) {
+        return tagRepository.findByName(name);
+    }
+
+    @Override
     public Tag save(Tag tag) {
-        return tagRepository.save(tag);
+//        if (tagRepository.findByName(tag.getName()).isEmpty()) {
+            return tagRepository.save(tag);
+//        }
+//        return tag;
     }
 
     @Override

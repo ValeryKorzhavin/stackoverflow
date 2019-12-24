@@ -37,7 +37,7 @@
                 <div class="content m-3 ">
                     <div class="section-title mb-3"><h3 th:text="#{question.action.new}">Users</h3></div>
                     <div class="form-wrapper">
-                        <form th:action="@{/questions}" method="post" th:object="${question}">
+                        <form th:action="@{/questions}" method="post" th:object="${questionDto}">
                             <div class="form-group">
                                 <label for="question_title"
                                        th:text="#{question.form.title}">Question title</label>

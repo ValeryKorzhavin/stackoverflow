@@ -46,7 +46,7 @@
 
                     <div class="questions-list-container">
                         <div class="d-flex flex-wrap">
-                            <div class="user-info w-25 mb-2" th:each="question : ${questions}">
+                            <div class="user-info mb-2" th:each="question : ${questions}">
                                 <div class="question-summary">
                                     <div>Title: </div>
                                     <div th:text="${question.title}"></div>
