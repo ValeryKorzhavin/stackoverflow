@@ -45,16 +45,21 @@
                     </div>
 
                     <div class="questions-list-container">
-                        <div class="d-flex flex-wrap">
-                            <div class="user-info mb-2" th:each="question : ${questions}">
-                                <div class="question-summary">
-                                    <div>Title: </div>
-                                    <div th:text="${question.title}"></div>
-                                    <div>Body: </div>
-                                    <div th:text="${question.body}"></div>
-                                    <div>Author: </div>
-                                    <div th:text="${question.author.name}"></div>
-                                </div>
+                        <div class="user-info mb-2" th:each="question : ${questions}">
+                            <div class="question-summary border">
+                                <div th:text="'Title: ' + ${question.title}"></div>
+                                <div th:text="'Body: ' + ${question.body}"></div>
+                                <div th:text="'Author: ' + ${question.author.name}"></div>
+                                <span th:each="tag : ${question.tags}">
+                                    <span class="mr-1" th:text="${tag.name}"></span>
+                                </span>
+                                <form action="#" th:action="@{'/questions/{id}'(id=${question.id})}"
+                                      th:method="delete">
+                                    <button class="btn btn-outline-danger" type="submit"
+                                            th:text="#{action.delete}"></button>
+                                </form>
+<!--                                <a th:href="@{/questions/delete(id=${question.id})}"-->
+<!--                                   class="btn btn-danger">delete</a>-->
                             </div>
                         </div>
                     </div>

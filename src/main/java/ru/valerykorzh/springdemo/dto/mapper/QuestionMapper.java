@@ -20,9 +20,8 @@ public interface QuestionMapper {
 
     @AfterMapping
     default void map(QuestionDto questionDto, @MappingTarget Question question, @Context TagService tagService) {
-        String tagList = questionDto.getTags();
-        String[] tags = tagList.split("\\s+");
-        Arrays.stream(tags).forEach(tag -> tagService.findByName(tag)
+        Arrays.stream(questionDto.getTags().split("\\s+"))
+                .forEach(tag -> tagService.findByName(tag)
                 .ifPresentOrElse(question::addTag, () -> question.addTag(new Tag(tag))));
     }
 
