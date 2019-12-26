@@ -36,6 +36,29 @@
             <div class="col-lg-10 col-md-9 bg-white shadow">
                 <div class="content m-3 ">
                     <div class="section-title mb-3"><h3 th:text="#{question.action.new}">Question</h3></div>
+                    <div th:text="${question.title}"></div>
+                    <div th:text="${question.body}"></div>
+                    <div th:unless="${question.answers.isEmpty()}">
+                        <h3>Answers: </h3>
+                        <div th:each="answer : ${question.answers}">
+                            <div th:text="${answer.content}"></div>
+                        </div>
+                    </div>
+                    <form action="#" th:action="@{'/answers'(questionId=${question.id})}"
+                          method="post" th:object="${answer}">
+                        <div class="form-group">
+                            <label for="answer-body" th:text="#{answer.form.title}">Your Answer</label>
+                            <textarea class="form-control" th:field="*{content}" name="content"
+                                      id="answer-body" cols="30" rows="10">
+
+                            </textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" th:text="#{action.create}"
+                            class="btn btn-primary"></button>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>

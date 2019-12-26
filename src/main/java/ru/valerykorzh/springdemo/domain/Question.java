@@ -59,13 +59,4 @@ public class Question {
         answers.add(answer);
     }
 
-//    public void setTags(String tagList) {
-//        String[] tags = tagList.split("\\s+");
-
-//        Arrays.stream(tags).forEach(tag -> tagRepository.);
-//        Arrays.stream(tags).forEach(tag -> tagRepository
-//                .findByName(tag).ifPresentOrElse(this::addTag, () -> addTag(new Tag(tag))));
-
-//    }
-
 }

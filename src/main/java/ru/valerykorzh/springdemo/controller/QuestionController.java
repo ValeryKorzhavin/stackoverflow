@@ -1,6 +1,8 @@
 package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,27 +58,27 @@ public class QuestionController {
         return "redirect:questions";
     }
 
-    @GetMapping("/questions/{questionId}")
-    public String findById(@PathVariable Long questionId) {
+    @GetMapping("/questions/{id}")
+    public String findById(@PathVariable Long id, Model model, Principal principal) {
         Question question = questionService
-                .findById(questionId)
+                .findById(id)
                 .orElseThrow(() -> new RuntimeException("questionId not exists"));
+
+
+
+        model.addAttribute("question", question);
+        model.addAttribute("answer", new Answer());
+
+//        System.out.println(answer.getQuestion().getTitle());
+//        System.out.println(answer.getAuthor().getEmail());
 
         return "question/view";
     }
 
     @DeleteMapping("/questions/{id}")
-    public String deleteById(@PathVariable Long id) {
+    public String deleteQuestion(@PathVariable Long id) {
         questionService.deleteById(id);
-        return "redirect:questions";
+        return "redirect:/questions";
     }
-
-
-//    @GetMapping("/questions/delete")
-//    public String deleteById(@RequestParam("id") Long questionId) {
-//        questionService.deleteById(questionId);
-//        return "redirect:/questions";
-//        // via link
-//    }
 
 }
