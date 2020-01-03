@@ -22,3 +22,15 @@ body {
 .footer-container a {
     color: #535a60;
 }
+
+.question-summary > a:hover {
+    text-decoration: none;
+}
+
+.question-summary a:hover {
+    text-decoration: none;
+}
+
+.question-summary .user-info a {
+    color: #5bc0de;
+}

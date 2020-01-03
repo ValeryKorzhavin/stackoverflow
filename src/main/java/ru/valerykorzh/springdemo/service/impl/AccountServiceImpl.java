@@ -60,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
             md.update(account.getEmail().getBytes());
             byte[] digest = md.digest();
             String hash = DatatypeConverter.printHexBinary(digest).toLowerCase();
-            String avatar = String.format("https://www.gravatar.com/avatar/%s?d=wavatar&s=%d", hash, avatarSize);
+            String avatar = String.format("https://www.gravatar.com/avatar/%s?d=identicon&s=%d", hash, avatarSize);
             account.setAvatar(avatar);
         } catch (NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);

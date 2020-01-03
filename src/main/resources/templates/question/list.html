@@ -33,32 +33,80 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-lg-10 col-md-9 bg-white shadow">
-                <div class="content m-3 ">
-                    <div class="section-title mb-3"><h3 th:text="#{question.list.title}">Questions</h3></div>
-                    <div class="search-form-wrapper mb-3 d-flex justify-content-between">
-                        <form action="#" class="form-inline d-inline-block">
-                            <label for="search"></label>
-                            <input type="text" id="search" placeholder="Filter by user" class="form-control">
-                        </form>
-                        <a class="btn btn-info" th:text="#{question.action.new}" th:href="@{/questions/new}">Ask Question</a>
+            <div class="col-lg-10 col-md-9 bg-white shadow p-0">
+                <div class="content">
+                    <div class="content-header border-bottom">
+                        <div class="section-title mb-3"><h3 th:text="#{question.list.title}">Questions</h3></div>
+                        <div class="search-form-wrapper mb-3 d-flex justify-content-between">
+                            <form action="#" class="form-inline d-inline-block">
+                                <label for="search"></label>
+                                <input type="text" id="search" placeholder="Filter by user" class="form-control">
+                            </form>
+                            <a class="btn btn-info" th:text="#{question.action.new}" th:href="@{/questions/new}">Ask Question</a>
+                        </div>
                     </div>
 
                     <div class="questions-list-container">
-                        <div class="user-info mb-2" th:each="question : ${questions}">
-                            <div class="question-summary border">
-                                <a th:href="${'/questions/' + question.id}"
-                                   th:text="'Title: ' + ${question.title}"></a>
-                                <div th:text="'Body: ' + ${question.body}"></div>
-                                <div th:text="'Author: ' + ${question.author.name}"></div>
-                                <span th:each="tag : ${question.tags}">
-                                    <span class="mr-1" th:text="${tag.name}"></span>
-                                </span>
-                                <form action="#" th:action="@{'/questions/{id}'(id=${question.id})}" th:method="delete">
-                                    <button class="btn btn-outline-danger" type="submit" id="deleteQuestion"
-                                            th:text="#{action.delete}"></button>
-                                </form>
+
+                        <div class="d-flex float-none question-info px-2 py-3 border-bottom" th:each="question : ${questions}">
+
+                            <div class="stats-container text-muted text-center ml-1 mr-3">
+                                <div class="stats">
+                                    <div class="vote">
+                                        <div class="votes">
+                                            <span class="vote-count-post h5">
+                                                <strong>0</strong>
+                                            </span>
+                                            <div class="viewcount small">votes</div>
+                                        </div>
+                                    </div>
+                                    <div class="status unanswered">
+                                        <span class="answers-count-post h5">
+                                            <strong>0</strong>
+                                        </span>
+                                        <div class="small">
+                                            answers
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="views small">
+                                    4 views
+                                </div>
                             </div>
+
+
+                            <div class="question-summary">
+                                <a class="text-info h6" th:href="${'/questions/' + question.id}"
+                                   th:text="${question.title}"></a>
+                                <div th:text="${question.body}"></div>
+
+                                <div class="float-left">
+                                    <div class="d-inline-block" th:each="tag : ${question.tags}">
+                                        <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
+                                           th:text="${tag.name}"></a>
+                                    </div>
+                                </div>
+                                <div class="user-info float-right w-25">
+                                    <div class="text-muted small user-action-time">
+                                        asked 8 hours ago
+                                    </div>
+
+                                    <div class="user-gravatar float-left">
+                                        <img th:src="${question.author.avatar}"
+                                             th:alt="${'user-avatar-' + question.author.id}">
+                                    </div>
+                                    <div class="user-details float-left ml-2    ">
+                                        <a th:href="${'/accounts/' + question.author.id}"
+                                           th:text="${question.author.name}"></a>
+                                    </div>
+                                </div>
+<!--                                <form action="#" th:action="@{'/questions/{id}'(id=${question.id})}" th:method="delete">-->
+<!--                                    <button class="btn btn-outline-danger" type="submit" id="deleteQuestion"-->
+<!--                                            th:text="#{action.delete}"></button>-->
+<!--                                </form>-->
+                            </div>
+
+
                         </div>
                     </div>
 
