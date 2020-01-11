@@ -20,7 +20,7 @@
             <div class="col-lg-2 col-md-3">
                 <ul class="nav-links">
                     <li class="nav-item">
-                        <a href="/accounts" class="nav-link">Home</a>
+                        <a href="/" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="/questions" class="nav-link">Questions</a>
@@ -45,13 +45,14 @@
                     </div>
                     <div class="user-browser">
                         <div class="d-flex flex-wrap">
-                            <div class="user-info w-25 mb-2" th:each="account : ${accounts}">
-                                <div class="user-gravatar">
+                            <div class="user-info w-25 mb-4" th:each="account : ${accounts}">
+                                <div class="user-gravatar float-left">
                                     <img th:src="${account.avatar}" src="#" th:alt="${account.name}" alt="avatar">
                                 </div>
-                                <div class="user-details">
-                                    <div th:text="${account.name}"></div>
-                                    <div th:text="${account.email}"></div>
+                                <div class="user-details float-left ml-2">
+                                    <a th:href="${'/accounts/' + account.id}"
+                                       class="text-info" th:text="${account.name}"></a>
+
                                 </div>
                                 <div class="user-tags"></div>
                             </div>

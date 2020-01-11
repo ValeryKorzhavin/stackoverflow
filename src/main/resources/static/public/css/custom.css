@@ -34,3 +34,29 @@ body {
 .question-summary .user-info a {
     color: #5bc0de;
 }
+
+.user-browser a:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.vote-up {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+
+    border-bottom: 15px solid #bbc0c4;
+}
+
+.vote-down {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+
+    border-top: 15px solid #bbc0c4;
+}

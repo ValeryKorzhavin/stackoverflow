@@ -20,7 +20,7 @@
             <div class="col-lg-2 col-md-3">
                 <ul class="nav-links">
                     <li class="nav-item">
-                        <a href="/accounts" class="nav-link">Home</a>
+                        <a href="/" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
                         <a href="/questions" class="nav-link">Questions</a>
@@ -35,11 +35,59 @@
             </div>
             <div class="col-lg-10 col-md-9 bg-white shadow">
                 <div class="content m-3 ">
-                    <div class="section-title mb-3"><h3 th:text="#{question.action.new}">Question</h3></div>
-                    <div th:text="${question.title}"></div>
-                    <div th:text="${question.body}"></div>
+                    <div class="d-flex question-header">
+                        <div class="flex-grow-1 section-title mb-3">
+                            <a class="text-secondary h3" th:href="${'questions/' + question.id}"
+                               th:text="${question.title}"></a>
+                        </div>
+                        <div class="ml-2">
+                            <a class="btn btn-info" th:text="#{question.action.new}"
+                                     th:href="@{/questions/new}">Ask Question</a>
+                        </div>
+                    </div>
+                    <div class="question-details d-flex mb-3 border-bottom">
+                        <div class="small mr-3 mb-2">
+                            <span class="text-muted">Asked</span>
+                            26 days ago
+                        </div>
+                        <div class="small mr-3 mb-2">
+                            <span class="text-muted">Active</span>
+                            today
+                        </div>
+                        <div class="small mr-3 mb-2">
+                            <span class="text-muted">Viewed</span>
+                            38 times
+                        </div>
+                    </div>
+
+                    <div class="question d-flex mb-3">
+                        <div class="vote text-center mr-3">
+                            <div class="vote-up"><a href="#"></a></div>
+                            <div class="vote-count my-3">
+                                <span class="text-muted h5"><strong>0</strong></span>
+                            </div>
+                            <div class="vote-down"><a href="#"></a></div>
+                        </div>
+
+                        <div class="content">
+                            <div th:text="${question.body}"></div>
+
+                            <div class="d-flex tags-wrapper">
+                                <div th:each="tag : ${question.tags}">
+                                    <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
+                                       th:text="${tag.name}"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                     <div th:unless="${question.answers.isEmpty()}">
-                        <h3>Answers: </h3>
+                        <div class="answers-header border-bottom mb-3">
+                            <div class="mb-2 h5 text-muted" th:text="${question.answers.size() + ' Answers'}"></div>
+                        </div>
+
                         <div th:each="answer : ${question.answers}">
                             <div th:text="${answer.content}"></div>
                         </div>
