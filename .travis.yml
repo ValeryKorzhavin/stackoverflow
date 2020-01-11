@@ -5,6 +5,7 @@ jdk:
 env:
   global:
     - JACOCO_SOURCE_PATH=src/main/java
+    - CC_TEST_REPORTER_ID=f60406f3baa6f1bd4b89f42404c90b7e85b8180c62efd65a54ae4933c75098a1
 
 cache:
   directories:
