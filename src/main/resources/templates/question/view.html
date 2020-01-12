@@ -29,7 +29,7 @@
                         <a href="/accounts" class="nav-link">Users</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/accounts" class="nav-link">Tags</a>
+                        <a href="/tags" class="nav-link">Tags</a>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,7 @@
                 <div class="content m-3 ">
                     <div class="d-flex question-header">
                         <div class="flex-grow-1 section-title mb-3">
-                            <a class="text-secondary h3" th:href="${'questions/' + question.id}"
+                            <a class="text-secondary h3" th:href="${'/questions/' + question.id}"
                                th:text="${question.title}"></a>
                         </div>
                         <div class="ml-2">
@@ -62,11 +62,11 @@
 
                     <div class="question d-flex mb-3">
                         <div class="vote text-center mr-3">
-                            <div class="vote-up"><a href="#"></a></div>
+                            <a href="#"><div class="vote-up"></div></a>
                             <div class="vote-count my-3">
                                 <span class="text-muted h5"><strong>0</strong></span>
                             </div>
-                            <div class="vote-down"><a href="#"></a></div>
+                            <a href="#"><div class="vote-down"></div></a>
                         </div>
 
                         <div class="content">
@@ -89,9 +89,45 @@
                         </div>
 
                         <div th:each="answer : ${question.answers}">
-                            <div th:text="${answer.content}"></div>
+                            <div class="answer d-flex mb-3 border-bottom pb-3">
+
+                                <div class="vote text-center mr-3">
+                                    <a href="#"><div class="vote-up"></div></a>
+                                    <div class="vote-count my-3">
+                                        <span class="text-muted h5"><strong>0</strong></span>
+                                    </div>
+                                    <a href="#"><div class="vote-down"></div></a>
+                                </div>
+
+                                <div class="answer-content w-100">
+                                    <div th:text="${answer.content}"></div>
+
+                                    <a class="float-left" th:href="${'/answers/edit/' + answer.id}">
+                                        <div class="text-muted small">improve this answer</div>
+                                    </a>
+
+                                    <div class="user-info float-right w-25">
+                                        <div class="text-muted small user-action-time">
+                                            asked 8 hours ago
+                                        </div>
+
+                                        <div class="user-gravatar float-left">
+                                            <img th:src="${answer.author.avatar}"
+                                                 th:alt="${'user-avatar-' + answer.author.id}">
+                                        </div>
+                                        <div class="user-details float-left ml-2 small">
+                                            <a th:href="${'/accounts/' + answer.author.id}"
+                                               th:text="${answer.author.name}"></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
                         </div>
                     </div>
+
                     <form action="#" th:action="@{'/answers'(questionId=${question.id})}"
                           method="post" th:object="${answer}">
                         <div class="form-group">

@@ -1,0 +1,105 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title th:text="#{common.header.title}">Stack Overflow Clone</title>
+    <link th:replace="~{fragments/styles}">
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+<main class="d-flex h-100">
+    <div class="container">
+        <div class="row d-flex h-100">
+            <div class="col-lg-2 col-md-3">
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/questions" class="nav-link">Questions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/accounts" class="nav-link">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/tags" class="nav-link">Tags</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-10 col-md-9 bg-white shadow p-0">
+                <div class="content">
+                    <div class="content-header border-bottom">
+                        <div class="section-title mb-3"><h3 th:text="#{tag.list.title}">Tags</h3></div>
+                        <div class="search-form-wrapper mb-3 d-flex justify-content-between">
+                            <form action="#" class="form-inline d-inline-block">
+                                <label for="search"></label>
+                                <input type="text" id="search" placeholder="Filter by user" class="form-control">
+                            </form>
+                            <a class="btn btn-info" th:text="#{question.action.new}" th:href="@{/questions/new}">Ask Question</a>
+                        </div>
+                    </div>
+
+                    <div class="tags-list-container">
+
+                        <div class="d-flex flex-wrap">
+                            <div class="d-inline-block w-25 mb-4" th:each="tag : ${tags}">
+                                <div class="tag-header">
+                                    <a class="bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
+                                       th:text="${tag.name}"></a>
+                                    <span class="text-muted small" th:text="'× ' + ${tag.questions.size()}"></span>
+                                </div>
+                                <div class="tag-description" th:text="${tag.description}"></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <!--    <footer class="footer mt-auto">-->
+    <div class="footer-container">
+        <div class="container mt-3">
+            <div class="row justify-content-center my-3">
+                <div class="col">
+                    <div><a href="#">Tour</a></div>
+                    <div><a href="#">Help</a></div>
+                    <div><a href="#">Chat</a></div>
+                    <div><a href="#">Contact</a></div>
+                    <div><a href="#">Feedback</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">About</a></div>
+                    <div><a href="#">Press</a></div>
+                    <div><a href="#">Legal</a></div>
+                    <div><a href="#">Private Policy</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">Technology</a></div>
+                    <div><a href="#">Life / Arts</a></div>
+                    <div><a href="#">Science</a></div>
+                    <div><a href="#">Other</a></div>
+                </div>
+                <div class="col">
+                    <div><a href="#">Developer jobs</a></div>
+                    <div><a href="#">Mobile</a></div>
+                    <div><a href="#">Culture / Recreation</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

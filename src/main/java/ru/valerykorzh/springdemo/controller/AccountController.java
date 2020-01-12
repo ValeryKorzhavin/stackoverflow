@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.dto.mapper.AccountMapper;
 import ru.valerykorzh.springdemo.service.AccountService;
@@ -27,6 +28,16 @@ public class AccountController {
         model.addAttribute("accounts", accounts);
 
         return "account/list";
+    }
+
+    @GetMapping("/accounts/{id}")
+    public String viewAccount(@PathVariable Long id, Model model) {
+        Account account = accountService.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("User with this id=%d not found", id)));
+
+        model.addAttribute("account", account);
+
+        return "account/view";
     }
 
 }

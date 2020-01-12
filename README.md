@@ -32,7 +32,7 @@ Spring Boot, PostgreSQL, Liquibase, Lombok, Bootstrap, Heroku, JUnit
 - Deployed on Heroku
 
 ### Compile and Run
-```
+```aidl
 $ make # build & run
 $ make test # compile & tests
 
@@ -42,7 +42,7 @@ $ make test # compile & tests
 Liquibase is used for creating and updating database schema. Schemas are located at /src/main/resources/db/changelog.
 
 Run this command for generating new migration:
-```
+```aidl
 $ make generate-migration
 ```
 

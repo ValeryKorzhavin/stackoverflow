@@ -1,6 +1,12 @@
 body {
-    background:  url("/public/images/image-background.jpg");
+    /*background:  url("/public/images/image-background.jpg");*/
+    background-image:  url("/public/images/background-image.svg");
+    background-position: top left;
+    background-repeat: repeat;
+    background-color: #f7f7f7;
+    background-size: auto;
 }
+
 .form-wrapper {
     background: white;
     border-radius: 10px;

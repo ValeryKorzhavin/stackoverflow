@@ -14,6 +14,7 @@ import ru.valerykorzh.springdemo.service.QuestionService;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Controller
 @AllArgsConstructor
@@ -48,6 +49,16 @@ public class AnswerController {
         answerService.save(answer);
 
         return String.format("redirect:/questions/%d", questionId);
+    }
+
+    @GetMapping("/answers/edit/{id}")
+    public String getEditAnswerForm(@PathVariable Long id, Model model) {
+        Runnable error = () -> model.addAttribute("error", String.format("Answer with id=%d not found", id));
+        Consumer<Answer> fillModel = answer -> model.addAttribute("answer", answer);
+
+        answerService.findById(id).ifPresentOrElse(fillModel, error);
+
+        return "answer/edit";
     }
 
 

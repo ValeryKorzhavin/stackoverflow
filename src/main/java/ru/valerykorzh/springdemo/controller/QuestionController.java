@@ -29,7 +29,7 @@ public class QuestionController {
     @GetMapping("/questions")
     public String findAll(Model model) {
         List<Question> questions = questionService.findAll();
-        // make list of dto's
+
         model.addAttribute("questions", questions);
 
         return "question/list";
