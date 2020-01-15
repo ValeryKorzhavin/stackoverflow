@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.valerykorzh.springdemo.domain.Question;
+import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.service.QuestionService;
+import ru.valerykorzh.springdemo.service.TagService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -17,6 +20,7 @@ import java.util.List;
 public class HomeController {
 
     private final QuestionService questionService;
+    private final TagService tagService;
 
     @ModelAttribute
     public void addAttributes(Model model) {
@@ -26,6 +30,14 @@ public class HomeController {
     @GetMapping
     public String index(Model model) {
         List<Question> questions = questionService.findAll();
+
+        List<Tag> tags = tagService
+                .findAll()
+                .stream()
+                .limit(20)
+                .collect(Collectors.toList());
+
+        model.addAttribute("tags", tags);
 
         model.addAttribute("questions", questions);
 

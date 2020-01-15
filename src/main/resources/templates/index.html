@@ -15,40 +15,40 @@
     <div th:replace="~{fragments/navigation}"></div>
 </header>
 <main class="d-flex h-100">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row d-flex h-100">
             <div class="col-lg-2 col-md-3">
-                <ul class="nav-links">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/questions" class="nav-link">Questions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/accounts" class="nav-link">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/tags" class="nav-link">Tags</a>
-                    </li>
-                </ul>
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-10 col-md-9 bg-white shadow p-0">
+            <div class="col-lg-8 col-md-9 bg-white shadow p-0">
                 <div class="content">
-                    <div class="content-header border-bottom">
-                        <div class="section-title mb-3"><h3 th:text="#{question.list.title}">Questions</h3></div>
+                    <div class="content-header mt-4 mx-4">
+                        <div class="section-title mb-3 clearfix">
+                            <div class="float-left h3 font-weight-normal"
+                                 th:text="#{home.title}">Explore Our Questions</div>
+                            <a class="float-right btn btn-primary" th:text="#{question.action.new}"
+                               th:href="@{/questions/new}">Ask Question</a>
+                        </div>
                         <div class="search-form-wrapper mb-3 d-flex justify-content-between">
-                            <form action="#" class="form-inline d-inline-block">
-                                <label for="search"></label>
-                                <input type="text" id="search" placeholder="Filter by user" class="form-control">
-                            </form>
-                            <a class="btn btn-info" th:text="#{question.action.new}" th:href="@{/questions/new}">Ask Question</a>
+                            <div class="tags float-left w-50">
+                                <div class="d-inline-block" th:each="tag : ${tags}">
+                                    <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
+                                       th:text="${tag.name}"></a>
+                                </div>
+                                <a th:href="@{/tags}" class="small text-info">more tags</a>
+                            </div>
+                            <div class="btn-group float-right align-self-end" role="group">
+                                <button type="button" class="btn btn-outline-secondary">Active</button>
+                                <button type="button" class="btn btn-outline-secondary">Hot</button>
+                                <button type="button" class="btn btn-outline-secondary">Week</button>
+                                <button type="button" class="btn btn-outline-secondary">Month</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="questions-list-container">
+                    <div class="questions-list-container border-top">
 
-                        <div class="d-flex float-none question-info px-2 py-2 border-bottom" th:each="question : ${questions}">
+                        <div class="d-flex float-none question-info px-3 py-3 border-bottom" th:each="question : ${questions}">
                                 <div class="question-stats text-muted text-center mr-4">
                                     <div class="votes d-inline-block py-1 px-2">
                                         <div class="mini-counts h6">3</div>
