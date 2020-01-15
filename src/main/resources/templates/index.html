@@ -48,65 +48,39 @@
 
                     <div class="questions-list-container">
 
-                        <div class="d-flex float-none question-info px-2 py-3 border-bottom" th:each="question : ${questions}">
-
-                            <div class="stats-container text-muted text-center ml-1 mr-3">
-                                <div class="stats">
-                                    <div class="vote">
-                                        <div class="votes">
-                                            <span class="vote-count-post h5">
-                                                <strong>0</strong>
-                                            </span>
-                                            <div class="viewcount small">votes</div>
+                        <div class="d-flex float-none question-info px-2 py-2 border-bottom" th:each="question : ${questions}">
+                                <div class="question-stats text-muted text-center mr-4">
+                                    <div class="votes d-inline-block py-1 px-2">
+                                        <div class="mini-counts h6">3</div>
+                                        <div class="small">votes</div>
+                                    </div>
+                                    <div class="answers d-inline-block py-1 px-1 border rounded border-success text-success">
+                                        <div class="mini-counts h6">2</div>
+                                        <div class="small">answers</div>
+                                    </div>
+                                    <div class="views d-inline-block py-1 px-2">
+                                        <div class="mini-counts h6">18</div>
+                                        <div class="small">views</div>
+                                    </div>
+                                </div>
+                                <div class="summary w-75">
+                                    <a class="text-info h6 d-block" th:href="${'/questions/' + question.id}"
+                                       th:text="${question.title}"></a>
+                                    <div class="tags d-inline-block float-left">
+                                        <div class="d-inline-block" th:each="tag : ${question.tags}">
+                                            <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
+                                               th:text="${tag.name}"></a>
                                         </div>
                                     </div>
-                                    <div class="status unanswered">
-                                        <span class="answers-count-post h5">
-                                            <strong>0</strong>
-                                        </span>
-                                        <div class="small">
-                                            answers
+                                    <div class="started d-inline-block float-right">
+                                        <div class="text-muted small">
+                                            modified 2 hours ago <a class="text-info"
+                                                                    th:href="${'/users/' + question.author.id}"
+                                                                    th:text="${question.author.name}"></a>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="views small">
-                                    4 views
-                                </div>
-                            </div>
-
-
-                            <div class="question-summary">
-                                <a class="text-info h6" th:href="${'/questions/' + question.id}"
-                                   th:text="${question.title}"></a>
-                                <div th:text="${question.body}"></div>
-
-                                <div class="float-left">
-                                    <div class="d-inline-block" th:each="tag : ${question.tags}">
-                                        <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
-                                           th:text="${tag.name}"></a>
-                                    </div>
-                                </div>
-                                <div class="user-info float-right w-25">
-                                    <div class="text-muted small user-action-time">
-                                        asked 8 hours ago
-                                    </div>
-
-                                    <div class="user-gravatar float-left">
-                                        <img th:src="${question.author.avatar}"
-                                             th:alt="${'user-avatar-' + question.author.id}">
-                                    </div>
-                                    <div class="user-details float-left ml-2 small">
-                                        <a th:href="${'/accounts/' + question.author.id}"
-                                           th:text="${question.author.name}"></a>
-                                    </div>
-                                </div>
-                                <!--                                <form action="#" th:action="@{'/questions/{id}'(id=${question.id})}" th:method="delete">-->
-                                <!--                                    <button class="btn btn-outline-danger" type="submit" id="deleteQuestion"-->
-                                <!--                                            th:text="#{action.delete}"></button>-->
-                                <!--                                </form>-->
-                            </div>
-
-
                         </div>
                     </div>
 
