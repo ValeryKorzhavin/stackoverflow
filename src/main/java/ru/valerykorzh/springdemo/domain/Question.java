@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.valerykorzh.springdemo.repository.TagRepository;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.*;
 
 @Getter
@@ -25,7 +26,8 @@ public class Question {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "body")
+    @Column(name = "body", columnDefinition = "text", length = 65536, nullable = false)
+    @NotBlank(message = "Question body can't be empty")
     private String body;
 
     @Column(name = "rating")

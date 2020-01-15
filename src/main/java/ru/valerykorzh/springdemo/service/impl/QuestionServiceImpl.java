@@ -3,6 +3,8 @@ package ru.valerykorzh.springdemo.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.repository.QuestionRepository;
@@ -17,6 +19,11 @@ import java.util.Optional;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
+
+    @Override
+    public Page<Question> findAll(Pageable pageable) {
+        return questionRepository.findAll(pageable);
+    }
 
     @Override
     public List<Question> findAll() {

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      lang="ru" class="h-100">
+      lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -16,12 +16,12 @@
 </header>
 <main class="d-flex h-100">
     <div class="container-fluid">
-        <div class="row d-flex h-100">
-            <div class="col-lg-2 col-md-3">
+        <div class="row d-flex h-auto">
+            <div class="col-lg-3 col-md-3">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-8 col-md-9 bg-white shadow p-0">
-                <div class="content">
+            <div class="col-lg-7 col-md-9 bg-white shadow p-0 h-auto">
+                <div class="content h-auto">
                     <div class="content-header mt-4 mx-4">
                         <div class="section-title mb-3 clearfix">
                             <div class="h3 font-weight-normal float-left" th:text="#{question.list.title}">Questions</div>
@@ -29,7 +29,7 @@
                                th:href="@{/questions/new}">Ask Question</a>
                         </div>
                         <div class="search-form-wrapper mb-3 d-flex justify-content-between">
-                            <div class="h5 font-weight-normal" th:text="${questions.size()} + ' questions'"></div>
+                            <div class="h5 font-weight-normal" th:text="${questions.getTotalElements()} + ' questions'"></div>
                             <div class="buttons">
                                 <div class="btn-group mr-2" role="group">
                                     <button class="btn btn-outline-secondary" type="button">Newest</button>
@@ -96,16 +96,22 @@
                                            th:text="${question.author.name}"></a>
                                     </div>
                                 </div>
-<!--                                <form action="#" th:action="@{'/questions/{id}'(id=${question.id})}" th:method="delete">-->
-<!--                                    <button class="btn btn-outline-danger" type="submit" id="deleteQuestion"-->
-<!--                                            th:text="#{action.delete}"></button>-->
-<!--                                </form>-->
                             </div>
-
-
                         </div>
                     </div>
+                    <div th:if="${questions.getTotalPages() > 1}" class="pagination float-right mr-4 mt-4">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(1, questions.getTotalPages())}"
+                                    th:classappend="${questions.getNumber() == i - 1} ? active">
+                                    <a th:href="@{/questions(page=${i}-1)}" th:text="${i}"
+                                       class="page-link"></a>
+                                </li>
 
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

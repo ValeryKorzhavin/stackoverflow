@@ -1,6 +1,10 @@
 package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,8 +31,10 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
 
     @GetMapping("/questions")
-    public String findAll(Model model) {
-        List<Question> questions = questionService.findAll();
+    public String findAll(Model model,
+                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<Question> questions = questionService.findAll(pageable);
 
         model.addAttribute("questions", questions);
 

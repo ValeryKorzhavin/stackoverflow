@@ -3,6 +3,8 @@ package ru.valerykorzh.springdemo.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.repository.TagRepository;
@@ -18,6 +20,10 @@ public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;
 
+    @Override
+    public Page<Tag> findAll(Pageable pageable) {
+        return tagRepository.findAll(pageable);
+    }
 
     @Override
     public List<Tag> findAll() {
@@ -36,10 +42,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag save(Tag tag) {
-//        if (tagRepository.findByName(tag.getName()).isEmpty()) {
-            return tagRepository.save(tag);
-//        }
-//        return tag;
+        return tagRepository.save(tag);
     }
 
     @Override

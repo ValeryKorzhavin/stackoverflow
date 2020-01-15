@@ -1,5 +1,7 @@
 package ru.valerykorzh.springdemo.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.valerykorzh.springdemo.domain.Tag;
 
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.Optional;
 public interface TagService {
 
     List<Tag> findAll();
+
+    Page<Tag> findAll(Pageable pageable);
 
     Optional<Tag> findById(Long id);
 

@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      lang="ru" class="h-100">
+      lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,10 +17,10 @@
 <main class="d-flex h-100">
     <div class="container-fluid">
         <div class="row d-flex h-100">
-            <div class="col-lg-2 col-md-3">
+            <div class="col-lg-3 col-md-3">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-8 col-md-9 bg-white shadow">
+            <div class="col-lg-7 col-md-9 bg-white shadow">
                 <div class="content m-3 ">
                     <div class="d-flex question-header">
                         <div class="flex-grow-1 section-title mb-3">
@@ -46,7 +46,6 @@
                             38 times
                         </div>
                     </div>
-
                     <div class="question d-flex mb-3">
                         <div class="vote text-center mr-3">
                             <a href="#"><div class="vote-up"></div></a>
@@ -55,20 +54,16 @@
                             </div>
                             <a href="#"><div class="vote-down"></div></a>
                         </div>
-
                         <div class="content">
                             <div th:text="${question.body}"></div>
-
                             <div class="d-flex tags-wrapper">
                                 <div th:each="tag : ${question.tags}">
                                     <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
                                        th:text="${tag.name}"></a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
 
                     <div th:unless="${question.answers.isEmpty()}">
                         <div class="answers-header border-bottom mb-3">
@@ -107,10 +102,7 @@
                                                th:text="${answer.author.name}"></a>
                                         </div>
                                     </div>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
