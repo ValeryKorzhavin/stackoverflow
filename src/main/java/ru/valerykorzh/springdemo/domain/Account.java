@@ -36,8 +36,9 @@ public class Account {
     @NotBlank(message = "Password can't be empty")
     private String password;
 
-    @Column(name = "avatar")
-    private String avatar;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id")
+    private Image avatar;
 
     @OneToMany(mappedBy = "author", cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
