@@ -11,6 +11,7 @@
 	<groupId>ru.valerykorzh</groupId>
 	<artifactId>spring-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>spring-demo</name>
 	<description>Demo project for Spring Boot</description>
 
