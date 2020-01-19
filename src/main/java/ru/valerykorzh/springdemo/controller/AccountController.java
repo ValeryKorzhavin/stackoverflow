@@ -16,6 +16,8 @@ import ru.valerykorzh.springdemo.service.ImageService;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 @Controller
 @AllArgsConstructor
@@ -40,7 +42,6 @@ public class AccountController {
         Account account = accountService.findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("User with this id=%d not found", id)));
 
-
         model.addAttribute("account", account);
 
         return "account/view";
@@ -49,8 +50,8 @@ public class AccountController {
     @PutMapping(value = "/accounts")
     public String updateAccount(@ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
 
-
-        imageService.findById(account.getAvatar().getId())
+        if (!file.isEmpty()) {
+            imageService.findById(account.getAvatar().getId())
                 .ifPresent(image -> {
                     try {
                         image.setData(Base64.getEncoder().encodeToString(file.getBytes()));
@@ -59,11 +60,26 @@ public class AccountController {
                         e.printStackTrace();
                     }
                 });
+        }
 
         accountService.save(account);
         Long id = account.getId();
         return String.format("redirect:/accounts/%d", id);
     }
 
+    @GetMapping("/accounts/edit/{id}")
+    public String getEditAccountForm(@PathVariable Long id, Model model) {
+
+        Account account = accountService.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("User with this id not found: id=%d", id)));
+
+//        Runnable error = () -> model.addAttribute("error", "Error occurred");
+//        Consumer<Account> fillModel = account -> model.addAttribute("account", account);
+//        accountService.findById(id).ifPresentOrElse(fillModel, error);
+
+        model.addAttribute("account", account);
+
+        return "account/edit";
+    }
 
 }

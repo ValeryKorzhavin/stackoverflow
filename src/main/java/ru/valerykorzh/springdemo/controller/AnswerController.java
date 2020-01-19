@@ -35,30 +35,43 @@ public class AnswerController {
 
     @PostMapping("/answers")
     public String createAnswer(@Valid @ModelAttribute Answer answer,
-                               @RequestParam Long questionId,
+                               @RequestParam("questionId") Long id,
                                Principal principal) {
         String userEmail = principal.getName();
         Account author = accountService.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("This user email not found: " + userEmail));
+        Question question = questionService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
 
 
-        Question question = questionService.findById(questionId)
-                .orElseThrow(() -> new RuntimeException("Question id not found: " + questionId));
-        answer.setAuthor(author);
-        answer.setQuestion(question);
-        answerService.save(answer);
+        if (answer.getId() != null) {
+            Answer editedAnswer = answerService.findById(answer.getId())
+                    .orElseThrow(() -> new RuntimeException("Error occurred: answer not found"));
+            editedAnswer.setAuthor(author);
+            editedAnswer.setContent(answer.getContent());
+            answerService.save(editedAnswer);
+        } else {
+            answer.setAuthor(author);
+            answer.setQuestion(question);
+            answerService.save(answer);
+        }
 
-        return String.format("redirect:/questions/%d", questionId);
+
+        return String.format("redirect:/questions/%d", id);
     }
 
     @GetMapping("/answers/edit/{id}")
     public String getEditAnswerForm(@PathVariable Long id, Model model) {
-        Runnable error = () -> model.addAttribute("error", String.format("Answer with id=%d not found", id));
-        Consumer<Answer> fillModel = answer -> model.addAttribute("answer", answer);
+//        Runnable error = () -> model.addAttribute("error", String.format("Answer with id=%d not found", id));
+//        Consumer<Answer> fillModel = answer -> model.addAttribute("answer", answer);
+//        answerService.findById(id).ifPresentOrElse(fillModel, error);
+        Answer answer = answerService.findById(id)
+                .orElseThrow(() -> new RuntimeException(String.format("Answer with id=%d not found", id)));
+        Question question = answer.getQuestion();
+        model.addAttribute("question", question);
+        model.addAttribute("answer", answer);
 
-        answerService.findById(id).ifPresentOrElse(fillModel, error);
-
-        return "answer/edit";
+        return "question/view";
     }
 
 

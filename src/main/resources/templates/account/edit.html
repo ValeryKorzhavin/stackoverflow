@@ -1,6 +1,5 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
       lang="ru" class="h-100">
 <head>
     <meta charset="UTF-8">
@@ -22,16 +21,26 @@
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
             <div class="col-lg-7 col-md-9 bg-white shadow p-0">
-                <div class="account-view content">
+                <div class="content">
                     <div class="content-header mt-4 mx-4">
                         <div class="h4 font-weight-normal" th:text="${account.name}"></div>
-                        <div class="h4 font-weight-normal" th:text="${account.email}"></div>
-                        <div class="user-avatar">
-                            <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}" alt="">
-                        </div>
-                        <div th:if="${#authentication.getPrincipal().getUsername() == account.email}">
-                            <a th:href="${'/accounts/edit/' + account.id}" class="btn btn-primary">edit account</a>
-                        </div>
+                        <form th:action="@{'/accounts'}"
+                              class="form"
+                              enctype="multipart/form-data"
+                              th:method="put" th:object="${account}">
+                            <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{avatar.id}">
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="file">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{name}" name="user_name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" th:field="*{email}" name="user_email"
+                                       class="form-control"></div>
+                            <button type="submit" name="submit" id="submit" class="btn btn-primary">send</button>
+                        </form>
                     </div>
                 </div>
             </div>

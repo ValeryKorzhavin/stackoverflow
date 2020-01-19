@@ -109,6 +109,7 @@
 
                     <form action="#" th:action="@{'/answers'(questionId=${question.id})}"
                           method="post" th:object="${answer}">
+                        <input type="hidden" th:field="*{id}">
                         <div class="form-group">
                             <label for="answer-body" th:text="#{answer.form.title}">Your Answer</label>
                             <textarea class="form-control" th:field="*{content}" name="content"
