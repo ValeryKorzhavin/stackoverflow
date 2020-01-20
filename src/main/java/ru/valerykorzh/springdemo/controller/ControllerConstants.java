@@ -8,4 +8,12 @@ public class ControllerConstants {
 
     public final static String LOGIN_PATH = "/login";
 
+    public final static String ACCOUNTS_PATH = "/accounts";
+
+    public final static String QUESTIONS_PATH = "/questions";
+
+    public final static String ANSWERS_PATH = "/answers";
+
+    public final static String TAGS_PATH = "/tags";
+
 }

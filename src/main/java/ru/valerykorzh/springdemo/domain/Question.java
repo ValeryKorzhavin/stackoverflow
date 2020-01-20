@@ -1,9 +1,6 @@
 package ru.valerykorzh.springdemo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.valerykorzh.springdemo.repository.TagRepository;
 
 import javax.persistence.*;
@@ -13,6 +10,7 @@ import java.util.*;
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "question")
