@@ -2,9 +2,10 @@ package ru.valerykorzh.springdemo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
+//import org.junit.After;
+//import org.junit.Before;
+import org.junit.jupiter.api.*;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -44,7 +45,6 @@ class AccountControllerTest extends AbstractControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
     private MockMvc mvc;
 
     private Account firstAccount;
@@ -52,7 +52,7 @@ class AccountControllerTest extends AbstractControllerTest {
 
     private final String CONTENT_TYPE = ContentType.HTML.withCharset(StandardCharsets.UTF_8);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mvc = MockMvcBuilders.webAppContextSetup(context)
             .apply(springSecurity())
@@ -61,7 +61,7 @@ class AccountControllerTest extends AbstractControllerTest {
         secondAccount = createAccount("jeff", "jeff@gmail.com");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         deleteAccount(firstAccount.getId());
         deleteAccount(secondAccount.getId());
@@ -69,15 +69,15 @@ class AccountControllerTest extends AbstractControllerTest {
         secondAccount = null;
     }
 
-//    @WithMockUser
-//    @Test
-//    public void getAccounts() throws Exception {
-//        mvc.perform(get(ACCOUNTS_PATH))
-//            .andExpect(status().isOk())
-//            .andExpect(content().contentType(CONTENT_TYPE))
-//            .andExpect(content().string(containsString(firstAccount.getName())))
-//            .andExpect(content().string(containsString(secondAccount.getName())));
-//    }
+    @WithMockUser
+    @Test
+    public void getAccounts() throws Exception {
+        mvc.perform(get(ACCOUNTS_PATH))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(CONTENT_TYPE))
+            .andExpect(content().string(containsString(firstAccount.getName())))
+            .andExpect(content().string(containsString(secondAccount.getName())));
+    }
 
 
 }
