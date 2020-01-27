@@ -1,15 +1,18 @@
 package ru.valerykorzh.springdemo.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.domain.Account;
+import ru.valerykorzh.springdemo.security.UserPrincipal;
 import ru.valerykorzh.springdemo.service.AccountService;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,15 +21,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final AccountService accountService;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Optional<Account> account = accountService.findByEmail(email);
+        Account account = accountService.findByEmail(email).orElseThrow(() -> new AccountNotFoundException(email));
 
-        return account.map(acc -> User.builder()
-                                    .username(acc.getEmail())
-                                    .password(acc.getPassword())
-                                    .roles("USER")
-                                    .build()
-        ).orElseThrow(() -> new UsernameNotFoundException("User with current email not found!"));
+        UserDetails userDetails = User.builder()
+            .username(account.getEmail())
+            .password(account.getPassword())
+            .roles("USER")
+            .build();
+
+        return new UserPrincipal(userDetails, account.getId());
     }
+
 }

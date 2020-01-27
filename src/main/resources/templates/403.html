@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title th:text="#{common.header.title}">Stack Overflow Clone</title>
+    <link th:replace="~{fragments/styles}">
+</head>
+<body class="d-flex flex-column h-100">
+<header>
+    <div th:replace="~{fragments/navigation}"></div>
+</header>
+<main class="d-flex h-100">
+    <div class="container-fluid">
+        <div class="row d-flex h-100">
+            <div class="col-lg-3 col-md-3">
+                <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+            </div>
+            <div class="col-lg-7 col-md-9 bg-white shadow p-0">
+                <div class="content">
+                    <div class="h3 font-weight-normal" th:text="#{common.accessDenied.title}">Access Denied</div>
+                    <div class="h5 font-weight-normal" th:text="#{common.accessDenied.message}"></div>
+                    <div class="h5 font-weight-normal" th:text="${message}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+
+</body>
+</html>

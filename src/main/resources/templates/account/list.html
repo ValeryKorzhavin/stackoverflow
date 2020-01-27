@@ -45,7 +45,7 @@
                             <div class="user-info w-25 mb-4" th:each="account : ${accounts}">
                                 <div class="user-gravatar float-left">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}"
-                                         src="#" th:alt="${account.name}" alt="avatar">
+                                        src="#" th:alt="${account.name}" alt="avatar">
                                 </div>
                                 <div class="user-details float-left ml-2">
                                     <a th:href="${'/accounts/' + account.id}"

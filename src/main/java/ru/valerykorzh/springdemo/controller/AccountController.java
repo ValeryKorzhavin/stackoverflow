@@ -2,10 +2,12 @@ package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Image;
 import ru.valerykorzh.springdemo.dto.AccountDto;
@@ -19,7 +21,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.ACCOUNTS_PATH;
+
 @Controller
+@RequestMapping(ACCOUNTS_PATH)
 @AllArgsConstructor
 public class AccountController {
 
@@ -27,7 +32,7 @@ public class AccountController {
     private final ImageService imageService;
     private final AccountMapper accountMapper;
 
-    @GetMapping("/accounts")
+    @GetMapping
     public String findAll(Model model) {
 
         List<Account> accounts = accountService.findAll();
@@ -37,17 +42,16 @@ public class AccountController {
         return "account/list";
     }
 
-    @GetMapping("/accounts/{id}")
+    @GetMapping("/{id}")
     public String viewAccount(@PathVariable Long id, Model model) {
-        Account account = accountService.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("User with this id=%d not found", id)));
+        Account account = accountService.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
 
         model.addAttribute("account", account);
 
         return "account/view";
     }
 
-    @PutMapping(value = "/accounts")
+    @PutMapping
     public String updateAccount(@ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
 
         if (!file.isEmpty()) {
@@ -67,19 +71,29 @@ public class AccountController {
         return String.format("redirect:/accounts/%d", id);
     }
 
-    @GetMapping("/accounts/edit/{id}")
+    @GetMapping("/edit/{id}")
+    @PreAuthorize("authentication.principal.id.equals(#id)")
     public String getEditAccountForm(@PathVariable Long id, Model model) {
 
-        Account account = accountService.findById(id)
-                .orElseThrow(() -> new RuntimeException(String.format("User with this id not found: id=%d", id)));
-
-//        Runnable error = () -> model.addAttribute("error", "Error occurred");
-//        Consumer<Account> fillModel = account -> model.addAttribute("account", account);
-//        accountService.findById(id).ifPresentOrElse(fillModel, error);
+        Account account = accountService
+                .findById(id)
+                .orElseThrow(() -> new AccountNotFoundException(id));
 
         model.addAttribute("account", account);
 
         return "account/edit";
+    }
+
+    @PostMapping("/new")
+    public String createAccount() {
+
+        return "/account/list";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteAccount(@PathVariable Long id) {
+        accountService.deleteById(id);
+        return String.format("redirect:%s", ACCOUNTS_PATH);
     }
 
 }
