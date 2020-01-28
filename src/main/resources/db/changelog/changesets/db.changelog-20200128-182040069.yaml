@@ -1,0 +1,236 @@
+databaseChangeLog:
+- changeSet:
+    id: 1580235646662-1
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: accountPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: password
+            type: VARCHAR(255)
+        - column:
+            name: avatar_id
+            type: BIGINT
+        tableName: account
+- changeSet:
+    id: 1580235646662-2
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: answerPK
+            name: id
+            type: BIGINT
+        - column:
+            name: content
+            type: VARCHAR(255)
+        - column:
+            name: author_id
+            type: BIGINT
+        - column:
+            name: question_id
+            type: BIGINT
+        tableName: answer
+- changeSet:
+    id: 1580235646662-3
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: imagePK
+            name: id
+            type: BIGINT
+        - column:
+            name: data
+            type: CLOB
+        tableName: image
+- changeSet:
+    id: 1580235646662-4
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: questionPK
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: body
+            type: CLOB
+        - column:
+            name: rating
+            type: INT
+        - column:
+            name: title
+            type: VARCHAR(255)
+        - column:
+            name: author_id
+            type: BIGINT
+        tableName: question
+- changeSet:
+    id: 1580235646662-5
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: question_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: tag_id
+            type: BIGINT
+        tableName: question_tag
+- changeSet:
+    id: 1580235646662-6
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: tagPK
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        tableName: tag
+- changeSet:
+    id: 1580235646662-7
+    author: valery.korzh (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: question_id, tag_id
+        tableName: question_tag
+- changeSet:
+    id: 1580235646662-8
+    author: valery.korzh (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: UC_ACCOUNTEMAIL_COL
+        tableName: account
+- changeSet:
+    id: 1580235646662-9
+    author: valery.korzh (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: UC_TAGNAME_COL
+        tableName: tag
+- changeSet:
+    id: 1580235646662-10
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: question_id
+        baseTableName: question_tag
+        constraintName: FK44ydihbi2qk8k96175quf5q63
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: question
+- changeSet:
+    id: 1580235646662-11
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: answer
+        constraintName: FK4ntr3u1suh2xx61gb3mb341q9
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580235646662-12
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: avatar_id
+        baseTableName: account
+        constraintName: FK6tmhbp0itm7s6w2blpn0kijfa
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: image
+- changeSet:
+    id: 1580235646662-13
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: author_id
+        baseTableName: question
+        constraintName: FK84u48axbsfmgstaxw8likhd52
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580235646662-14
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: question_id
+        baseTableName: answer
+        constraintName: FK8frr4bcabmmeyyu60qt7iiblo
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: question
+- changeSet:
+    id: 1580235646662-15
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: tag_id
+        baseTableName: question_tag
+        constraintName: FKnacet7y1n8llxvrbmm3xdq13j
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: tag
+

@@ -21,7 +21,10 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
+
 @Controller
+@RequestMapping(QUESTIONS_PATH)
 @AllArgsConstructor
 public class QuestionController {
 
@@ -30,7 +33,7 @@ public class QuestionController {
     private final TagService tagService;
     private final QuestionMapper questionMapper;
 
-    @GetMapping("/questions")
+    @GetMapping
     public String findAll(Model model,
                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
 
@@ -41,7 +44,7 @@ public class QuestionController {
         return "question/list";
     }
 
-    @GetMapping("/questions/new")
+    @GetMapping("/new")
     public String askQuestion(Model model) {
 
         model.addAttribute("questionDto", new QuestionDto());
@@ -49,7 +52,7 @@ public class QuestionController {
         return "question/new";
     }
 
-    @PostMapping("/questions")
+    @PostMapping
     public String saveQuestion(@Valid @ModelAttribute QuestionDto questionDto, Principal principal) {
         String userEmail = principal.getName();
         Account author = accountService
@@ -64,7 +67,7 @@ public class QuestionController {
         return "redirect:questions";
     }
 
-    @GetMapping("/questions/{id}")
+    @GetMapping("/{id}")
     public String findById(@PathVariable Long id, Model model, Principal principal) {
         Question question = questionService
                 .findById(id)
@@ -81,7 +84,7 @@ public class QuestionController {
         return "question/view";
     }
 
-    @DeleteMapping("/questions/{id}")
+    @DeleteMapping("/{id}")
     public String deleteQuestion(@PathVariable Long id) {
         questionService.deleteById(id);
         return "redirect:/questions";

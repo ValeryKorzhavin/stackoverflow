@@ -16,7 +16,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.ANSWERS_PATH;
+
 @Controller
+@RequestMapping(ANSWERS_PATH)
 @AllArgsConstructor
 public class AnswerController {
 
@@ -24,7 +27,7 @@ public class AnswerController {
     private final AccountService accountService;
     private final QuestionService questionService;
 
-    @GetMapping("/answers")
+    @GetMapping
     public String findAll(Model model) {
         List<Answer> answers = answerService.findAll();
 
@@ -33,7 +36,7 @@ public class AnswerController {
         return "answer/list";
     }
 
-    @PostMapping("/answers")
+    @PostMapping
     public String createAnswer(@Valid @ModelAttribute Answer answer,
                                @RequestParam("questionId") Long id,
                                Principal principal) {
@@ -60,7 +63,7 @@ public class AnswerController {
         return String.format("redirect:/questions/%d", id);
     }
 
-    @GetMapping("/answers/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String getEditAnswerForm(@PathVariable Long id, Model model) {
 //        Runnable error = () -> model.addAttribute("error", String.format("Answer with id=%d not found", id));
 //        Consumer<Answer> fillModel = answer -> model.addAttribute("answer", answer);

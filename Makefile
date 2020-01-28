@@ -18,5 +18,8 @@ update:
 test:
 	./mvnw clean test
 
+initial-migration:
+	 ./mvnw clean compile liquibase:diff -DskipTests=true && rm /tmp/liquibase_migration*
+
 generate-migration:
 	 ./mvnw clean compile liquibase:update liquibase:diff -DskipTests=true && rm /tmp/liquibase_migration*
