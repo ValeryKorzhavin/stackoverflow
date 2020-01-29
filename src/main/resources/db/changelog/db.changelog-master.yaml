@@ -16,7 +16,7 @@ databaseChangeLog:
                   value: "admin"
               - column:
                   name: password
-                  value: "$2y$12$xepVGY6Vp9jQ1bprO0f23uk5X9XCNyRbTg9XO2yTdPPG8tU.GpdTC"
+                  value: ${ADMIN_PASSWORD}
               - column:
                   name: email
                   value: "admin@gmail.com"
