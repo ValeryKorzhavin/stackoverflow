@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1580235646662-1
+    id: 1580301600296-1
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -32,7 +32,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: account
 - changeSet:
-    id: 1580235646662-2
+    id: 1580301600296-2
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -55,7 +55,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: answer
 - changeSet:
-    id: 1580235646662-3
+    id: 1580301600296-3
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -72,7 +72,7 @@ databaseChangeLog:
             type: CLOB
         tableName: image
 - changeSet:
-    id: 1580235646662-4
+    id: 1580301600296-4
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -100,7 +100,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: question
 - changeSet:
-    id: 1580235646662-5
+    id: 1580301600296-5
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -117,7 +117,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: question_tag
 - changeSet:
-    id: 1580235646662-6
+    id: 1580301600296-6
     author: valery.korzh (generated)
     changes:
     - createTable:
@@ -139,14 +139,14 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: tag
 - changeSet:
-    id: 1580235646662-7
+    id: 1580301600296-7
     author: valery.korzh (generated)
     changes:
     - addPrimaryKey:
         columnNames: question_id, tag_id
         tableName: question_tag
 - changeSet:
-    id: 1580235646662-8
+    id: 1580301600296-8
     author: valery.korzh (generated)
     changes:
     - addUniqueConstraint:
@@ -154,7 +154,7 @@ databaseChangeLog:
         constraintName: UC_ACCOUNTEMAIL_COL
         tableName: account
 - changeSet:
-    id: 1580235646662-9
+    id: 1580301600296-9
     author: valery.korzh (generated)
     changes:
     - addUniqueConstraint:
@@ -162,7 +162,7 @@ databaseChangeLog:
         constraintName: UC_TAGNAME_COL
         tableName: tag
 - changeSet:
-    id: 1580235646662-10
+    id: 1580301600296-10
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -174,7 +174,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: question
 - changeSet:
-    id: 1580235646662-11
+    id: 1580301600296-11
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -186,7 +186,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: account
 - changeSet:
-    id: 1580235646662-12
+    id: 1580301600296-12
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -198,7 +198,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: image
 - changeSet:
-    id: 1580235646662-13
+    id: 1580301600296-13
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -210,7 +210,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: account
 - changeSet:
-    id: 1580235646662-14
+    id: 1580301600296-14
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -222,7 +222,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: question
 - changeSet:
-    id: 1580235646662-15
+    id: 1580301600296-15
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:

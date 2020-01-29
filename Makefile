@@ -23,3 +23,4 @@ initial-migration:
 
 generate-migration:
 	 ./mvnw clean compile liquibase:update liquibase:diff -DskipTests=true && rm /tmp/liquibase_migration*
+

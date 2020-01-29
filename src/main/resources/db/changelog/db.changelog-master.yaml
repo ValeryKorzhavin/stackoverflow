@@ -3,3 +3,24 @@ databaseChangeLog:
       path: db/changelog/changesets
       relativeToChangelogFile: false
 
+  - changeSet:
+      id: 1
+      author: valery.korzh
+      comment: "Create admin user"
+      changes:
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: name
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "y2.yQheVV.JQmF/dQSiAPj.xco06FDHKvFtG1qwBm3tZKyIujtuQaG"
+              - column:
+                  name: email
+                  value: "admin@gmail.com"
+      rollback:
+        - delete:
+            tableName: account
+            where: username in ('admin')
