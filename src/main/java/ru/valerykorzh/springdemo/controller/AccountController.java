@@ -53,7 +53,6 @@ public class AccountController {
 
     @PutMapping
     public String updateAccount(@ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
-
         if (!file.isEmpty()) {
             imageService.findById(account.getAvatar().getId())
                 .ifPresent(image -> {
