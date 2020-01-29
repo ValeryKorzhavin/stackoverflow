@@ -19,7 +19,7 @@ databaseChangeLog:
                   value: ${ADMIN_PASSWORD}
               - column:
                   name: email
-                  value: "admin@gmail.com"
+                  value: "admin2@gmail.com"
       rollback:
         - delete:
             tableName: account
