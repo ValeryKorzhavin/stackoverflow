@@ -25,6 +25,9 @@
 
 		<maven.build.timestamp.format>yyyyMMdd-HHmmssSSS</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
+		<database.url>${env.JDBC_DATABASE_URL}</database.url>
+		<database.username>${env.JDBC_DATABASE_USERNAME}</database.username>
+		<database.password>${env.JDBC_DATABASE_PASSWORD}</database.password>
 
 		<rest-assured.version>4.1.0</rest-assured.version>
 		<java.version>12</java.version>
