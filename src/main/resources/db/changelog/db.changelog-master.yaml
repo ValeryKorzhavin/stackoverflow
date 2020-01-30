@@ -16,11 +16,12 @@ databaseChangeLog:
                   value: "admin"
               - column:
                   name: password
-                  value: ${ADMIN_PASSWORD}
+                  value: ${admin.password}
               - column:
                   name: email
-                  value: "admin2@gmail.com"
+                  value: "admin@gmail.com"
+
       rollback:
         - delete:
             tableName: account
-            where: username in ('admin')
+            where: email in ('admin@gmail.com')
