@@ -44,11 +44,10 @@ public abstract class AbstractControllerTest {
     }
 
     protected Question createQuestion(Account account) {
-        Question question = Question.builder()
-                .title("test question")
-                .body("text for test question")
-                .author(account)
-                .build();
+        Question question = new Question();
+        question.setTitle("test question");
+        question.setAuthor(account);
+        question.setBody("text for test question");
 
         return questionService.save(question);
     }

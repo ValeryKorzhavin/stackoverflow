@@ -5,10 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.valerykorzh.springdemo.domain.*;
@@ -20,7 +17,6 @@ import ru.valerykorzh.springdemo.service.TagService;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
 
@@ -46,7 +42,6 @@ public class QuestionController {
     }
 
     @GetMapping("/new")
-    @Transactional(readOnly = true)
     public String askQuestion(Model model) {
 
         model.addAttribute("questionDto", new QuestionDto());
@@ -55,7 +50,6 @@ public class QuestionController {
     }
 
     @PostMapping
-    @Transactional
     public String saveQuestion(@Valid @ModelAttribute QuestionDto questionDto, Principal principal) {
         String userEmail = principal.getName();
         Account author = accountService
@@ -63,7 +57,6 @@ public class QuestionController {
                 .orElseThrow(() -> new RuntimeException("User with this email not found: " + userEmail));
 
         Question question = questionMapper.toQuestion(questionDto, tagService);
-
         question.setAuthor(author);
         questionService.save(question);
 
@@ -76,13 +69,8 @@ public class QuestionController {
                 .findById(id)
                 .orElseThrow(() -> new RuntimeException("questionId not exists"));
 
-
-
         model.addAttribute("question", question);
         model.addAttribute("answer", new Answer());
-
-//        System.out.println(answer.getQuestion().getTitle());
-//        System.out.println(answer.getAuthor().getEmail());
 
         return "question/view";
     }
