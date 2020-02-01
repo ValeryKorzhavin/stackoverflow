@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,6 +42,12 @@ public class Account {
     @JoinColumn(name = "avatar_id")
     private Image avatar;
 
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"account_id", "roles"}))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+
     @OneToMany(mappedBy = "author", cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
@@ -49,5 +57,16 @@ public class Account {
             CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Answer> answers;
+
+    public void addRole(Role role) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        roles.remove(role);
+    }
 
 }

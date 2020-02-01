@@ -13,6 +13,7 @@ import ru.valerykorzh.springdemo.security.UserPrincipal;
 import ru.valerykorzh.springdemo.service.AccountService;
 
 import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +24,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         Account account = accountService.findByEmail(email).orElseThrow(() -> new AccountNotFoundException(email));
 
         UserDetails userDetails = User.builder()
             .username(account.getEmail())
             .password(account.getPassword())
-            .roles("USER")
+            .roles(account
+                .getRoles()
+                .stream()
+                .map(Enum::toString)
+                .toArray(String[]::new))
             .build();
 
         return new UserPrincipal(userDetails, account.getId());

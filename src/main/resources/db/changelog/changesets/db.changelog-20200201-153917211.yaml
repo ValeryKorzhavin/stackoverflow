@@ -1,0 +1,29 @@
+databaseChangeLog:
+- changeSet:
+    id: 1580571563018-1
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        - column:
+            name: roles
+            type: VARCHAR(255)
+        tableName: account_role
+- changeSet:
+    id: 1580571563018-2
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: account_role
+        constraintName: FK1f8y4iy71kb1arff79s71j0dh
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+

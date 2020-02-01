@@ -28,10 +28,6 @@ public class Tag {
     private String description;
 
     @ManyToMany(mappedBy = "tags")
-//    @JoinTable(
-//            name = "question_tag",
-//            joinColumns = @JoinColumn(name = "tag_id", unique = false),
-//            inverseJoinColumns = @JoinColumn(name = "question_id", unique = false))
     private Set<Question> questions;
 
     public Tag(String name) {

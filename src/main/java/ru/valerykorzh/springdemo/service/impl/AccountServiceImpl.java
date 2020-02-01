@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Image;
+import ru.valerykorzh.springdemo.domain.Role;
 import ru.valerykorzh.springdemo.repository.AccountRepository;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.ImageService;
@@ -18,9 +19,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -58,6 +57,7 @@ public class AccountServiceImpl implements AccountService {
             Account accountToPut = accountRepository.findById(account.getId()).orElseThrow();
             accountToPut.setEmail(account.getEmail());
             accountToPut.setName(account.getName());
+            accountToPut.setRoles(account.getRoles());
             return accountRepository.save(accountToPut);
         }
 
@@ -84,6 +84,9 @@ public class AccountServiceImpl implements AccountService {
             }
 
             account.setAvatar(avatar);
+            account.addRole(Role.USER);
+            account.addRole(Role.MODERATOR);
+            account.addRole(Role.ADMIN);
         } catch (NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);
         }

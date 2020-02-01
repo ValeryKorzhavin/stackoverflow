@@ -26,6 +26,7 @@
                     <div class="content-header mt-4 mx-4">
                         <div class="h4 font-weight-normal" th:text="${account.name}"></div>
                         <div class="h4 font-weight-normal" th:text="${account.email}"></div>
+                        <div class="h4 font-weight-normal" th:text="${account.roles}"></div>
                         <div th:if="${account.avatar}" class="user-avatar">
                             <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}" alt="">
                         </div>

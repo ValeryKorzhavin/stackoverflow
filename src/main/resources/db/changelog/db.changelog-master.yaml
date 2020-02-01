@@ -21,6 +21,39 @@ databaseChangeLog:
                   name: email
                   value: "admin@gmail.com"
 
+  - changeSet:
+      id: 2
+      author: valery.korzh
+      comment: "Set admin roles"
+      changes:
+        - insert:
+            tableName: account_role
+            columns:
+              - column:
+                  name: account_id
+                  value: 1
+              - column:
+                  name: roles
+                  value: "USER"
+        - insert:
+            tableName: account_role
+            columns:
+              - column:
+                  name: account_id
+                  value: 1
+              - column:
+                  name: roles
+                  value: "MODERATOR"
+        - insert:
+            tableName: account_role
+            columns:
+              - column:
+                  name: account_id
+                  value: 1
+              - column:
+                  name: roles
+                  value: "ADMIN"
+
       rollback:
         - delete:
             tableName: account
