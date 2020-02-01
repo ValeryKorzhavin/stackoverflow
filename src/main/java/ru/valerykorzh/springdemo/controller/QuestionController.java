@@ -55,7 +55,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    @Transactional(readOnly = true)
+    @Transactional
     public String saveQuestion(@Valid @ModelAttribute QuestionDto questionDto, Principal principal) {
         String userEmail = principal.getName();
         Account author = accountService
