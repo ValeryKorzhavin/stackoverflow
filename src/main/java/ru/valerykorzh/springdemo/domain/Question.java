@@ -27,9 +27,6 @@ public class Question {
     @NotBlank(message = "Question body can't be empty")
     private String body;
 
-    @Column(name = "rating")
-    private Integer rating;
-
     @ManyToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
             CascadeType.PERSIST, CascadeType.REFRESH})
@@ -46,16 +43,62 @@ public class Question {
         inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(
+            name = "question_like",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id")
+    )
+    private Set<Account> positiveVotes;
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinTable(
+            name = "question_dislike",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id")
+    )
+    private Set<Account> negativeVotes;
+
     public void addTag(Tag tag) {
         if (tags == null) {
             tags = new HashSet<>();
         }
         tags.add(tag);
-//        tag.addQuestion(this);
     }
 
     public void addAnswer(Answer answer) {
         answers.add(answer);
+    }
+
+    public void addPositiveVote(Account author) {
+        if (positiveVotes == null) {
+            positiveVotes = new HashSet<>();
+        }
+        positiveVotes.add(author);
+    }
+
+    public void removePositiveVote(Account author) {
+        positiveVotes.remove(author);
+    }
+
+    public void addNegativeVote(Account author) {
+        if (negativeVotes == null) {
+            negativeVotes = new HashSet<>();
+        }
+        negativeVotes.add(author);
+    }
+
+    public void removeNegativeVote(Account author) {
+        negativeVotes.remove(author);
+    }
+
+    public Integer getRating() {
+        if (positiveVotes != null && negativeVotes != null) {
+            return positiveVotes.size() - negativeVotes.size();
+        }
+        return 0;
     }
 
 }

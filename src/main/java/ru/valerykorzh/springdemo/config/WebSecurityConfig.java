@@ -18,7 +18,7 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -45,9 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login")
                 .permitAll();
-//            .and()
-//                .exceptionHandling().accessDeniedPage(ACCESS_DENIED_PAGE);//.accessDeniedHandler(accessDeniedHandler());
-
     }
 
     @Override

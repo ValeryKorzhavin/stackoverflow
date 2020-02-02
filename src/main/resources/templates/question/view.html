@@ -1,11 +1,13 @@
 <!doctype html>
-<html xmlns:th="https://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <title th:text="#{common.header.title}">Stack Overflow Clone</title>
     <link th:replace="~{fragments/styles}">
@@ -46,13 +48,17 @@
                             38 times
                         </div>
                     </div>
-                    <div class="question d-flex mb-3">
+                    <div class="question d-flex mb-3" th:attr="data-question-id=${question.id}">
                         <div class="vote text-center mr-3">
-                            <a href="#"><div class="vote-up"></div></a>
+                            <a href=""><div class="vote-up"></div></a>
                             <div class="vote-count my-3">
-                                <span class="text-muted h5"><strong>0</strong></span>
+                                <span th:text="${question.getRating()}"
+                                      class="question_rating text-muted h5 font-weight-bold">
+
+<!--                                      th:text="${question.positiveVotes.size() - question.negativeVotes.size()}"-->
+                               </span>
                             </div>
-                            <a href="#"><div class="vote-down"></div></a>
+                            <a href=""><div class="vote-down"></div></a>
                         </div>
                         <div class="content">
                             <div th:text="${question.body}"></div>
@@ -74,11 +80,11 @@
                             <div class="answer d-flex mb-3 border-bottom pb-3">
 
                                 <div class="vote text-center mr-3">
-                                    <a href="#"><div class="vote-up"></div></a>
+                                    <a href=""><div class="vote-up"></div></a>
                                     <div class="vote-count my-3">
-                                        <span class="text-muted h5"><strong>0</strong></span>
+                                        <span class="text-muted h5 font-weight-bold">0</span>
                                     </div>
-                                    <a href="#"><div class="vote-down"></div></a>
+                                    <a href=""><div class="vote-down"></div></a>
                                 </div>
 
                                 <div class="answer-content w-100">

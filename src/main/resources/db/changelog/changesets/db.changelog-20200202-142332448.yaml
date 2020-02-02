@@ -1,0 +1,209 @@
+databaseChangeLog:
+- changeSet:
+    id: 1580653418178-1
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: answer_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        tableName: answer_dislike
+- changeSet:
+    id: 1580653418178-2
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: answer_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        tableName: answer_like
+- changeSet:
+    id: 1580653418178-3
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: question_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        tableName: question_dislike
+- changeSet:
+    id: 1580653418178-4
+    author: valery.korzh (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: question_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: account_id
+            type: BIGINT
+        tableName: question_like
+- changeSet:
+    id: 1580653418178-5
+    author: valery.korzh (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: answer_id, account_id
+        tableName: answer_dislike
+- changeSet:
+    id: 1580653418178-6
+    author: valery.korzh (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: answer_id, account_id
+        tableName: answer_like
+- changeSet:
+    id: 1580653418178-7
+    author: valery.korzh (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: question_id, account_id
+        tableName: question_dislike
+- changeSet:
+    id: 1580653418178-8
+    author: valery.korzh (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: question_id, account_id
+        tableName: question_like
+- changeSet:
+    id: 1580653418178-9
+    author: valery.korzh (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: account_id, roles
+        constraintName: UKdcw8ycd80nib342xprkkvr7sq
+        tableName: account_role
+- changeSet:
+    id: 1580653418178-10
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: question_like
+        constraintName: FK1i5a8548b88nwik12ikrlhwqc
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580653418178-11
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: answer_like
+        constraintName: FK6v0l2h9hgt5d3x00q5uwedbq5
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580653418178-12
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: question_dislike
+        constraintName: FK8fr5mdsss8t5l6udq1mq83a8d
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580653418178-13
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: question_id
+        baseTableName: question_dislike
+        constraintName: FKewq1n92d2j4cb6a9lcdt7hn8f
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: question
+- changeSet:
+    id: 1580653418178-14
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: answer_id
+        baseTableName: answer_dislike
+        constraintName: FKh4m63tdlx9ov87ltqgcerskmp
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: answer
+- changeSet:
+    id: 1580653418178-15
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: account_id
+        baseTableName: answer_dislike
+        constraintName: FKjttrs8ghcl2wk84bp8t0a7fwa
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580653418178-16
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: answer_id
+        baseTableName: answer_like
+        constraintName: FKl7pr13s181idjq8qw2csdc8u9
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: answer
+- changeSet:
+    id: 1580653418178-17
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: question_id
+        baseTableName: question_like
+        constraintName: FKs5teb9wq80su5rgpfhw2upv5q
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: question
+- changeSet:
+    id: 1580653418178-18
+    author: valery.korzh (generated)
+    changes:
+    - dropColumn:
+        columnName: RATING
+        tableName: QUESTION
+
