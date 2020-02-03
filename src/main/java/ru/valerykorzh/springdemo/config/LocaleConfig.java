@@ -17,7 +17,6 @@ public class LocaleConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
         slr.setDefaultLocale(Locale.forLanguageTag("ru"));
-//        slr.setDefaultLocale(Locale.GERMANY);
         return slr;
     }
 
