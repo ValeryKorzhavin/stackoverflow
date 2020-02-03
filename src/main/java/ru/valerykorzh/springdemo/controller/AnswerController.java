@@ -3,6 +3,7 @@ package ru.valerykorzh.springdemo.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
@@ -56,7 +57,6 @@ public class AnswerController {
         if (answer.getId() != null) {
             Answer editedAnswer = answerService.findById(answer.getId())
                     .orElseThrow(() -> new RuntimeException("Error occurred: answer not found"));
-            editedAnswer.setAuthor(author);
             editedAnswer.setContent(answer.getContent());
             answerService.save(editedAnswer);
         } else {

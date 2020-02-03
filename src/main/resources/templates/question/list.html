@@ -50,15 +50,15 @@
                                 <div class="stats">
                                     <div class="vote">
                                         <div class="votes">
-                                            <span class="vote-count-post h5">
-                                                <strong>0</strong>
+                                            <span class="vote-count-post h5 font-weight-bold"
+                                                  th:text="${question.getOverallVotes()}">
                                             </span>
                                             <div class="viewcount small">votes</div>
                                         </div>
                                     </div>
                                     <div class="status unanswered">
-                                        <span class="answers-count-post h5">
-                                            <strong>0</strong>
+                                        <span class="answers-count-post h5 font-weight-bold"
+                                              th:text="${question.answers.size()}">
                                         </span>
                                         <div class="small">
                                             answers
@@ -71,7 +71,7 @@
                             </div>
 
 
-                            <div class="question-summary">
+                            <div class="question-summary w-100">
                                 <a class="text-info h6" th:href="${'/questions/' + question.id}"
                                    th:text="${question.title}"></a>
                                 <div th:text="${question.body}"></div>

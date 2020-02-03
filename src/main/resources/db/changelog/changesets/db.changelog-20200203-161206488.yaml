@@ -1,0 +1,134 @@
+databaseChangeLog:
+- changeSet:
+    id: 1580746333804-1
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: created_by
+            type: bigint
+        tableName: answer
+- changeSet:
+    id: 1580746333804-2
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: created_by
+            type: bigint
+        tableName: question
+- changeSet:
+    id: 1580746333804-3
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: binary(255)
+        tableName: answer
+- changeSet:
+    id: 1580746333804-4
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: binary(255)
+        tableName: question
+- changeSet:
+    id: 1580746333804-5
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_by
+            type: bigint
+        tableName: answer
+- changeSet:
+    id: 1580746333804-6
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_by
+            type: bigint
+        tableName: question
+- changeSet:
+    id: 1580746333804-7
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_date
+            type: binary(255)
+        tableName: answer
+- changeSet:
+    id: 1580746333804-8
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_date
+            type: binary(255)
+        tableName: question
+- changeSet:
+    id: 1580746333804-9
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: last_modified_by
+        baseTableName: answer
+        constraintName: FK6qaflb0755nxcamdyvdgfyfc3
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580746333804-10
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: created_by
+        baseTableName: question
+        constraintName: FK7kjy7rxtnmbsys376m29a83fk
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580746333804-11
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: last_modified_by
+        baseTableName: question
+        constraintName: FKc0qlvtrfbqu42bidka6gvlu57
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1580746333804-12
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: created_by
+        baseTableName: answer
+        constraintName: FKp4sxqhhc6dmwumarsvjqt4q06
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+

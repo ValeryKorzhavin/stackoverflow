@@ -1,7 +1,7 @@
 package ru.valerykorzh.springdemo.domain;
 
 import lombok.*;
-import ru.valerykorzh.springdemo.repository.TagRepository;
+import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +13,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "question")
-public class Question {
+public class Question extends Auditable<Account> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +97,13 @@ public class Question {
     public Integer getRating() {
         if (positiveVotes != null && negativeVotes != null) {
             return positiveVotes.size() - negativeVotes.size();
+        }
+        return 0;
+    }
+
+    public Integer getOverallVotes() {
+        if (positiveVotes != null && negativeVotes != null) {
+            return positiveVotes.size() + negativeVotes.size();
         }
         return 0;
     }

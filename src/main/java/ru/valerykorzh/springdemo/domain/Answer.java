@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "answer")
-public class Answer {
+public class Answer extends Auditable<Account> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

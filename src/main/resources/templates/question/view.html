@@ -58,12 +58,46 @@
                             </div>
                             <a href=""><div class="vote-down"></div></a>
                         </div>
-                        <div class="content">
+                        <div class="content w-100">
                             <div th:text="${question.body}"></div>
-                            <div class="d-flex tags-wrapper">
+                            <div class="d-flex tags-wrapper mb-3">
                                 <div th:each="tag : ${question.tags}">
                                     <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
                                        th:text="${tag.name}"></a>
+                                </div>
+                            </div>
+
+                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">
+                                <div class="text-muted small">improve this question</div>
+                            </a>
+                            <div class="user-info float-right w-25">
+                                <div class="text-muted small user-action-time"
+                                     th:text="'asked at ' + ${question.createdDate}">
+                                </div>
+                                <div th:if="${question.author.avatar}"
+                                     class="user-gravatar float-left">
+                                    <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
+                                         th:alt="${'user-avatar-' + question.author.id}">
+                                </div>
+                                <div class="user-details float-left ml-2 small">
+                                    <a th:href="${'/accounts/' + question.author.id}"
+                                       th:text="${question.author.name}"></a>
+                                </div>
+                            </div>
+                            <div th:if="${question.createdDate != question.lastModifiedDate}"
+                                 class="user-info float-right w-25">
+                                <div class="text-muted small user-action-time"
+                                     th:text="'edited at ' + ${question.lastModifiedDate}">
+
+                                </div>
+                                <div th:if="${question.lastModifiedBy.avatar}"
+                                     class="user-gravatar float-left">
+                                    <img th:src="@{'data:image/jpeg;base64,' + ${question.lastModifiedBy.avatar.data}}"
+                                         th:alt="${'user-avatar-' + question.lastModifiedBy.id}">
+                                </div>
+                                <div class="user-details float-left ml-2 small">
+                                    <a th:href="${'/accounts/' + question.lastModifiedBy.id}"
+                                       th:text="${question.lastModifiedBy.name}"></a>
                                 </div>
                             </div>
                         </div>
@@ -94,10 +128,9 @@
                                     <a class="float-left" th:href="${'/answers/edit/' + answer.id}">
                                         <div class="text-muted small">improve this answer</div>
                                     </a>
-
                                     <div class="user-info float-right w-25">
-                                        <div class="text-muted small user-action-time">
-                                            asked 8 hours ago
+                                        <div class="text-muted small user-action-time"
+                                             th:text="'answered at ' + ${answer.createdDate}">
                                         </div>
                                         <div th:if="${answer.author.avatar}"
                                              class="user-gravatar float-left">
@@ -107,6 +140,22 @@
                                         <div class="user-details float-left ml-2 small">
                                             <a th:href="${'/accounts/' + answer.author.id}"
                                                th:text="${answer.author.name}"></a>
+                                        </div>
+                                    </div>
+                                    <div th:if="${answer.createdDate != answer.lastModifiedDate}"
+                                         class="user-info float-right w-25">
+                                        <div class="text-muted small user-action-time"
+                                             th:text="'edited at ' + ${answer.lastModifiedDate}">
+
+                                        </div>
+                                        <div th:if="${answer.lastModifiedBy.avatar}"
+                                             class="user-gravatar float-left">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${answer.lastModifiedBy.avatar.data}}"
+                                                 th:alt="${'user-avatar-' + answer.lastModifiedBy.id}">
+                                        </div>
+                                        <div class="user-details float-left ml-2 small">
+                                            <a th:href="${'/accounts/' + answer.lastModifiedBy.id}"
+                                               th:text="${answer.lastModifiedBy.name}"></a>
                                         </div>
                                     </div>
                                 </div>

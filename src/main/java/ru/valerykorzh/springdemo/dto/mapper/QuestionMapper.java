@@ -14,7 +14,9 @@ public interface QuestionMapper {
     @Mappings({
         @Mapping(target = "tags", ignore = true),
         @Mapping(target = "answers", ignore = true),
-        @Mapping(target = "author", ignore = true)
+        @Mapping(target = "author", ignore = true),
+        @Mapping(target = "positiveVotes", ignore = true),
+        @Mapping(target = "negativeVotes", ignore = true)
     })
     Question toQuestion(QuestionDto questionDto, @Context TagService tagService);
 
