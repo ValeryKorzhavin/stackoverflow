@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -25,8 +26,8 @@ public abstract class Auditable<U> {
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
 //    @Convert(converter = LocalDateTimeConverter.class)
-//    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
-    protected OffsetDateTime createdDate;
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    protected Long createdDate;
 
     @ManyToOne
     @LastModifiedBy
@@ -36,7 +37,7 @@ public abstract class Auditable<U> {
     @LastModifiedDate
     @Column(name = "last_modified_date")
 //    @Convert(converter = LocalDateTimeConverter.class)
-//    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
-    protected OffsetDateTime lastModifiedDate;
+//    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    protected Long lastModifiedDate;
 
 }

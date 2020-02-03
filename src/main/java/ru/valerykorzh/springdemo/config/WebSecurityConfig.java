@@ -31,7 +31,7 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.*;
 @EnableWebSecurity
 //@EnableTransactionManagement
 //@EnableJpaRepositories
-@EnableJpaAuditing(auditorAwareRef = "auditorAware", dateTimeProviderRef = "dateTimeProvider")
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")//, dateTimeProviderRef = "dateTimeProvider")
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -48,10 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new AuditorAwareImpl(accountService);
     }
 
-    @Bean
-    public DateTimeProvider dateTimeProvider() {
-        return () -> Optional.of(OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC));
-    }
+//    @Bean
+//    public DateTimeProvider dateTimeProvider() {
+//        return () -> Optional.of(OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC));
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
