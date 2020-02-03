@@ -34,10 +34,7 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.*;
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")//, dateTimeProviderRef = "dateTimeProvider")
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    public AccountService accountService;
-
+    
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuditorAware<Account> auditorAware() {
-        return new AuditorAwareImpl(accountService);
+        return new AuditorAwareImpl();
     }
 
 //    @Bean
