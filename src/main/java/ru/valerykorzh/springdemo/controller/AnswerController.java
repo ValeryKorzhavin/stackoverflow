@@ -1,9 +1,13 @@
 package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
+import ru.valerykorzh.springdemo.controller.exception.AnswerNotFoundException;
+import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Answer;
 import ru.valerykorzh.springdemo.domain.Question;
@@ -13,7 +17,9 @@ import ru.valerykorzh.springdemo.service.QuestionService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.ANSWERS_PATH;
@@ -63,11 +69,34 @@ public class AnswerController {
         return String.format("redirect:/questions/%d", id);
     }
 
+    @PatchMapping(value = "/{id}/like", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map voteUp(@PathVariable Long id, Principal principal) {
+        String userEmail = principal.getName();
+        Account author = accountService.findByEmail(userEmail).orElseThrow(() -> new AccountNotFoundException(userEmail));
+        Answer answer = answerService.findById(id).orElseThrow(() -> new QuestionNotFoundException(id));
+        answer.removeNegativeVote(author);
+        answer.addPositiveVote(author);
+        answerService.save(answer);
+        Integer rating = answer.getRating();
+        return Collections.singletonMap("rating", rating);
+    }
+
+    @PatchMapping(value = "/{id}/dislike", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map voteDown(@PathVariable Long id, Principal principal) {
+        String userEmail = principal.getName();
+        Account author = accountService.findByEmail(userEmail).orElseThrow(() -> new AccountNotFoundException(userEmail));
+        Answer answer = answerService.findById(id).orElseThrow(() -> new AnswerNotFoundException(id));
+        answer.removePositiveVote(author);
+        answer.addNegativeVote(author);
+        answerService.save(answer);
+        Integer rating = answer.getRating();
+        return Collections.singletonMap("rating", rating);
+    }
+
     @GetMapping("/edit/{id}")
     public String getEditAnswerForm(@PathVariable Long id, Model model) {
-//        Runnable error = () -> model.addAttribute("error", String.format("Answer with id=%d not found", id));
-//        Consumer<Answer> fillModel = answer -> model.addAttribute("answer", answer);
-//        answerService.findById(id).ifPresentOrElse(fillModel, error);
         Answer answer = answerService.findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Answer with id=%d not found", id)));
         Question question = answer.getQuestion();

@@ -87,8 +87,8 @@
                                         asked 8 hours ago
                                     </div>
 
-                                    <div class="user-gravatar float-left">
-                                        <img th:src="${question.author.avatar}"
+                                    <div th:if="${question.author.avatar}" class="user-gravatar float-left">
+                                        <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
                                              th:alt="${'user-avatar-' + question.author.id}">
                                     </div>
                                     <div class="user-details float-left ml-2 small">

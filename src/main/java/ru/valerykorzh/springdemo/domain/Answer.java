@@ -78,4 +78,10 @@ public class Answer {
         negativeVotes.remove(author);
     }
 
+    public Integer getRating() {
+        if (positiveVotes != null && negativeVotes != null) {
+            return positiveVotes.size() - negativeVotes.size();
+        }
+        return 0;
+    }
 }

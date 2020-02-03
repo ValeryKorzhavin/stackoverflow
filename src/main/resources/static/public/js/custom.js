@@ -40,6 +40,45 @@ $(document).ready(function () {
             }
         }
     });
+
+    $('.answer').find('.vote-up').on('click', function(event) {
+            event.preventDefault();
+            var answer = $(this).parents('.answer');
+            var id = answer.attr('data-answer-id');
+            var rating = answer.find('.answer_rating');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('PATCH', '/answers/' + id + '/like', true);
+            xhr.setRequestHeader(header, token);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (this.readyState != 4) return;
+                if (xhr.status != 200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                    rating.text(JSON.parse(xhr.responseText).rating);
+                }
+            }
+        });
+        $('.answer').find('.vote-down').on('click', function(event) {
+            event.preventDefault();
+            var answer = $(this).parents('.answer');
+            var id = answer.attr('data-answer-id');
+            var rating = answer.find('.answer_rating');
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('PATCH', '/answers/' + id + '/dislike', true);
+            xhr.setRequestHeader(header, token);
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (this.readyState != 4) return;
+                if (xhr.status != 200) {
+                    alert(xhr.status + ': ' + xhr.statusText);
+                } else {
+                     rating.text(JSON.parse(xhr.responseText).rating);
+                }
+            }
+        });
 });
 
 

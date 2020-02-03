@@ -54,8 +54,6 @@
                             <div class="vote-count my-3">
                                 <span th:text="${question.getRating()}"
                                       class="question_rating text-muted h5 font-weight-bold">
-
-<!--                                      th:text="${question.positiveVotes.size() - question.negativeVotes.size()}"-->
                                </span>
                             </div>
                             <a href=""><div class="vote-down"></div></a>
@@ -73,16 +71,19 @@
 
                     <div th:unless="${question.answers.isEmpty()}">
                         <div class="answers-header border-bottom mb-3">
-                            <div class="mb-2 h5 text-muted" th:text="${question.answers.size() + ' Answers'}"></div>
+                            <div class="mb-2 h5 text-muted"
+                                 th:text="${question.answers.size()} + ' Answers'">
+                            </div>
                         </div>
 
                         <div th:each="answer : ${question.answers}">
-                            <div class="answer d-flex mb-3 border-bottom pb-3">
+                            <div class="answer d-flex mb-3 border-bottom pb-3" th:attr="data-answer-id=${answer.id}">
 
                                 <div class="vote text-center mr-3">
                                     <a href=""><div class="vote-up"></div></a>
                                     <div class="vote-count my-3">
-                                        <span class="text-muted h5 font-weight-bold">0</span>
+                                        <span th:text="${answer.getRating()}"
+                                              class="answer_rating text-muted h5 font-weight-bold"></span>
                                     </div>
                                     <a href=""><div class="vote-down"></div></a>
                                 </div>
@@ -98,9 +99,9 @@
                                         <div class="text-muted small user-action-time">
                                             asked 8 hours ago
                                         </div>
-
-                                        <div class="user-gravatar float-left">
-                                            <img th:src="${answer.author.avatar}"
+                                        <div th:if="${answer.author.avatar}"
+                                             class="user-gravatar float-left">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${answer.author.avatar.data}}"
                                                  th:alt="${'user-avatar-' + answer.author.id}">
                                         </div>
                                         <div class="user-details float-left ml-2 small">

@@ -2,7 +2,7 @@ package ru.valerykorzh.springdemo.controller.exception;
 
 public class QuestionNotFoundException extends RuntimeException {
 
-    private static final String QUESTION_FOT_FOUND = "Question with ID %d not found";
+    private static final String QUESTION_FOT_FOUND = "Question with id %d not found";
 
     private String message;
 
