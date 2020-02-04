@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1580820828363-1
+    id: 1580832280519-1
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -10,7 +10,7 @@ databaseChangeLog:
             type: bigint
         tableName: answer
 - changeSet:
-    id: 1580820828363-2
+    id: 1580832280519-2
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -20,7 +20,7 @@ databaseChangeLog:
             type: bigint
         tableName: question
 - changeSet:
-    id: 1580820828363-3
+    id: 1580832280519-3
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -29,10 +29,10 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: created_date
-            type: binary(255)
+            type: timestamp
         tableName: answer
 - changeSet:
-    id: 1580820828363-4
+    id: 1580832280519-4
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -41,10 +41,10 @@ databaseChangeLog:
             constraints:
               nullable: false
             name: created_date
-            type: binary(255)
+            type: timestamp
         tableName: question
 - changeSet:
-    id: 1580820828363-5
+    id: 1580832280519-5
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -54,7 +54,7 @@ databaseChangeLog:
             type: bigint
         tableName: answer
 - changeSet:
-    id: 1580820828363-6
+    id: 1580832280519-6
     author: valery.korzh (generated)
     changes:
     - addColumn:
@@ -64,27 +64,27 @@ databaseChangeLog:
             type: bigint
         tableName: question
 - changeSet:
-    id: 1580820828363-7
+    id: 1580832280519-7
     author: valery.korzh (generated)
     changes:
     - addColumn:
         columns:
         - column:
             name: last_modified_date
-            type: binary(255)
+            type: timestamp
         tableName: answer
 - changeSet:
-    id: 1580820828363-8
+    id: 1580832280519-8
     author: valery.korzh (generated)
     changes:
     - addColumn:
         columns:
         - column:
             name: last_modified_date
-            type: binary(255)
+            type: timestamp
         tableName: question
 - changeSet:
-    id: 1580820828363-9
+    id: 1580832280519-9
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -96,7 +96,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: account
 - changeSet:
-    id: 1580820828363-10
+    id: 1580832280519-10
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -108,7 +108,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: account
 - changeSet:
-    id: 1580820828363-11
+    id: 1580832280519-11
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
@@ -120,7 +120,7 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: account
 - changeSet:
-    id: 1580820828363-12
+    id: 1580832280519-12
     author: valery.korzh (generated)
     changes:
     - addForeignKeyConstraint:
