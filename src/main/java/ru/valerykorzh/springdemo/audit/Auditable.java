@@ -2,14 +2,17 @@ package ru.valerykorzh.springdemo.audit;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import ru.valerykorzh.springdemo.service.converter.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Getter
@@ -27,7 +30,8 @@ public abstract class Auditable<U> {
     @Column(name = "created_date", nullable = false, updatable = false)
 //    @Convert(converter = LocalDateTimeConverter.class)
 //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    protected Long createdDate;
+//    @Type()
+    protected LocalDateTime createdDate;
 
     @ManyToOne
     @LastModifiedBy
@@ -38,6 +42,6 @@ public abstract class Auditable<U> {
     @Column(name = "last_modified_date")
 //    @Convert(converter = LocalDateTimeConverter.class)
 //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    protected Long lastModifiedDate;
+    protected LocalDateTime lastModifiedDate;
 
 }

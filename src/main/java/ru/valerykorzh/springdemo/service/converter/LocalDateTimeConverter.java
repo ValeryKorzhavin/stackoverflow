@@ -9,22 +9,32 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 @Converter(autoApply = true)
-public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, ZonedDateTime> {
+public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Long> {
     @Override
-    public ZonedDateTime convertToDatabaseColumn(LocalDateTime localDateTime) {
-        if (localDateTime == null) return null;
-        TimeZone timeZone = LocaleContextHolder.getTimeZone();
-        ZoneId zoneId = ZoneId.of(timeZone.getID());
-        return ZonedDateTime.of(localDateTime, zoneId);
+    public Long convertToDatabaseColumn(LocalDateTime localDateTime) {
+        return localDateTime.atZone(TimeZone.getDefault().toZoneId()).toEpochSecond();
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(ZonedDateTime zonedDateTime) {
-        if (zonedDateTime == null) return null;
-        ZoneId zoneId = zonedDateTime.getZone();
-        Instant instant = zonedDateTime.toInstant();
-        return LocalDateTime.ofInstant(instant, zoneId);
+    public LocalDateTime convertToEntityAttribute(Long timestamp) {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp),
+                        TimeZone.getDefault().toZoneId());
     }
+//    @Override
+//    public ZonedDateTime convertToDatabaseColumn(LocalDateTime localDateTime) {
+//        if (localDateTime == null) return null;
+//        TimeZone timeZone = LocaleContextHolder.getTimeZone();
+//        ZoneId zoneId = ZoneId.of(timeZone.getID());
+//        return ZonedDateTime.of(localDateTime, zoneId);
+//    }
+//
+//    @Override
+//    public LocalDateTime convertToEntityAttribute(ZonedDateTime zonedDateTime) {
+//        if (zonedDateTime == null) return null;
+//        ZoneId zoneId = zonedDateTime.getZone();
+//        Instant instant = zonedDateTime.toInstant();
+//        return LocalDateTime.ofInstant(instant, zoneId);
+//    }
 
 //    @Override
 //    public OffsetDateTime convertToDatabaseColumn(LocalDateTime localDateTime) {
