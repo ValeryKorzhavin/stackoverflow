@@ -31,6 +31,7 @@ public abstract class Auditable<U> {
 //    @Convert(converter = LocalDateTimeConverter.class)
 //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 //    @Type()
+    @Temporal(TemporalType.TIMESTAMP)
     protected LocalDateTime createdDate;
 
     @ManyToOne
@@ -42,6 +43,7 @@ public abstract class Auditable<U> {
     @Column(name = "last_modified_date")
 //    @Convert(converter = LocalDateTimeConverter.class)
 //    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    @Temporal(TemporalType.TIMESTAMP)
     protected LocalDateTime lastModifiedDate;
 
 }
