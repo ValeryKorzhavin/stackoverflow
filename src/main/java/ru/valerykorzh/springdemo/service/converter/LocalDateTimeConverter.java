@@ -4,21 +4,25 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Timestamp;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.TimeZone;
 
 @Converter(autoApply = true)
-public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Long> {
+public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
     @Override
-    public Long convertToDatabaseColumn(LocalDateTime localDateTime) {
-        return localDateTime.atZone(TimeZone.getDefault().toZoneId()).toEpochSecond();
+    public Timestamp convertToDatabaseColumn(LocalDateTime localDateTime) {
+        return Timestamp.valueOf(localDateTime);
+//        return localDateTime.atZone(TimeZone.getDefault().toZoneId()).toEpochSecond();
     }
 
     @Override
-    public LocalDateTime convertToEntityAttribute(Long timestamp) {
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp),
-                        TimeZone.getDefault().toZoneId());
+    public LocalDateTime convertToEntityAttribute(Timestamp timestamp) {
+        return timestamp.toLocalDateTime();
+//        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp),
+//                        TimeZone.getDefault().toZoneId());
     }
 //    @Override
 //    public ZonedDateTime convertToDatabaseColumn(LocalDateTime localDateTime) {

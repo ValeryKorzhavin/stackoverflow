@@ -17,14 +17,17 @@ Spring Boot, PostgreSQL, Liquibase, Lombok, Bootstrap, Heroku, JUnit
 ### Requirements 
 - Java 12
 
-### Core Technologies
+### Technology Stack
 - Java 12
 - Spring Boot 2
+- Spring Data JPA
+- Spring Security
+- Hibernate
 - PostgreSQL
 - Liquibase (for migrations)
 - JUnit for testing
 - Thymeleaf as a template engine
-- Lombok
+- Project Lombok
 - Mapstruct
 - Twitter Bootstrap 4
 - JQuery
@@ -32,17 +35,16 @@ Spring Boot, PostgreSQL, Liquibase, Lombok, Bootstrap, Heroku, JUnit
 - Deployed on Heroku
 
 ### Compile and Run
-```aidl
+```
 $ make # build & run
 $ make test # compile & tests
-
 ```
 
 ### Database migrations
 Liquibase is used for creating and updating database schema. Schemas are located at /src/main/resources/db/changelog.
 
 Run this command for generating new migration:
-```aidl
+```
 $ make generate-migration
 ```
 

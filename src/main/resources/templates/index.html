@@ -74,9 +74,10 @@
                                     </div>
                                     <div class="started d-inline-block float-right">
                                         <div class="text-muted small">
-                                            modified 2 hours ago <a class="text-info"
-                                                                    th:href="${'/users/' + question.author.id}"
-                                                                    th:text="${question.author.name}"></a>
+                                            <div th:text="${question.createdDate}"></div>
+                                            <a class="text-info"
+                                               th:href="${'/accounts/' + question.author.id}"
+                                               th:text="${question.author.name}"></a>
                                         </div>
                                     </div>
 
