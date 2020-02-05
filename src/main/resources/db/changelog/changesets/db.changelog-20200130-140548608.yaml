@@ -45,8 +45,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
+            constraints:
+              nullable: false
             name: content
-            type: VARCHAR(255)
+            type: CLOB
         - column:
             name: author_id
             type: BIGINT

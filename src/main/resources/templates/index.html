@@ -51,11 +51,11 @@
                         <div class="d-flex float-none question-info px-3 py-3 border-bottom" th:each="question : ${questions}">
                                 <div class="question-stats text-muted text-center mr-4">
                                     <div class="votes d-inline-block py-1 px-2">
-                                        <div class="mini-counts h6">3</div>
+                                        <div class="mini-counts h6" th:text="${question.getOverallVotes()}"></div>
                                         <div class="small">votes</div>
                                     </div>
                                     <div class="answers d-inline-block py-1 px-1 border rounded border-success text-success">
-                                        <div class="mini-counts h6">2</div>
+                                        <div class="mini-counts h6" th:text="${question.answers.size()}"></div>
                                         <div class="small">answers</div>
                                     </div>
                                     <div class="views d-inline-block py-1 px-2">
@@ -74,7 +74,9 @@
                                     </div>
                                     <div class="started d-inline-block float-right">
                                         <div class="text-muted small">
-                                            <div th:text="${question.createdDate}"></div>
+                                            <div class="d-inline-block"
+                                                 th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
+                                            </div>
                                             <a class="text-info"
                                                th:href="${'/accounts/' + question.author.id}"
                                                th:text="${question.author.name}"></a>

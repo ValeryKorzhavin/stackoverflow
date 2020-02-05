@@ -37,7 +37,8 @@
                     <div class="question-details d-flex mb-3 border-bottom">
                         <div class="small mr-3 mb-2">
                             <span class="text-muted">Asked</span>
-                            26 days ago
+                            <span th:text="${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
+                            </span>
                         </div>
                         <div class="small mr-3 mb-2">
                             <span class="text-muted">Active</span>
@@ -72,14 +73,14 @@
                             </a>
                             <div class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
-                                     th:text="'asked at ' + ${question.createdDate}">
+                                     th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                                 </div>
                                 <div th:if="${question.author.avatar}"
-                                     class="user-gravatar float-left">
+                                     class="user-gravatar float-left mr-2">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
                                          th:alt="${'user-avatar-' + question.author.id}">
                                 </div>
-                                <div class="user-details float-left ml-2 small">
+                                <div class="user-details float-left small">
                                     <a th:href="${'/accounts/' + question.author.id}"
                                        th:text="${question.author.name}"></a>
                                 </div>
@@ -87,15 +88,15 @@
                             <div th:if="${question.createdDate != question.lastModifiedDate}"
                                  class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
-                                     th:text="'edited at ' + ${question.lastModifiedDate}">
+                                     th:text="'edited ' + ${question.getFormattedDate(question.lastModifiedDate, 'd MMM yy hh:mm')}">
 
                                 </div>
                                 <div th:if="${question.lastModifiedBy.avatar}"
-                                     class="user-gravatar float-left">
+                                     class="user-gravatar float-left mr-2">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${question.lastModifiedBy.avatar.data}}"
                                          th:alt="${'user-avatar-' + question.lastModifiedBy.id}">
                                 </div>
-                                <div class="user-details float-left ml-2 small">
+                                <div class="user-details float-left small">
                                     <a th:href="${'/accounts/' + question.lastModifiedBy.id}"
                                        th:text="${question.lastModifiedBy.name}"></a>
                                 </div>
@@ -130,14 +131,14 @@
                                     </a>
                                     <div class="user-info float-right w-25">
                                         <div class="text-muted small user-action-time"
-                                             th:text="'answered at ' + ${answer.createdDate}">
+                                             th:text="'answered ' + ${answer.getFormattedDate(answer.createdDate, 'd MMM yy hh:mm')}">
                                         </div>
                                         <div th:if="${answer.author.avatar}"
-                                             class="user-gravatar float-left">
+                                             class="user-gravatar float-left mr-2">
                                             <img th:src="@{'data:image/jpeg;base64,' + ${answer.author.avatar.data}}"
                                                  th:alt="${'user-avatar-' + answer.author.id}">
                                         </div>
-                                        <div class="user-details float-left ml-2 small">
+                                        <div class="user-details float-left small">
                                             <a th:href="${'/accounts/' + answer.author.id}"
                                                th:text="${answer.author.name}"></a>
                                         </div>
@@ -145,15 +146,15 @@
                                     <div th:if="${answer.createdDate != answer.lastModifiedDate}"
                                          class="user-info float-right w-25">
                                         <div class="text-muted small user-action-time"
-                                             th:text="'edited at ' + ${answer.lastModifiedDate}">
+                                             th:text="'edited ' + ${answer.getFormattedDate(answer.lastModifiedDate, 'd MMM yy hh:mm')}">
 
                                         </div>
                                         <div th:if="${answer.lastModifiedBy.avatar}"
-                                             class="user-gravatar float-left">
+                                             class="user-gravatar float-left mr-2">
                                             <img th:src="@{'data:image/jpeg;base64,' + ${answer.lastModifiedBy.avatar.data}}"
                                                  th:alt="${'user-avatar-' + answer.lastModifiedBy.id}">
                                         </div>
-                                        <div class="user-details float-left ml-2 small">
+                                        <div class="user-details float-left small">
                                             <a th:href="${'/accounts/' + answer.lastModifiedBy.id}"
                                                th:text="${answer.lastModifiedBy.name}"></a>
                                         </div>
@@ -174,8 +175,8 @@
                             </textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" th:text="#{action.create}"
-                            class="btn btn-primary"></button>
+                            <input type="submit" th:value="#{action.create}"
+                            class="btn btn-primary"/>
                         </div>
 
                     </form>

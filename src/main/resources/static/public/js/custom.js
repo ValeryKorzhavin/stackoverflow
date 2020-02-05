@@ -79,6 +79,11 @@ $(document).ready(function () {
                 }
             }
         });
+
+        $('form').submit(function(event) {
+            $(this).find("input[type='submit']").prop('disabled', true).addClass('disabled');
+        });
+
 });
 
 

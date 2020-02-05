@@ -23,7 +23,7 @@ public class Answer extends Auditable<Account> {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "content")
+    @Column(name = "content", columnDefinition = "text", length = 65536, nullable = false)
     private String content;
 
     @ManyToOne(cascade = {

@@ -49,33 +49,28 @@
                             <div class="stats-container text-muted text-center ml-1 mr-3">
                                 <div class="stats">
                                     <div class="vote">
-                                        <div class="votes">
+                                        <div class="votes mb-2">
                                             <span class="vote-count-post h5 font-weight-bold"
                                                   th:text="${question.getOverallVotes()}">
                                             </span>
                                             <div class="viewcount small">votes</div>
                                         </div>
                                     </div>
-                                    <div class="status unanswered">
+                                    <div class="status unanswered mb-2">
                                         <span class="answers-count-post h5 font-weight-bold"
                                               th:text="${question.answers.size()}">
                                         </span>
-                                        <div class="small">
-                                            answers
-                                        </div>
+                                        <div class="small">answers</div>
                                     </div>
                                 </div>
-                                <div class="views small">
-                                    4 views
-                                </div>
+                                <div class="views small">4 views</div>
                             </div>
-
-
                             <div class="question-summary w-100">
-                                <a class="text-info h6" th:href="${'/questions/' + question.id}"
-                                   th:text="${question.title}"></a>
-                                <div th:text="${question.body}"></div>
-
+                                <div class="mb-2">
+                                    <a class="text-info h5 font-weight-normal" th:href="${'/questions/' + question.id}"
+                                       th:text="${question.title}"></a>
+                                </div>
+                                <div class="mb-1" th:text="${question.body}"></div>
                                 <div class="float-left">
                                     <div class="d-inline-block" th:each="tag : ${question.tags}">
                                         <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
@@ -83,15 +78,15 @@
                                     </div>
                                 </div>
                                 <div class="user-info float-right w-25">
-                                    <div class="text-muted small user-action-time">
-                                        asked 8 hours ago
+                                    <div class="text-muted small user-action-time"
+                                         th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                                     </div>
 
-                                    <div th:if="${question.author.avatar}" class="user-gravatar float-left">
+                                    <div th:if="${question.author.avatar}" class="user-gravatar float-left mr-2">
                                         <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
                                              th:alt="${'user-avatar-' + question.author.id}">
                                     </div>
-                                    <div class="user-details float-left ml-2 small">
+                                    <div class="user-details float-left small">
                                         <a th:href="${'/accounts/' + question.author.id}"
                                            th:text="${question.author.name}"></a>
                                     </div>
