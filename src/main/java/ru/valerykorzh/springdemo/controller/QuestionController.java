@@ -2,13 +2,16 @@ package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
@@ -37,11 +40,27 @@ public class QuestionController {
 
     @GetMapping
     public String findAll(Model model,
-                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable) {
+                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
+//                          @SortDefault(sort = {"id"}, direction = Sort.Direction.DESC) Sort sort) {
+
 
         Page<Question> questions = questionService.findAll(pageable);
 
+//        Pageable pageable2 = PageRequest.of(pageable.getPageSize(), pageable.getPageNumber(), sort);
+//        Page<Question> questions2 = questionService.findAll(pageable2);
+
+
         model.addAttribute("questions", questions);
+        // add flag to answer that is true
+
+        // Sorted by:
+        // by votes - Most Votes (max rating)
+        // by date desc - Newest
+        // by activity - question that was last created, answered, or modified
+
+        // Filters:
+        // no answers
+        // no accepted answer
 
         return "question/list";
     }

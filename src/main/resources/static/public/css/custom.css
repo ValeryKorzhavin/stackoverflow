@@ -80,3 +80,6 @@ a:hover {
     object-fit: cover;
     object-position: 0 0;
 }
+
+.btn-group a {
+}

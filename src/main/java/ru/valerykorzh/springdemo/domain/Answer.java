@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
@@ -37,6 +38,9 @@ public class Answer extends Auditable<Account> {
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @Column(name = "is_accepted")
+    private Boolean isAccepted = false;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH, CascadeType.DETACH})

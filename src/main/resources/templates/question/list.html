@@ -32,10 +32,18 @@
                             <div class="h5 font-weight-normal" th:text="${questions.getTotalElements()} + ' questions'"></div>
                             <div class="buttons">
                                 <div class="btn-group mr-2" role="group">
-                                    <button class="btn btn-outline-secondary" type="button">Newest</button>
-                                    <button class="btn btn-outline-secondary" type="button">Active</button>
-                                    <button class="btn btn-outline-secondary" type="button">Unanswered</button>
-                                    <button class="btn btn-outline-secondary" type="button">Votes</button>
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Newest</button>
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Active</button>
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Unanswered</button>
+                                    <button class="btn btn-outline-secondary"
+                                            type="button"
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Votes</button>
                                 </div>
                                 <button class="btn btn-info" type="button">Filter</button>
                             </div>
@@ -94,18 +102,31 @@
                             </div>
                         </div>
                     </div>
-                    <div th:if="${questions.getTotalPages() > 1}" class="pagination float-right mr-4 mt-4">
+                    <div th:if="${questions.getTotalPages() > 1}" class="pagination float-left ml-4 my-4">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination pagination-sm">
+                            <ul class="pagination pagination-sm mb-0">
                                 <li class="page-item"
                                     th:each="i: ${#numbers.sequence(1, questions.getTotalPages())}"
-                                    th:classappend="${questions.getNumber() == i - 1} ? active">
-                                    <a th:href="@{/questions(page=${i}-1)}" th:text="${i}"
+                                    th:classappend="${questions.getNumber() == i - 1} ? active"
+                                    th:with="currentUrl=(${@currentUrlWithoutParam.apply('page')})">
+                                    <a th:href="@{${currentUrl}(page=${i}-1)}"
+                                       th:text="${i}"
                                        class="page-link"></a>
                                 </li>
-
                             </ul>
                         </nav>
+                    </div>
+                    <div th:if="${questions.getTotalPages() > 1}" class="pagination float-right mr-4 my-4">
+                        <nav aria-label="Questions per page">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(5, 15, 5)}"
+                                    th:classappend="${questions.getSize() == i} ? active">
+                                    <a class="page-link" th:href="@{''(size=${i})}" th:text="${i}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="align-self-center small text-muted ml-2">per page</div>
                     </div>
                 </div>
             </div>
@@ -115,6 +136,5 @@
 <footer class="footer">
     <div th:replace="~{fragments/footer :: footer}"></div>
 </footer>
-
 </body>
 </html>
