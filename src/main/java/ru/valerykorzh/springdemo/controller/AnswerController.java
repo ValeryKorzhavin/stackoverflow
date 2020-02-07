@@ -1,9 +1,9 @@
 package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
@@ -15,13 +15,13 @@ import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.AnswerService;
 import ru.valerykorzh.springdemo.service.QuestionService;
+import ru.valerykorzh.springdemo.service.impl.QuestionServiceImpl;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.ANSWERS_PATH;
 
@@ -30,8 +30,10 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.ANSWERS_P
 @AllArgsConstructor
 public class AnswerController {
 
+
     private final AnswerService answerService;
     private final AccountService accountService;
+    @Qualifier("questionServiceImpl")
     private final QuestionService questionService;
 
     @GetMapping
@@ -64,7 +66,6 @@ public class AnswerController {
             answer.setQuestion(question);
             answerService.save(answer);
         }
-
 
         return String.format("redirect:/questions/%d", id);
     }

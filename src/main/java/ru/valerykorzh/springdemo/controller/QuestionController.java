@@ -1,30 +1,27 @@
 package ru.valerykorzh.springdemo.controller;
 
+import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 import ru.valerykorzh.springdemo.dto.mapper.QuestionMapper;
-import ru.valerykorzh.springdemo.service.AccountService;
-import ru.valerykorzh.springdemo.service.QuestionService;
-import ru.valerykorzh.springdemo.service.TagService;
+import ru.valerykorzh.springdemo.service.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
 
@@ -37,30 +34,26 @@ public class QuestionController {
     private final AccountService accountService;
     private final TagService tagService;
     private final QuestionMapper questionMapper;
+    private final List<QuestionSortService> questionSortServices;
 
     @GetMapping
     public String findAll(Model model,
                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
-//                          @SortDefault(sort = {"id"}, direction = Sort.Direction.DESC) Sort sort) {
 
+        Optional<QuestionSortType> sortType = pageable
+            .getSort()
+            .get()
+            .map(Sort.Order::getProperty)
+            .map(type -> CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, type))
+            .map(QuestionSortType::valueOf)
+            .findFirst();
 
-        Page<Question> questions = questionService.findAll(pageable);
-
-//        Pageable pageable2 = PageRequest.of(pageable.getPageSize(), pageable.getPageNumber(), sort);
-//        Page<Question> questions2 = questionService.findAll(pageable2);
-
-
-        model.addAttribute("questions", questions);
-        // add flag to answer that is true
-
-        // Sorted by:
-        // by votes - Most Votes (max rating)
-        // by date desc - Newest
-        // by activity - question that was last created, answered, or modified
-
-        // Filters:
-        // no answers
-        // no accepted answer
+        sortType.flatMap(questionSortType -> questionSortServices
+                .stream()
+                .filter(service -> service.isSuitableFor(questionSortType))
+                .findFirst()).ifPresent(service -> {
+            model.addAttribute("questions", service.sort(pageable));
+        });
 
         return "question/list";
     }
@@ -81,6 +74,7 @@ public class QuestionController {
                 .orElseThrow(() -> new RuntimeException("User with this email not found: " + userEmail));
 
         Question question = questionMapper.toQuestion(questionDto, tagService);
+
         question.setAuthor(author);
         questionService.save(question);
 

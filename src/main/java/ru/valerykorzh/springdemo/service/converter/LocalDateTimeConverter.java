@@ -14,13 +14,13 @@ import java.util.TimeZone;
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime localDateTime) {
-        return Timestamp.valueOf(localDateTime);
+        return localDateTime == null ? null : Timestamp.valueOf(localDateTime);
 //        return localDateTime.atZone(TimeZone.getDefault().toZoneId()).toEpochSecond();
     }
 
     @Override
     public LocalDateTime convertToEntityAttribute(Timestamp timestamp) {
-        return timestamp.toLocalDateTime();
+        return timestamp == null ? null : timestamp.toLocalDateTime();
 //        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp),
 //                        TimeZone.getDefault().toZoneId());
     }

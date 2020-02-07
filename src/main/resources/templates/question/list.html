@@ -34,16 +34,16 @@
                                 <div class="btn-group mr-2" role="group">
                                     <button class="btn btn-outline-secondary"
                                             type="button"
-                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Newest</button>
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='Newest')} + '\''">Newest</button>
                                     <button class="btn btn-outline-secondary"
                                             type="button"
-                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Active</button>
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='LastActive')} + '\''">Active</button>
+<!--                                    <button class="btn btn-outline-secondary"-->
+<!--                                            type="button"-->
+<!--                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Unanswered</button>-->
                                     <button class="btn btn-outline-secondary"
                                             type="button"
-                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Unanswered</button>
-                                    <button class="btn btn-outline-secondary"
-                                            type="button"
-                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Votes</button>
+                                            th:onclick="'window.location.href=\'' + @{/questions(sort='MostVotes')} + '\''">Votes</button>
                                 </div>
                                 <button class="btn btn-info" type="button">Filter</button>
                             </div>
@@ -59,7 +59,7 @@
                                     <div class="vote">
                                         <div class="votes mb-2">
                                             <span class="vote-count-post h5 font-weight-bold"
-                                                  th:text="${question.getOverallVotes()}">
+                                                  th:text="${question.getRating()}">
                                             </span>
                                             <div class="viewcount small">votes</div>
                                         </div>

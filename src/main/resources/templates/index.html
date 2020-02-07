@@ -59,7 +59,7 @@
                         <div class="d-flex float-none question-info px-3 py-3 border-bottom" th:each="question : ${questions}">
                                 <div class="question-stats text-muted text-center mr-4">
                                     <div class="votes d-inline-block py-1 px-2">
-                                        <div class="mini-counts h6" th:text="${question.getOverallVotes()}"></div>
+                                        <div class="mini-counts h6" th:text="${question.getRating()}"></div>
                                         <div class="small">votes</div>
                                     </div>
                                     <div class="answers d-inline-block py-1 px-1 border rounded border-success text-success">

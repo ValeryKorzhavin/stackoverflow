@@ -2,9 +2,11 @@ package ru.valerykorzh.springdemo.domain;
 
 import lombok.*;
 import ru.valerykorzh.springdemo.audit.Auditable;
+import ru.valerykorzh.springdemo.service.converter.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Getter
@@ -97,13 +99,6 @@ public class Question extends Auditable<Account> {
     public Integer getRating() {
         if (positiveVotes != null && negativeVotes != null) {
             return positiveVotes.size() - negativeVotes.size();
-        }
-        return 0;
-    }
-
-    public Integer getOverallVotes() {
-        if (positiveVotes != null && negativeVotes != null) {
-            return positiveVotes.size() + negativeVotes.size();
         }
         return 0;
     }
