@@ -114,7 +114,9 @@
                                         </div>
                                     </div>
                                     <div class="status unanswered mb-2 p-1"
-                                         th:classappend="${question.answers.size() > 0 ? (question.hasAcceptedAnswer() ? 'rounded border border-success bg-success text-light' : 'rounded border border-success text-success') : ''}">
+                                         th:classappend="${question.answers.size() > 0} ? (${question.hasAcceptedAnswer()} ?
+                                         'rounded border border-success bg-success text-light' :
+                                         'rounded border border-success text-success') : ''">
                                         <span class="answers-count-post h5 font-weight-bold"
                                               th:text="${question.answers.size()}">
                                         </span>
