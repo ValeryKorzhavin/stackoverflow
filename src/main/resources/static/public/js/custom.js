@@ -84,6 +84,16 @@ $(document).ready(function () {
             $(this).find("input[type='submit']").prop('disabled', true).addClass('disabled');
         });
 
+//        $('#question_filter_form').submit(function(event) {
+//            event.preventDefault();
+//            var filters = $(this).find('input:checkbox:checked').map(function() {
+//                return $(this).val();
+//            }).get().join(',');
+//              see URLSearchParams
+//            $('#question_filter_form').find('input[name=filters]').val(filters);
+//            window.location.href =
+//        });
+
 });
 
 

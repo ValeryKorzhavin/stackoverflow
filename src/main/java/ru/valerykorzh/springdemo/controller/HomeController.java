@@ -22,9 +22,9 @@ public class HomeController {
     private final QuestionService questionService;
     private final TagService tagService;
 
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("module", "index from module");
+    @ModelAttribute("module")
+    public String module() {
+        return "index";
     }
 
     @GetMapping

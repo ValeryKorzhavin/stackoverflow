@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.service.TagService;
 
@@ -16,6 +17,11 @@ import ru.valerykorzh.springdemo.service.TagService;
 public class TagController {
 
     private final TagService tagService;
+
+    @ModelAttribute("module")
+    public String module() {
+        return "tags";
+    }
 
     @GetMapping("/tags")
     public String findAll(Model model,

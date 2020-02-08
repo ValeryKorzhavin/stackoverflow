@@ -32,6 +32,11 @@ public class AccountController {
     private final ImageService imageService;
     private final AccountMapper accountMapper;
 
+    @ModelAttribute("module")
+    public String module() {
+        return "accounts";
+    }
+
     @GetMapping
     public String findAll(Model model) {
 

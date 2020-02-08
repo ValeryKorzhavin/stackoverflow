@@ -36,9 +36,22 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final List<QuestionSortService> questionSortServices;
 
+    @ModelAttribute("module")
+    public String module() {
+        return "questions";
+    }
+
     @GetMapping
     public String findAll(Model model,
+                          @RequestParam(value = "filters", required = false) String filters,
                           @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 5) Pageable pageable) {
+
+        if (!Objects.isNull(filters)) {
+            List<String> filtersList = List.of(filters.split(","));
+            System.out.println(filtersList);
+
+//            filtersList.stream().map()
+        }
 
         Optional<QuestionSortType> sortType = pageable
             .getSort()

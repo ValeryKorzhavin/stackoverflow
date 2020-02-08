@@ -1,6 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      lang="ru">
+      lang="ru"
+      class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,13 +15,13 @@
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
-<main class="d-flex h-100">
-    <div class="container-fluid">
-        <div class="row d-flex h-auto">
-            <div class="col-lg-3 col-md-3">
+<main class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-7 col-md-9 bg-white shadow p-0 h-auto">
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
                 <div class="content h-auto">
                     <div class="content-header mt-4 mx-4">
                         <div class="section-title mb-3 clearfix">
@@ -38,14 +39,62 @@
                                     <button class="btn btn-outline-secondary"
                                             type="button"
                                             th:onclick="'window.location.href=\'' + @{/questions(sort='LastActive')} + '\''">Active</button>
-<!--                                    <button class="btn btn-outline-secondary"-->
-<!--                                            type="button"-->
-<!--                                            th:onclick="'window.location.href=\'' + @{/questions(sort='createdDate')} + '\''">Unanswered</button>-->
                                     <button class="btn btn-outline-secondary"
                                             type="button"
                                             th:onclick="'window.location.href=\'' + @{/questions(sort='MostVotes')} + '\''">Votes</button>
                                 </div>
-                                <button class="btn btn-info" type="button">Filter</button>
+                                <button class="btn btn-info"
+                                        type="button"
+                                        data-toggle="collapse"
+                                        data-target="#toggleFilter"
+                                        aria-controls="toggleFilter"
+                                        aria-expanded="false">Filter</button>
+                            </div>
+                        </div>
+                        <div class="question-filter mt-2 d-flex justify-content-end">
+                            <div class="collapse" id="toggleFilter">
+                                <form class="form" id="question_filter_form" th:action="@{/questions}" th:method="get">
+                                    <div class="form-group d-flex align-items-start">
+                                        <div class="filter mr-5">
+                                            <div class="filter-title font-weight-bold mb-2">Filter by</div>
+                                            <div class="">
+                                                <input type="checkbox"
+                                                       id="no_answers_filter"
+                                                       name="filters"
+                                                       value="NoAnswers">
+                                                <label class="mb-0" for="no_answers_filter">No answers</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="checkbox"
+                                                       id="no_accepted_answer_filter"
+                                                       name="filters"
+                                                       value="NoAcceptedAnswer">
+                                                <label class="mb-0" for="no_accepted_answer_filter">No accepted answer</label>
+                                            </div>
+                                        </div>
+                                        <div class="sort mr-5">
+                                            <div class="sort-title font-weight-bold mb-2">Sort by</div>
+                                            <div class="">
+                                                <input type="radio" id="newest_sort_radio"
+                                                       name="sort" value="Newest">
+                                                <label class="mb-0" for="newest_sort_radio">Newest</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="radio" id="last_active_sort_radio"
+                                                       name="sort" value="LastActive">
+                                                <label class="mb-0" for="last_active_sort_radio">Recent activity</label>
+                                            </div>
+                                            <div class="">
+                                                <input type="radio" id="most_votes_sort_radio"
+                                                       name="sort" value="MostVotes">
+                                                <label class="mb-0" for="most_votes_sort_radio">Most votes</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-info btn-sm" th:value="'Apply filter'">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -57,14 +106,17 @@
                             <div class="stats-container text-muted text-center ml-1 mr-3">
                                 <div class="stats">
                                     <div class="vote">
-                                        <div class="votes mb-2">
+                                        <div class="votes mb-2 p-1">
                                             <span class="vote-count-post h5 font-weight-bold"
                                                   th:text="${question.getRating()}">
                                             </span>
                                             <div class="viewcount small">votes</div>
                                         </div>
                                     </div>
-                                    <div class="status unanswered mb-2">
+                                    <div class="status unanswered mb-2 p-1"
+                                         th:classappend="${question.answers.size() > 0 ? question.hasAcceptedAnswer() ?
+                                         'rounded border border-success bg-success text-light' :
+                                         'rounded border border-success text-success' : ''}">
                                         <span class="answers-count-post h5 font-weight-bold"
                                               th:text="${question.answers.size()}">
                                         </span>

@@ -2,18 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="en">
 <body>
-    <div th:fragment="sidebar" class="left-sidebar w-auto float-right sticky-top">
-        <ul class="nav-links">
-            <li class="nav-item">
+    <div th:fragment="sidebar" class="left-sidebar float-right sticky-top">
+        <ul class="nav-links pl-0">
+            <li class="nav-item pr-4"
+                th:classappend="${module == 'index' ? 'active border-right border-info' : ''}">
                 <a href="/" class="nav-link">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item pr-4"
+                th:classappend="${module == 'questions' ? 'active border-right border-info' : ''}">
                 <a href="/questions" class="nav-link">Questions</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item pr-4"
+                th:classappend="${module == 'accounts' ? 'active border-right border-info' : ''}">
                 <a href="/accounts" class="nav-link">Users</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item pr-4"
+                th:classappend="${module == 'tags' ? 'active border-right border-info' : ''}">
                 <a href="/tags" class="nav-link">Tags</a>
             </li>
         </ul>

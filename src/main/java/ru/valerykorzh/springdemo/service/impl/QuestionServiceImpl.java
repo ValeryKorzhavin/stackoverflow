@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.repository.QuestionRepository;
@@ -14,12 +15,15 @@ import ru.valerykorzh.springdemo.service.QuestionService;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.Specification.where;
+import static org.springframework.data.jpa.domain.Specification.not;
+
 @Service
 @Slf4j
 @AllArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
 
-    protected final QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
     @Override
     public Page<Question> findAll(Pageable pageable) {

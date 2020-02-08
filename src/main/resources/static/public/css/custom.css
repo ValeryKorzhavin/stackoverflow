@@ -81,5 +81,7 @@ a:hover {
     object-position: 0 0;
 }
 
-.btn-group a {
+.left-sidebar li.nav-item.active {
+    border-width: 3px !important;
+    background: #eff0f1;
 }

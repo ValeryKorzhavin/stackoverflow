@@ -14,13 +14,13 @@
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
-<main class="d-flex h-100">
-    <div class="container-fluid">
-        <div class="row d-flex h-100">
-            <div class="col-lg-3 col-md-3">
+<main class="d-flex flex-grow-1">
+    <div class="container-fluid d-flex flex-grow-1">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-7 col-md-9 bg-white shadow">
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
                 <div class="content m-3 ">
                     <div class="section-title mb-3"><h3 th:text="#{question.action.new}">Users</h3></div>
                     <div class="form-wrapper">

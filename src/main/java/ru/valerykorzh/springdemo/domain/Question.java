@@ -103,4 +103,8 @@ public class Question extends Auditable<Account> {
         return 0;
     }
 
+    public boolean hasAcceptedAnswer() {
+        return answers.stream().anyMatch(Answer::getIsAccepted);
+    }
+
 }

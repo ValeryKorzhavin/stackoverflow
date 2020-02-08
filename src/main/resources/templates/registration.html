@@ -1,7 +1,8 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
-      lang="ru">
+      lang="ru"
+      class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -13,11 +14,11 @@
 </head>
 <body>
 <div th:replace="~{fragments/navigation :: navbar-dark}"></div>
-<main>
+<main class="d-flex flex-column flex-grow-1">
 <!--    <div th:text="${module}"></div>-->
-    <div class="container-fluid">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
         <div class="row">
-            <div class="col-md-5 col-lg-3 col-sm-8 mx-auto">
+            <div class="col-10 col-md-5 col-lg-4 col-xl-3 col-sm-6 mx-auto">
                 <div class="form-wrapper shadow mt-3">
                     <form th:action="@{/registration}" th:object="${accountPostDto}"
                           method="post" accept-charset="UTF-8" class="my-3 mx-3">

@@ -14,13 +14,13 @@
 <header>
     <div th:replace="~{fragments/navigation}"></div>
 </header>
-<main class="d-flex h-100">
-    <div class="container-fluid">
-        <div class="row d-flex h-100">
-            <div class="col-lg-3 col-md-3">
+<main class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid d-flex flex-column flex-grow-1">
+        <div class="row d-flex flex-grow-1">
+            <div class="col-md-2 col-lg-2 offset-lg-1 d-none d-md-block pr-0">
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
-            <div class="col-lg-7 col-md-9 bg-white shadow p-0">
+            <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
                 <div class="content">
                     <div class="content-header mt-4 mx-4">
                         <div class="section-title mb-3">
@@ -31,8 +31,7 @@
                                 <label for="search"></label>
                                 <input type="text" id="search" placeholder="Filter by user" class="form-control">
                             </form>
-                            <div class="btn-group" role="group">
-                                <button class="btn btn-outline-secondary" type="button">Reputation</button>
+                            <div class="btn-group align-self-end" role="group">
                                 <button class="btn btn-outline-secondary" type="button">New Users</button>
                                 <button class="btn btn-outline-secondary" type="button">Voters</button>
                                 <button class="btn btn-outline-secondary" type="button">Editors</button>
