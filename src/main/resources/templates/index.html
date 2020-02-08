@@ -63,7 +63,7 @@
                                         <div class="small">votes</div>
                                     </div>
                                     <div class="answers d-inline-block py-1 px-1"
-                                         th:classappend="(${question.answers.size() > 0} ? (${question.hasAcceptedAnswer()} ?
+                                         th:classappend="(${question.answers.size() > 0} ? (${question?.hasAcceptedAnswer()} ?
                                          'rounded border border-success bg-success text-light' :
                                          'rounded border border-success text-success') : '')">
                                         <div class="mini-counts h6" th:text="${question.answers.size()}"></div>
