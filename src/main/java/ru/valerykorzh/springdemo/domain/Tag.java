@@ -1,6 +1,7 @@
 package ru.valerykorzh.springdemo.domain;
 
 import lombok.*;
+import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tag")
-public class Tag {
+public class Tag extends Auditable<Account> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

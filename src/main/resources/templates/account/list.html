@@ -32,10 +32,19 @@
                                 <input type="text" id="search" placeholder="Filter by user" class="form-control">
                             </form>
                             <div class="btn-group align-self-end" role="group">
-                                <button class="btn btn-outline-secondary" type="button">New Users</button>
-                                <button class="btn btn-outline-secondary" type="button">Voters</button>
-                                <button class="btn btn-outline-secondary" type="button">Editors</button>
-                                <button class="btn btn-outline-secondary" type="button">Moderators</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/accounts(sort='id,desc')} + '\''">New Users</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/accounts(sort='MostVotes')} + '\''">Voters</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/accounts(sort='MostEdits')} + '\''">Editors</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/accounts(sort='Moderators')} + '\''">Moderators</button>
+
                             </div>
                         </div>
                     </div>

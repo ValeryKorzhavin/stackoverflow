@@ -37,8 +37,15 @@
                                 <input type="text" id="search" placeholder="Filter by tag name" class="form-control">
                             </form>
                             <div class="btn-group align-self-end" role="group">
-                                <button type="button" class="btn btn-outline-secondary">Popular</button>
-                                <button type="button" class="btn btn-outline-secondary">Name</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/tags(sort='popular')} + '\''">Popular</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/tags(sort='name')} + '\''">Name</button>
+                                <button class="btn btn-outline-secondary"
+                                        type="button"
+                                        th:onclick="'window.location.href=\'' + @{/tags(sort='createdDate,desc')} + '\''">New</button>
                             </div>
                         </div>
                     </div>

@@ -3,6 +3,8 @@ package ru.valerykorzh.springdemo.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.valerykorzh.springdemo.domain.Account;
@@ -49,6 +51,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> findAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Page<Account> findAll(Pageable pageable) {
+        return accountRepository.findAll(pageable);
     }
 
     @Override

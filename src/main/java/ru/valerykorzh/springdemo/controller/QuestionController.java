@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 import ru.valerykorzh.springdemo.dto.mapper.QuestionMapper;
+import ru.valerykorzh.springdemo.repository.spec.QuestionSpecifications;
 import ru.valerykorzh.springdemo.service.*;
 
 import javax.validation.Valid;
@@ -49,8 +52,6 @@ public class QuestionController {
         if (!Objects.isNull(filters)) {
             List<String> filtersList = List.of(filters.split(","));
             System.out.println(filtersList);
-
-//            filtersList.stream().map()
         }
 
         Optional<QuestionSortType> sortType = pageable
@@ -64,9 +65,7 @@ public class QuestionController {
         sortType.flatMap(questionSortType -> questionSortServices
                 .stream()
                 .filter(service -> service.isSuitableFor(questionSortType))
-                .findFirst()).ifPresent(service -> {
-            model.addAttribute("questions", service.sort(pageable));
-        });
+                .findFirst()).ifPresent(service -> model.addAttribute("questions", service.sort(pageable)));
 
         return "question/list";
     }

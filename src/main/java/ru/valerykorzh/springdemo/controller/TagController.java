@@ -2,6 +2,7 @@ package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.service.TagService;
+
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -24,11 +27,24 @@ public class TagController {
     }
 
     @GetMapping("/tags")
-    public String findAll(Model model,
-                          @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<Tag> tags = tagService.findAll(pageable);
+    public String findAll(Model model, @PageableDefault(
+            sort = { "name" }, direction = Sort.Direction.DESC, size = 30) Pageable pageable) {
+        // createdDate
+        // name popular createdDate
+        Page<Tag> tags;
+        Optional<String> sort = pageable
+            .getSort()
+            .get()
+            .map(Sort.Order::getProperty).findFirst();
 
-        model.addAttribute("tags", tags);
+        sort.ifPresent(s -> {
+            if (s.equals("popular")) {
+                model.addAttribute("tags", tagService.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize())));
+            } else {
+                model.addAttribute("tags",tagService.findAll(pageable));
+            }
+        });
+//        model.addAttribute("tags", tags);
 
         return "tag/list";
     }

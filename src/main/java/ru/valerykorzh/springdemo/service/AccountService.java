@@ -1,5 +1,7 @@
 package ru.valerykorzh.springdemo.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.valerykorzh.springdemo.domain.Account;
 
 import java.util.List;
@@ -15,6 +17,8 @@ public interface AccountService {
     List<Account> findByName(String name);
 
     List<Account> findAll();
+
+    Page<Account> findAll(Pageable pageable);
 
     Account save(Account account);
 

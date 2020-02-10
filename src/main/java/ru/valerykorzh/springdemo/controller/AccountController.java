@@ -1,6 +1,9 @@
 package ru.valerykorzh.springdemo.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -38,7 +41,8 @@ public class AccountController {
     }
 
     @GetMapping
-    public String findAll(Model model) {
+    public String findAll(Model model,
+                          @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC, size = 20) Pageable pageable) {
 
         List<Account> accounts = accountService.findAll();
 

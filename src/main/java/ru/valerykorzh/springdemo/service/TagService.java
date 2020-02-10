@@ -17,6 +17,8 @@ public interface TagService {
 
     Optional<Tag> findByName(String name);
 
+    Page<Tag> findAllByMostPopular(Pageable pageable);
+
     Tag save(Tag tag);
 
     void deleteById(Long id);

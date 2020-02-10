@@ -41,6 +41,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    public Page<Tag> findAllByMostPopular(Pageable pageable) {
+        return tagRepository.findAllSortByMostPopular(pageable);
+    }
+
+    @Override
     public Tag save(Tag tag) {
         return tagRepository.save(tag);
     }

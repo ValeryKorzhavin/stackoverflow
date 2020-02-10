@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import ru.valerykorzh.springdemo.domain.Question;
 
@@ -13,8 +14,6 @@ import ru.valerykorzh.springdemo.domain.Question;
 public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSpecificationExecutor<Question> {
 
     Page<Question> findAll(Pageable pageable);
-
-    Page<Question> findAll(Specification<Question> spec, Pageable pageable);
 
     @Query("SELECT q FROM Question q ORDER BY q.lastModifiedDate DESC")
     Page<Question> findAllSortByNewest(Pageable pageable);
@@ -30,8 +29,5 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSp
 
     @Query("SELECT q FROM Question q ORDER BY q.positiveVotes.size - q.negativeVotes.size DESC")
     Page<Question> findAllSortByMostVotes(Pageable pageable);
-
-    // filter no answers
-    // filter no accepted answer
 
 }

@@ -1,0 +1,68 @@
+databaseChangeLog:
+- changeSet:
+    id: 1581367080680-1
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: created_by
+            type: bigint
+        tableName: tag
+- changeSet:
+    id: 1581367080680-2
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: created_date
+            type: timestamp
+        tableName: tag
+- changeSet:
+    id: 1581367080680-3
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_by
+            type: bigint
+        tableName: tag
+- changeSet:
+    id: 1581367080680-4
+    author: valery.korzh (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: last_modified_date
+            type: timestamp
+        tableName: tag
+- changeSet:
+    id: 1581367080680-5
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: last_modified_by
+        baseTableName: tag
+        constraintName: FK4inw8ogiqnnty78b46waw5or6
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+- changeSet:
+    id: 1581367080680-6
+    author: valery.korzh (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: created_by
+        baseTableName: tag
+        constraintName: FK6kw3t22k2pjd7pp58n0mei8h1
+        deferrable: false
+        initiallyDeferred: false
+        referencedColumnNames: id
+        referencedTableName: account
+
