@@ -6,6 +6,29 @@ databaseChangeLog:
   - changeSet:
       id: 1
       author: valery.korzh
+      comment: "Create admin avatar"
+      changes:
+        - insert:
+            tableName: image
+            columns:
+              - column:
+                  name: data
+                  value: "iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADGklEQVRYhc2YQU8T
+                  QRiGn52dFi5YwRAjJhRrOcBBkwK3cpCYlKtXb6D4J/Tob/AfePYq0RgjXjyYoAdrIlLQBGIaBWIgQttdD80us9Pd7rTdAt+ps3m7
+                  79NvZ/fdfpbrui5KrdW3OKTGopxUD/Pk+HVgPW5leJSeCxz72Njhq1PlxG3w3f1Du3o6cDewjvKVumi1seGvdbFaCzLXAvei/gWA
+                  kp1nQeR4U9+MBY3zFVGi941tXta/hZ5w3MqQF1dC4QBWGxv8cPZZShdYSc1y0xoxhtN9ZZhIFeu/CILd0+FUSIB5OcFSusC2s9/S
+                  URNf612t4oaJ1CraWf9L6t6LglOrZOeZlxP+2gPNi5FQON1XHFJrKwI4ck/8z173TOCg2cm1+pa/zorLLKULmPqKRTlJ0c5GigriG
+                  vfkNHC690zhoiCheflMfEU7sSeyLAtodq9TuG4gVV8RJdbhxq0MB+5xV3CdQOq+UhdD89qrIoCMNdgTnAoJBG6cdr7W43+vAkkSlR
+                  BJwKk1JUaNEkfoB9olRJJVdqrkxQgrqVly1rAZYFxCJF1e4iynZ3iYmgkFDexBk4ToByQ09+RyeoaKs8eb+iYVdy8IqHbvrODCIG+I
+                  YR4ooP4l7jQh+gGpPoI8UAHdJ0TSFfacFNBbQiRdOqRIIiGSLhVSJpUQSZd344gxa+icUaLrp3uAmJcTlOz8ebO0VNHOMoBs3iQXD
+                  bJoZ5mzr7Pu7J4+By8KZNHOsigneVuv4KJl8XlDenC/3SPWnV0AxPPaJ3acv77ovCA9OMDvHoAsO1XKTpUpMcodO8eYGPJfJuP+dfU
+                  DTu0eKC8LOuhZQapwEOxeADAKtNRHSB1O714oYBjoLXGVz86vvsJBa/cALNPpVtSYopuaFqPcT91uOX9P062k9mTRznKoTCrifDuab
+                  vX6CFITwtRXhIn6AaknhKmvjNtbYSO4Ti93WEKY+hpPt7pNnKiESHy6VXaqPKt9CIDGQbZLCFNf6YnhtK26SJ2VmCZOXEKY+soocRi
+                  cWu0SxyQhTH2Np1tRpSfOJWvQKCFMff8DH3+FXatkCpIAAAAASUVORK5CYII="
+
+  - changeSet:
+      id: 2
+      author: valery.korzh
       comment: "Create admin user"
       changes:
         - insert:
@@ -20,9 +43,12 @@ databaseChangeLog:
               - column:
                   name: email
                   value: "admin@gmail.com"
+              - column:
+                  name: avatar_id
+                  value: 1
 
   - changeSet:
-      id: 2
+      id: 3
       author: valery.korzh
       comment: "Set admin roles"
       changes:
@@ -60,7 +86,7 @@ databaseChangeLog:
             where: email in ('admin@gmail.com')
 
   - changeSet:
-      id: 3
+      id: 4
       author: valery.korzh
       comment: "Insert sample questions"
       changes:

@@ -61,17 +61,18 @@
                             <a href=""><div class="vote-down"></div></a>
                         </div>
                         <div class="content w-100">
-                            <div th:text="${question.body}"></div>
+                            <div class="question-body" th:text="${question.body}"></div>
                             <div class="d-flex tags-wrapper mb-3">
                                 <div th:each="tag : ${question.tags}">
                                     <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
                                        th:text="${tag.name}"></a>
                                 </div>
                             </div>
-
-                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">
-                                <div class="text-muted small">improve this question</div>
-                            </a>
+<!--                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">-->
+                                <div class="edit-question text-muted small" th:attr="data-question-id=${question.id}">
+                                    improve this question
+                                </div>
+<!--                            </a>-->
                             <div class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
                                      th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">

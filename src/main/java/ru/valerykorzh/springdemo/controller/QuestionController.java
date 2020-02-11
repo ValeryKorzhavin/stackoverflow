@@ -22,6 +22,7 @@ import ru.valerykorzh.springdemo.service.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
@@ -139,6 +140,15 @@ public class QuestionController {
         questionService.save(question);
         Integer rating = question.getRating();
         return Collections.singletonMap("rating", rating);
+    }
+
+    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map editQuestion(@PathVariable Long id, @RequestBody EditQuestionRequestBody body) {
+        Question question = questionService.findById(id).orElseThrow(() -> new QuestionNotFoundException(id));
+        question.setBody(body.getBody());
+        questionService.save(question);
+        return Collections.singletonMap("body", body.getBody());
     }
 
     @DeleteMapping("/{id}")
