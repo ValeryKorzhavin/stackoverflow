@@ -20,7 +20,7 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
     Page<Tag> findAll(Pageable pageable);
 
     // popular - most related questions
-    @Query("SELECT t FROM Tag t ORDER BY t.createdDate")
+    @Query("SELECT t FROM Tag t ORDER BY SIZE(t.questions) DESC")
     Page<Tag> findAllSortByMostPopular(Pageable pageable);
 
     // name and creation date

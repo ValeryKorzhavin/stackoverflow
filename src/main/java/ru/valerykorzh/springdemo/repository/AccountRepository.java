@@ -17,19 +17,28 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findOneByEmail(String email);
 
-    @Query(value = "select * from account join (select u.id, count(*) as edits_count from account u join question q on u.id = q.last_modified_by" +
-            " join answer a on u.id = a.last_modified_by group by u.id) as T on account.id = T.id order by T.edits_count",
+    @Query(value = "select * from account a join account_role ac_roles on a.id = ac_roles.account_id where roles = ?1",
+            countQuery = "select count(*) from account_role where roles = ?1",
             nativeQuery = true)
-    Page<Account> findAllSortByNewest(Pageable pageable);
+    Page<Account> findAllByRole(String role, Pageable pageable);
 
-    @Query(value = "select * from account join (select u.id, count(*) as edits_count from account u join question q on u.id = q.last_modified_by" +
-            " join answer a on u.id = a.last_modified_by group by u.id) as T on account.id = T.id order by T.edits_count",
+    @Query(value = "select * from account a left join (select T.id, sum(T.num) from (select a.id, count(*) as num" +
+            " from account a join question_dislike dislikes on a.id = dislikes.account_id group by a.id union all " +
+            "select a.id, count(*) as num from account a join question_like likes on a.id = likes.account_id group by" +
+            " a.id union all select a.id, count(*) as num from account a join answer_like likes on a.id = " +
+            "likes.account_id group by a.id union all select a.id, count(*) as num from account a join answer_dislike" +
+            " dislikes on a.id = dislikes.account_id group by a.id) T group by T.id) U on a.id = U.id order by U.sum" +
+            " desc nulls last",
+            countQuery = "select count(*) from account",
             nativeQuery = true)
     Page<Account> findAllSortByMostVotes(Pageable pageable);
 
-    // at least 5 posts edited by
-    @Query(value = "select * from account join (select u.id, count(*) as edits_count from account u join question q on u.id = q.last_modified_by" +
-            " join answer a on u.id = a.last_modified_by group by u.id) as T on account.id = T.id order by T.edits_count",
+    @Query(value = "select * from account a left join (select U.id, sum(U.num) from (select u.id, count(*) as num " +
+            "from account u join (select * from answer where created_date <> last_modified_date) a on u.id = " +
+            "a.last_modified_by group by u.id union all select u.id, count(*) as num from account u join (select * " +
+            "from question where created_date <> last_modified_date) q on u.id = q.last_modified_by group by u.id) U" +
+            " group by U.id) T on a.id = T.id order by T.sum desc nulls last",
+    countQuery = "select count(*) from account",
     nativeQuery = true)
     Page<Account> findAllSortByMostEdits(Pageable pageable);
 

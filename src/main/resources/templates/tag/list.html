@@ -45,7 +45,7 @@
                                         th:onclick="'window.location.href=\'' + @{/tags(sort='name')} + '\''">Name</button>
                                 <button class="btn btn-outline-secondary"
                                         type="button"
-                                        th:onclick="'window.location.href=\'' + @{/tags(sort='createdDate,desc')} + '\''">New</button>
+                                        th:onclick="'window.location.href=\'' + @{/tags(sort='id,desc')} + '\''">New</button>
                             </div>
                         </div>
                     </div>
@@ -62,21 +62,32 @@
                             </div>
                         </div>
                     </div>
-
-                    <div th:if="${tags.getTotalPages()} > 1" class="pagination float-right">
+                    <div th:if="${tags.getTotalPages() > 1}" class="pagination float-left ml-4 my-4">
                         <nav aria-label="Page navigation">
-                            <ul class="pagination pagination-sm">
+                            <ul class="pagination pagination-sm mb-0">
                                 <li class="page-item"
                                     th:each="i: ${#numbers.sequence(1, tags.getTotalPages())}"
-                                    th:classappend="${tags.getNumber() == i - 1} ? active">
-                                    <a th:href="@{/tags(page=${i}-1)}" th:text="${i}"
+                                    th:classappend="${tags.getNumber() == i - 1} ? active"
+                                    th:with="currentUrl=(${@currentUrlWithoutParam.apply('page')})">
+                                    <a th:href="@{${currentUrl}(page=${i}-1)}"
+                                       th:text="${i}"
                                        class="page-link"></a>
                                 </li>
-
                             </ul>
                         </nav>
                     </div>
-
+                    <div th:if="${tags.getTotalPages() > 1}" class="pagination float-right mr-4 my-4">
+                        <nav aria-label="Tags per page">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(50, 80, 15)}"
+                                    th:classappend="${tags.getSize() == i} ? active">
+                                    <a class="page-link" th:href="@{''(size=${i})}" th:text="${i}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="align-self-center small text-muted ml-2">per page</div>
+                    </div>
                 </div>
             </div>
         </div>

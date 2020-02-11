@@ -28,9 +28,7 @@ public class TagController {
 
     @GetMapping("/tags")
     public String findAll(Model model, @PageableDefault(
-            sort = { "name" }, direction = Sort.Direction.DESC, size = 30) Pageable pageable) {
-        // createdDate
-        // name popular createdDate
+            sort = { "name" }, direction = Sort.Direction.DESC, size = 40) Pageable pageable) {
         Page<Tag> tags;
         Optional<String> sort = pageable
             .getSort()
@@ -39,12 +37,12 @@ public class TagController {
 
         sort.ifPresent(s -> {
             if (s.equals("popular")) {
-                model.addAttribute("tags", tagService.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize())));
+                model.addAttribute("tags", tagService
+                        .findAllByMostPopular(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize())));
             } else {
-                model.addAttribute("tags",tagService.findAll(pageable));
+                model.addAttribute("tags", tagService.findAll(pageable));
             }
         });
-//        model.addAttribute("tags", tags);
 
         return "tag/list";
     }
