@@ -28,7 +28,11 @@ public class Tag {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(
+            name = "question_tag",
+            joinColumns = @JoinColumn(name = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<Question> questions;
 
     public Tag(String name) {

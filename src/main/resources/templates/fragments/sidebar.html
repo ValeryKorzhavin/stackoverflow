@@ -2,23 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org"
       lang="en">
 <body>
-    <div th:fragment="sidebar" class="left-sidebar float-right sticky-top pt-4">
+    <div th:fragment="sidebar" class="left-sidebar float-right sticky-top pt-4 small">
         <ul class="nav-links pl-0">
             <li class="nav-item pr-4"
                 th:classappend="${module == 'index' ? 'active border-right border-info' : ''}">
-                <a href="/" class="nav-link">Home</a>
+                <a href="/" class="nav-link"
+                   th:classappend="${module == 'index' ? 'font-weight-bold text-dark' : ''}">Home</a>
             </li>
             <li class="nav-item pr-4"
                 th:classappend="${module == 'questions' ? 'active border-right border-info' : ''}">
-                <a href="/questions" class="nav-link">Questions</a>
+                <a href="/questions" class="nav-link"
+                   th:classappend="${module == 'questions' ? 'font-weight-bold text-dark' : ''}">Questions</a>
             </li>
             <li class="nav-item pr-4"
                 th:classappend="${module == 'accounts' ? 'active border-right border-info' : ''}">
-                <a href="/accounts" class="nav-link">Users</a>
+                <a href="/accounts" class="nav-link"
+                   th:classappend="${module == 'accounts' ? 'font-weight-bold text-dark' : ''}">Users</a>
             </li>
             <li class="nav-item pr-4"
                 th:classappend="${module == 'tags' ? 'active border-right border-info' : ''}">
-                <a href="/tags" class="nav-link">Tags</a>
+                <a href="/tags" class="nav-link"
+                   th:classappend="${module == 'tags' ? 'font-weight-bold text-dark' : ''}">Tags</a>
             </li>
         </ul>
     </div>

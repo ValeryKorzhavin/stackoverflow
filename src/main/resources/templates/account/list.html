@@ -6,7 +6,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title th:text="#{common.header.title}">Stack Overflow Clone</title>
     <link th:replace="~{fragments/styles}">
 </head>
@@ -27,7 +28,7 @@
                             <div class="h3 font-weight-normal" th:text="#{user.list.title}">Users</div>
                         </div>
                         <div class="search-form-wrapper mb-5 d-flex justify-content-between">
-                            <form action="#" class="form-inline d-inline-block">
+                            <form action="#" class="form-inline d-inline-block account-search">
                                 <label for="search"></label>
                                 <input type="text" id="search" placeholder="Filter by user" class="form-control">
                             </form>
@@ -44,7 +45,6 @@
                                 <button class="btn btn-outline-secondary"
                                         type="button"
                                         th:onclick="'window.location.href=\'' + @{/accounts(sort='Moderators')} + '\''">Moderators</button>
-
                             </div>
                         </div>
                     </div>
@@ -58,11 +58,36 @@
                                 <div class="user-details float-left ml-2">
                                     <a th:href="${'/accounts/' + account.id}"
                                        class="text-info" th:text="${account.name}"></a>
-
                                 </div>
                                 <div class="user-tags"></div>
                             </div>
                         </div>
+                    </div>
+                    <div th:if="${accounts.getTotalPages() > 1}" class="pagination float-left ml-4 my-4">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(1, accounts.getTotalPages())}"
+                                    th:classappend="${accounts.getNumber() == i - 1} ? active"
+                                    th:with="currentUrl=(${@currentUrlWithoutParam.apply('page')})">
+                                    <a th:href="@{${currentUrl}(page=${i}-1)}"
+                                       th:text="${i}"
+                                       class="page-link"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div th:if="${accounts.getTotalPages() > 1}" class="pagination float-right mr-4 my-4">
+                        <nav aria-label="Accounts per page">
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item"
+                                    th:each="i: ${#numbers.sequence(50, 80, 15)}"
+                                    th:classappend="${accounts.getSize() == i} ? active">
+                                    <a class="page-link" th:href="@{''(size=${i})}" th:text="${i}"></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="align-self-center small text-muted ml-2">per page</div>
                     </div>
                 </div>
             </div>

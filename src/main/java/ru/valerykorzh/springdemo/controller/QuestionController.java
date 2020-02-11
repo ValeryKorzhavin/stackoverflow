@@ -3,10 +3,7 @@ package ru.valerykorzh.springdemo.controller;
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
+import ru.valerykorzh.springdemo.controller.exception.TagNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 import ru.valerykorzh.springdemo.dto.mapper.QuestionMapper;
@@ -66,6 +64,18 @@ public class QuestionController {
                 .stream()
                 .filter(service -> service.isSuitableFor(questionSortType))
                 .findFirst()).ifPresent(service -> model.addAttribute("questions", service.sort(pageable)));
+
+        return "question/list";
+    }
+
+    @GetMapping("/tagged/{tagName}")
+    public String taggedQuestions(@PathVariable String tagName, Model model,
+                                  @PageableDefault(
+                                          sort = {"id"},
+                                          direction = Sort.Direction.DESC,
+                                          size = 5) Pageable pageable) {
+        Tag tag = tagService.findByName(tagName).orElseThrow(() -> new TagNotFoundException(tagName));
+//        tag.getQuestions();
 
         return "question/list";
     }

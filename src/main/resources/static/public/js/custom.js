@@ -94,6 +94,26 @@ $(document).ready(function () {
 //            window.location.href =
 //        });
 
+        var search = function(pattern) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/accounts', true);
+            xhr.setRequestHeader(header, token);
+            xhr.send();
+        };
+
+        var timeout = null;
+
+        $('.account-search').find('input#search').on('keyup', function(event) {
+            var that = this;
+            if (timeout != null) {
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(function() {
+                search();
+                console.log($(that).val());
+            }, 500);
+        });
+
 });
 
 
