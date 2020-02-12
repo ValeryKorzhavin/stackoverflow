@@ -1,22 +1,29 @@
 package ru.valerykorzh.springdemo.dto.mapper;
 
 import org.mapstruct.*;
+import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.domain.Tag;
+import ru.valerykorzh.springdemo.dto.AccountDto;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 import ru.valerykorzh.springdemo.service.TagService;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
 
     @Mappings({
+        @Mapping(target = "tags", ignore = true)
+    })
+    QuestionDto toQuestionDto(Question question);
+
+    @Mappings({
         @Mapping(target = "tags", ignore = true),
         @Mapping(target = "answers", ignore = true),
-        @Mapping(target = "author", ignore = true),
-        @Mapping(target = "positiveVotes", ignore = true),
-        @Mapping(target = "negativeVotes", ignore = true)
+//        @Mapping(target = "positiveVotes", ignore = true),
+//        @Mapping(target = "negativeVotes", ignore = true)
     })
     Question toQuestion(QuestionDto questionDto, @Context TagService tagService);
 
@@ -25,6 +32,12 @@ public interface QuestionMapper {
         Arrays.stream(questionDto.getTags().split("\\s+"))
                 .forEach(tag -> tagService.findByName(tag)
                 .ifPresentOrElse(question::addTag, () -> question.addTag(new Tag(tag))));
+    }
+
+    @BeforeMapping
+    default void mapToDto(Question question, @MappingTarget QuestionDto questionDto) {
+        String tags = question.getTags().stream().map(Object::toString).collect(Collectors.joining(" "));
+        questionDto.setTags(tags);
     }
 
 }

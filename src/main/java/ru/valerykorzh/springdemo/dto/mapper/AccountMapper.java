@@ -2,15 +2,28 @@ package ru.valerykorzh.springdemo.dto.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.Named;
 import ru.valerykorzh.springdemo.domain.Account;
+import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.dto.AccountDto;
 import ru.valerykorzh.springdemo.dto.AccountPostDto;
+import ru.valerykorzh.springdemo.dto.QuestionDto;
 
 @Mapper(componentModel = "spring")
 public interface AccountMapper {
 
+//    @Mapping(target = "questions", qualifiedByName = "questionsToQuestionsDto")
     AccountDto toAccountDto(Account account);
 
+//    @Named("questionsToQuestionsDto")
+//    @Mapping(target = "author", expression = "java(null)")
+//    QuestionDto toQuestionsDto(Question question);
+
+//    @Mappings({
+//            @Mapping(target = "questions", ignore = true),
+//            @Mapping(target = "password", ignore = true)
+//    })
     Account toAccount(AccountDto accountDto);
 
     @Mapping(target = "id", ignore = true)

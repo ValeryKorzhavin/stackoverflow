@@ -1,11 +1,14 @@
 package ru.valerykorzh.springdemo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import ru.valerykorzh.springdemo.domain.Question;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -25,4 +28,6 @@ public class AccountDto {
     @Email(message = "Invalid email")
     private String email;
 
+//    @JsonIgnoreProperties("author")
+//    private Set<QuestionDto> questions;
 }

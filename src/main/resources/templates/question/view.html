@@ -68,11 +68,11 @@
                                        th:text="${tag.name}"></a>
                                 </div>
                             </div>
-<!--                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">-->
+                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">
                                 <div class="edit-question text-muted small" th:attr="data-question-id=${question.id}">
-                                    improve this question
+                                    edit question
                                 </div>
-<!--                            </a>-->
+                            </a>
                             <div class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
                                      th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
@@ -126,11 +126,15 @@
                                 </div>
 
                                 <div class="answer-content w-100">
-                                    <div th:text="${answer.content}"></div>
+                                    <div class="answer-body" th:text="${answer.content}"></div>
 
                                     <a class="float-left" th:href="${'/answers/edit/' + answer.id}">
-                                        <div class="text-muted small">improve this answer</div>
+                                        <div class="edit-answer text-muted small"
+                                             th:attr="data-answer-id=${answer.id}">
+                                            improve this answer
+                                        </div>
                                     </a>
+
                                     <div class="user-info float-right w-25">
                                         <div class="text-muted small user-action-time"
                                              th:text="'answered ' + ${answer.getFormattedDate(answer.createdDate, 'd MMM yy hh:mm')}">
@@ -166,9 +170,10 @@
                         </div>
                     </div>
 
-                    <form action="#" th:action="@{'/answers'(questionId=${question.id})}"
+                    <form action="#" th:action="@{/answers}"
                           method="post" th:object="${answer}">
                         <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{question}">
                         <div class="form-group">
                             <label for="answer-body" th:text="#{answer.form.title}">Your Answer</label>
                             <textarea class="form-control" th:field="*{content}" name="content"

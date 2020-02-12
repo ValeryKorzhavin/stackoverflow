@@ -15,6 +15,7 @@ import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.TagNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
+import ru.valerykorzh.springdemo.dto.AnswerDto;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 import ru.valerykorzh.springdemo.dto.mapper.QuestionMapper;
 import ru.valerykorzh.springdemo.repository.spec.QuestionSpecifications;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Consumer;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
 
@@ -108,10 +110,13 @@ public class QuestionController {
     public String findById(@PathVariable Long id, Model model, Principal principal) {
         Question question = questionService
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("questionId not exists"));
+                .orElseThrow(() -> new QuestionNotFoundException(id));
 
         model.addAttribute("question", question);
-        model.addAttribute("answer", new Answer());
+        Answer answer = new Answer();
+        answer.setQuestion(question);
+        model.addAttribute("answer", answer);
+//        model.addAttribute("answer", new Answer());
 
         return "question/view";
     }
@@ -142,13 +147,30 @@ public class QuestionController {
         return Collections.singletonMap("rating", rating);
     }
 
-    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Map editQuestion(@PathVariable Long id, @RequestBody EditQuestionRequestBody body) {
+//    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+//    public Map editQuestion(@PathVariable Long id, @RequestBody EditQuestionRequestBody body) {
+//        Question question = questionService.findById(id).orElseThrow(() -> new QuestionNotFoundException(id));
+//        question.setBody(body.getBody());
+//        questionService.save(question);
+//        return Collections.singletonMap("body", body.getBody());
+//    }
+
+    @GetMapping("/edit/{id}")
+    public String getEditForm(@PathVariable Long id, Model model) {
         Question question = questionService.findById(id).orElseThrow(() -> new QuestionNotFoundException(id));
-        question.setBody(body.getBody());
-        questionService.save(question);
-        return Collections.singletonMap("body", body.getBody());
+        model.addAttribute("questionDto", questionMapper.toQuestionDto(question));
+
+        return "question/edit";
+    }
+
+    @PutMapping
+    public String editQuestion(@Valid @ModelAttribute QuestionDto questionDto) {
+        Long updatedQuestionId = questionService
+                .save(questionMapper.toQuestion(questionDto, tagService))
+                .getId();
+
+        return String.format("redirect:%s/%d", QUESTIONS_PATH, updatedQuestionId);
     }
 
     @DeleteMapping("/{id}")

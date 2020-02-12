@@ -132,90 +132,95 @@ $(document).ready(function () {
 
 
 
-        $('.edit-question').on('click', function() {
-            var question = $(this);
-            var id = question.attr('data-question-id');
-
-            var parent = $(this).parents('.content');
-        	var text = $(this).parents('.content').find('.question-body').text();
-
-        	var before = $("<div></div>").addClass('question-body');
-//        	var editForm = $("<di><>").addClass('form-group')
-            var editForm = $("<form action='#' class='edit-form'><div class='form-group'>"+
-                "<textarea class='form-control edit-area' cols='30' " +
-                "rows='5' name='text'>"+text+"</textarea></div><button type='submit' "+
-                "class='save-changes btn btn-primary btn-sm mr-1'>save</button>"+
-                "<button type='button' class='btn-sm cancel-edit btn btn-secondary'>cancel</button></form>");
-
-        	$(this).parents('.content').find('.question-body').replaceWith(editForm);
-
-//            var saveButton = $("<button type='button' class='save-changes btn btn-primary btn-sm mr-1'>save</button>");
-//            var cancelButton = $("<button type='button' class='btn-sm cancel-edit btn btn-secondary'>cancel</button>");
-
-            editForm.on('submit', function(event) {
-                event.preventDefault();
-                var formData = new FormData(event.target);
-                var changedBody = formData.get('text');
-                var xhr = new XMLHttpRequest();
-                xhr.open('PATCH', '/questions/' + id, true);
-                xhr.setRequestHeader(header, token);
-                xhr.setRequestHeader("Content-Type", "application/json")
-                xhr.send(JSON.stringify({body: changedBody}));
-//                xhr.send(formData);
-
-                xhr.onreadystatechange = function() {
-                    if (this.readyState != 4) return;
-                    if (xhr.status != 200) {
-                    } else {
-                        var modified = JSON.parse(xhr.responseText).body;
-                        parent.find('.edit-form').replaceWith(before.text(modified));
-                    }
-                }
-//                console.log($(this).serializeArray());
-            });
-
-//        	parent.on('click', '.save-changes', function(event) {
-//        	    event.preventDefault();
+//        $('.edit-question').on('click', function() {
+//            var question = $(this);
+//            var id = question.attr('data-question-id');
+//
+//            var parent = $(this).parents('.content');
+//        	var text = $(this).parents('.content').find('.question-body').text();
+//
+//        	var before = $("<div></div>").addClass('question-body');
+//            var editForm = $("<form action='#' class='edit-form'><div class='form-group'>"+
+//                "<textarea class='form-control edit-area' cols='30' " +
+//                "rows='5' name='text'>"+text+"</textarea></div><button type='submit' "+
+//                "class='save-changes btn btn-primary btn-sm mr-1'>save</button>"+
+//                "<button type='button' class='btn-sm cancel-edit btn btn-secondary'>cancel</button></form>");
+//
+//        	$(this).parents('.content').find('.question-body').replaceWith(editForm);
+//
+//            editForm.on('submit', function(event) {
+//                event.preventDefault();
 //                var formData = new FormData(event.target);
-//        	    console.log(formData);
-//        	    console.log(editForm.serializeArray());
-//        	    console.log(editForm.find('.edit-area').text());
-
-
-//        	    var xhr = new XMLHttpRequest();
+//                var changedBody = formData.get('text');
+//                var xhr = new XMLHttpRequest();
 //                xhr.open('PATCH', '/questions/' + id, true);
 //                xhr.setRequestHeader(header, token);
-//
-//                var changedBody = null;
-//
-//                xhr.send({body: changedBody});
-//
+//                xhr.setRequestHeader("Content-Type", "application/json")
+//                xhr.send(JSON.stringify({body: changedBody}));
 //
 //                xhr.onreadystatechange = function() {
 //                    if (this.readyState != 4) return;
 //                    if (xhr.status != 200) {
-//
 //                    } else {
 //                        var modified = JSON.parse(xhr.responseText).body;
 //                        parent.find('.edit-form').replaceWith(before.text(modified));
 //                    }
 //                }
+//            });
 //
-//                console.log('save changes');
-
-
+//        	parent.on('click', '.cancel-edit', function(event) {
+//                parent.find('.edit-form').replaceWith(before.text(text));
+//                console.log('cancel edit');
 //                event.stopPropagation();
-//        	});
-
-        	parent.on('click', '.cancel-edit', function(event) {
-//                parent.find('.edit-form').replaceWith("<div class='question-body'>"+text+"<div>")
-                parent.find('.edit-form').replaceWith(before.text(text));
-                console.log('cancel edit');
-                event.stopPropagation();
-            });
-
-
-        });
+//            });
+//        });
+//
+//        $('.edit-answer').on('click', function() {
+//
+//            var answer = $(this);
+//            var id = answer.attr('data-answer-id');
+//
+//            var parent = $(this).parents('.answer-content');
+//            var text = $(this).parents('.answer-content').find('.answer-body').text();
+//            console.log(text + '???');
+//
+//            var before = $("<div></div>").addClass('answer-body');
+//
+//            var answerEditForm = $("<form action='#' class='answer-edit-form'><div class='form-group'>"+
+//                "<textarea class='form-control edit-area' cols='30' " +
+//                "rows='5' name='text'>"+text+"</textarea></div><button type='submit' "+
+//                "class='answer-save-changes btn btn-primary btn-sm mr-1'>save</button>"+
+//                "<button type='button' class='btn-sm answer-cancel-edit btn btn-secondary'>cancel</button></form>");
+//
+//            $(this).parents('.answer-content').find('.answer-body').replaceWith(answerEditForm);
+//
+//            parent.on('click', '.answer-cancel-edit', function(event) {
+//                parent.find('.answer-edit-form').replaceWith(before.text(text));
+//                console.log('cancel edit');
+//                event.stopPropagation();
+//            });
+//
+//            answerEditForm.on('submit', function(event) {
+//                event.preventDefault();
+//                var formData = new FormData(event.target);
+//                var changedBody = formData.get('text');
+//                var xhr = new XMLHttpRequest();
+//                xhr.open('PATCH', '/answers/' + id, true);
+//                xhr.setRequestHeader(header, token);
+//                xhr.setRequestHeader("Content-Type", "application/json")
+//                xhr.send(JSON.stringify({body: changedBody}));
+//
+//                xhr.onreadystatechange = function() {
+//                    if (this.readyState != 4) return;
+//                    if (xhr.status != 200) {
+//                    } else {
+//                        modified = JSON.parse(xhr.responseText).body;
+//                        parent.find('.answer-edit-form').replaceWith(before.text(modified));
+//                    }
+//                }
+//            });
+//
+//        });
 
 
 });
