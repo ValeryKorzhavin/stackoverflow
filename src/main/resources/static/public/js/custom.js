@@ -109,7 +109,7 @@ $(document).ready(function () {
                 clearTimeout(timeout);
             }
             timeout = setTimeout(function() {
-                search();
+                search(); 
                 console.log($(that).val());
             }, 500);
         });
