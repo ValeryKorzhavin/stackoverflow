@@ -142,7 +142,7 @@
                                          th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                                     </div>
 
-                                    <div th:if="${question.author.avatar}" class="user-gravatar float-left mr-2">
+                                    <div th:if="${question.author.avatar}" class="user-gravatar gravatar-32 float-left mr-2">
                                         <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
                                              th:alt="${'user-avatar-' + question.author.id}">
                                     </div>

@@ -4,19 +4,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import ru.valerykorzh.springdemo.domain.Account;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,6 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.*;
 
 @RunWith(SpringRunner.class)
@@ -79,16 +90,13 @@ class AccountControllerTest extends AbstractControllerTest {
     @WithMockUser
     @Test
     public void getAccounts() throws Exception {
-        when(accountService.findAll())
-                .thenReturn(Arrays.asList(
+        given(accountService.findAll(any(Pageable.class))).willAnswer(invocationOnMock -> {
+            Pageable pageable = invocationOnMock.getArgument(0);
+            List<Account> users = Arrays.asList(
                 createAccountWithId(EXISTED_USER_ID, DEFAULT_USER_NAME, DEFAULT_USER_EMAIL),
-                createAccountWithId(EXISTED_USER_ID + 1, DEFAULT_USER_NAME + 1, "testAccounts1@mail.com")));
-
-        mvc.perform(get(ACCOUNTS_PATH))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(CONTENT_TYPE))
-            .andExpect(content().string(containsString(DEFAULT_USER_NAME)))
-            .andExpect(content().string(containsString(DEFAULT_USER_NAME + 1)));
+                createAccountWithId(EXISTED_USER_ID + 1, DEFAULT_USER_NAME + 1, "testAccounts1@mail.com"));
+            return new PageImpl<Account>(users, pageable, users.size());
+        });
     }
 
     @WithMockUser

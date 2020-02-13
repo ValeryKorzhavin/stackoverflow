@@ -18,6 +18,7 @@ import ru.valerykorzh.springdemo.dto.AccountDto;
 import ru.valerykorzh.springdemo.dto.mapper.AccountMapper;
 import ru.valerykorzh.springdemo.service.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -59,11 +60,6 @@ public class AccountController {
                 .filter(service -> service.isSuitableFor(accountSortType))
                 .findFirst()).ifPresent(service -> model.addAttribute("accounts", service.sort(pageable)));
 
-
-//        List<Account> accounts = accountService.findAll();
-
-//        model.addAttribute("accounts", accounts);
-
         return "account/list";
     }
 
@@ -72,12 +68,21 @@ public class AccountController {
         Account account = accountService.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
 
         model.addAttribute("account", account);
+        model.addAttribute("profile", "view");
 
-        return "account/view";
+        return "account/profile";
+    }
+
+    @GetMapping("/activity/{id}")
+    public String profileActivity(@PathVariable Long id, Model model) {
+        Account account = accountService.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
+        model.addAttribute("profile", "activity");
+        model.addAttribute("account", account);
+        return "account/activity";
     }
 
     @PutMapping
-    public String updateAccount(@ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
+    public String updateAccount(@Valid @ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             imageService.findById(account.getAvatar().getId())
                 .ifPresent(image -> {
@@ -91,13 +96,13 @@ public class AccountController {
         }
 
         accountService.save(account);
-        Long id = account.getId();
-        return String.format("redirect:/accounts/%d", id);
+        return String.format("redirect:%s/%d", ACCOUNTS_PATH, account.getId());
     }
 
     @GetMapping("/edit/{id}")
     @PreAuthorize("authentication.principal.id.equals(#id)") // or hasRole('ROLE_ADMIN')
     public String getEditAccountForm(@PathVariable Long id, Model model) {
+        model.addAttribute("profile", "edit");
 
         Account account = accountService
                 .findById(id)

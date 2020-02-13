@@ -67,16 +67,23 @@ a:hover {
     border-top: 15px solid #bbc0c4;
 }
 
-.user-gravatar img {
+.user-gravatar.gravatar-50 img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     object-position: 0 0;
 }
 
-.account-view .user-avatar img {
-    width: 200px;
-    height: 200px;
+.user-avatar img {
+    width: 164px;
+    height: 164px;
+    object-fit: cover;
+    object-position: 0 0;
+}
+
+.user-gravatar.gravatar-32 img {
+    width: 32px;
+    height: 32px;
     object-fit: cover;
     object-position: 0 0;
 }
@@ -84,4 +91,14 @@ a:hover {
 .left-sidebar li.nav-item.active {
     border-width: 3px !important;
     background: #eff0f1;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }

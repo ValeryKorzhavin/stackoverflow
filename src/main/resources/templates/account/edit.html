@@ -21,25 +21,69 @@
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
-                <div class="content">
-                    <div class="content-header mt-4 mx-4">
-                        <div class="h4 font-weight-normal" th:text="${account.name}"></div>
+                <div class="content mx-4 mt-4">
+                    <div th:replace="~{fragments/profile-tabs :: profile-tabs}"></div>
+                    <div class="h4 font-weight-normal border-bottom pb-3 mt-3">Edit your profile</div>
+                    <div class="edit-form mt-4">
                         <form th:action="@{'/accounts'}"
                               class="form"
                               enctype="multipart/form-data"
                               th:method="put" th:object="${account}">
                             <input type="hidden" th:field="*{id}">
+                            <input type="hidden" th:field="*{password}">
+<!--                            Hardcode password must not be sent use Dto-->
                             <input type="hidden" th:field="*{avatar.id}">
-                            <div class="form-group">
-                                <input class="form-control" type="file" name="file">
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <div class="avatar-card py-3 px-2 text-center rounded border">
+                                        <div th:if="${account.avatar}" class="user-avatar mb-1">
+                                            <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}"
+                                                 class="user-avatar-image"
+                                                 th:alt="${'user avatar ' + account.id}">
+                                        </div>
+                                        <label class="custom-file-upload btn btn-primary mb-0"
+                                               for="profile-picture">Upload new picture</label>
+                                        <input class="form-control" id="profile-picture"
+                                               type="file" name="file" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-8">
+                                    <div class="form-group">
+                                    <label for="profile-name" class="small">Display name</label>
+                                    <input type="text" th:field="*{name}" id="profile-name"
+                                           name="user_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="profile-email" class="small">Email</label>
+                                    <input type="email" th:field="*{email}" name="user_email"
+                                           class="form-control" id="profile-email">
+                                    </div>
+                                    <div class="form-group">
+                                    <label for="profile-location" class="small">Location</label>
+                                    <input type="text" name="user_location"
+                                           class="form-control" id="profile-location">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="text" th:field="*{name}" name="user_name" class="form-control">
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="profile-about">About me</label>
+                                    <textarea id="profile-about" name="user_about"
+                                              rows="7" class="form-control"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="email" th:field="*{email}" name="user_email"
-                                       class="form-control"></div>
-                            <button type="submit" name="submit" id="submit" class="btn btn-primary">send</button>
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <button type="submit" name="submit"
+                                            class="btn btn-primary form-control">Save Profile</button>
+                                </div>
+                                <div class="form-group col-md-2 align-self-center">
+                                    <a th:href="${'/accounts/' + account.id}">cancel</a>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -78,7 +78,7 @@
                                      th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                                 </div>
                                 <div th:if="${question.author.avatar}"
-                                     class="user-gravatar float-left mr-2">
+                                     class="user-gravatar gravatar-32 float-left mr-2">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
                                          th:alt="${'user-avatar-' + question.author.id}">
                                 </div>
@@ -94,7 +94,7 @@
 
                                 </div>
                                 <div th:if="${question.lastModifiedBy.avatar}"
-                                     class="user-gravatar float-left mr-2">
+                                     class="user-gravatar gravatar-32 float-left mr-2">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${question.lastModifiedBy.avatar.data}}"
                                          th:alt="${'user-avatar-' + question.lastModifiedBy.id}">
                                 </div>
@@ -140,7 +140,7 @@
                                              th:text="'answered ' + ${answer.getFormattedDate(answer.createdDate, 'd MMM yy hh:mm')}">
                                         </div>
                                         <div th:if="${answer.author.avatar}"
-                                             class="user-gravatar float-left mr-2">
+                                             class="user-gravatar gravatar-32 float-left mr-2">
                                             <img th:src="@{'data:image/jpeg;base64,' + ${answer.author.avatar.data}}"
                                                  th:alt="${'user-avatar-' + answer.author.id}">
                                         </div>
@@ -156,7 +156,7 @@
 
                                         </div>
                                         <div th:if="${answer.lastModifiedBy.avatar}"
-                                             class="user-gravatar float-left mr-2">
+                                             class="user-gravatar gravatar-32 float-left mr-2">
                                             <img th:src="@{'data:image/jpeg;base64,' + ${answer.lastModifiedBy.avatar.data}}"
                                                  th:alt="${'user-avatar-' + answer.lastModifiedBy.id}">
                                         </div>

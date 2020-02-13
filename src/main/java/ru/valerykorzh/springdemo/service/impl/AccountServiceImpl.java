@@ -68,7 +68,7 @@ public class AccountServiceImpl implements AccountService {
             return accountRepository.save(accountToPut);
         }
 
-        int avatarSize = 40;
+        int avatarSize = 164;
 
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -92,8 +92,8 @@ public class AccountServiceImpl implements AccountService {
 
             account.setAvatar(avatar);
             account.addRole(Role.USER);
-            account.addRole(Role.MODERATOR);
-            account.addRole(Role.ADMIN);
+//            account.addRole(Role.MODERATOR);
+//            account.addRole(Role.ADMIN);
         } catch (NoSuchAlgorithmException ex) {
             throw new RuntimeException(ex);
         }

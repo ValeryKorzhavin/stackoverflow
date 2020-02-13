@@ -109,9 +109,14 @@ $(document).ready(function () {
                 clearTimeout(timeout);
             }
             timeout = setTimeout(function() {
-                search(); 
+                search();
                 console.log($(that).val());
             }, 500);
+        });
+
+        $('#profile-picture').on('change', function(event) {
+        	var image = $('.user-avatar-image');
+        	image.attr('src', URL.createObjectURL(event.target.files[0]))
         });
 
 //        $('.edit-question').on('click', function() {

@@ -22,16 +22,21 @@
                 <div th:replace="~{fragments/sidebar :: sidebar}"></div>
             </div>
             <div class="col-md-10 col-lg-8 col-xl-7 bg-white border p-0 h-auto">
-                <div class="account-view content">
-                    <div class="content-header mt-4 mx-4">
-                        <div class="h4 font-weight-normal" th:text="${account.name}"></div>
-                        <div class="h4 font-weight-normal" th:text="${account.email}"></div>
-                        <div class="h4 font-weight-normal" th:text="${account.roles}"></div>
-                        <div th:if="${account.avatar}" class="user-avatar">
-                            <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}" alt="">
+                <div class="content mx-4 mt-4">
+                    <div th:replace="~{fragments/profile-tabs :: profile-tabs}"></div>
+                    <div class="account-view d-flex p-4">
+                        <div class="avatar-card p-3 rounded border">
+                            <div th:if="${account.avatar}" class="user-avatar">
+                                <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}" alt="">
+                            </div>
                         </div>
-                        <div th:if="${#authentication.getPrincipal().getUsername() == account.email}">
-                            <a th:href="${'/accounts/edit/' + account.id}" class="btn btn-primary">edit account</a>
+                        <div class="profile ml-3">
+                            <div class="content-header">
+                                <div class="h2" th:text="${account.name}"></div>
+                            </div>
+                            <div th:if="${#authentication.getPrincipal().getUsername() == account.email}">
+                                <a th:href="${'/accounts/edit/' + account.id}">Click here to edit</a>
+                            </div>
                         </div>
                     </div>
                 </div>

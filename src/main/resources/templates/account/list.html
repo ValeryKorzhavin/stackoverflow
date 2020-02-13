@@ -51,7 +51,7 @@
                     <div class="user-browser m-4">
                         <div class="d-flex flex-wrap">
                             <div class="user-info w-25 mb-4" th:each="account : ${accounts}">
-                                <div th:if="${account.avatar}" class="user-gravatar float-left">
+                                <div th:if="${account.avatar}" class="user-gravatar gravatar-50 float-left">
                                     <img th:src="@{'data:image/jpeg;base64,' + ${account.avatar.data}}"
                                         src="#" th:alt="${account.name}" alt="avatar">
                                 </div>

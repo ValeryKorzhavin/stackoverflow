@@ -33,13 +33,15 @@
                     <a href="/tags" class="nav-link">Tags</a>
                 </li>
             </ul>
-<!--            <form action="#" class="form-inline my-2 my-lg-0">-->
-<!--                <input type="search" placeholder="Search" aria-label="Search" class="form-control mr-sm-2">-->
-<!--            </form>-->
             <div class="ml-auto">
-                <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" class="form-inline">
+<!--                <a th:href="${'/accounts/' + #authentication.getPrincipal().getId()}"-->
+<!--                   sec:authorize="isAuthenticated()" class="btn btn-info mr-2">Profile</a>-->
+
+                <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()"
+                      class="form-inline d-inline-block">
                     <input type="submit" th:value="#{common.header.logout}" class="btn btn-primary"/>
                 </form>
+
                 <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-info mr-2">Log in</a>
                 <a sec:authorize="!isAuthenticated()" href="/registration" class="btn btn-primary">Sign up</a>
             </div>

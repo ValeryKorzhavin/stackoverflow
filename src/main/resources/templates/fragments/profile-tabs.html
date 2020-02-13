@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="ru">
+<body>
+    <ul class="nav nav-tabs mt-3" th:fragment="profile-tabs">
+        <li class="nav-item">
+        <a class="nav-link"
+           th:href="${'/accounts/' + account.id}"
+           th:classappend="${profile == 'view' ? 'active' : ''}">Profile</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link"
+           th:href="${'/accounts/activity/' + account.id}"
+           th:classappend="${profile == 'activity' ? 'active' : ''}">Activity</a>
+        </li>
+        <li class="nav-item" th:if="${#authentication.getPrincipal().getUsername() == account.email}">
+            <a class="nav-link" th:href="${'/accounts/edit/' + account.id}"
+               th:classappend="${profile == 'edit' ? 'active' : ''}">Edit profile</a>
+        </li>
+    </ul>
+</body>
+</html>

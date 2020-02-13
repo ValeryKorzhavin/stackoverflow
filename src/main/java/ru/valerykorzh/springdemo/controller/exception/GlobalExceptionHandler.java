@@ -28,5 +28,17 @@ public class GlobalExceptionHandler {
         return model;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleAllExceptions(Exception exception) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", exception.getMessage());
+        ModelAndView model = new ModelAndView();
+        model.addAllObjects(body);
+
+        model.setViewName(ERROR_PAGE);
+        return model;
+    }
+
 
 }
