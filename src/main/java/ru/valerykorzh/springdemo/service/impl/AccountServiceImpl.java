@@ -14,6 +14,7 @@ import ru.valerykorzh.springdemo.repository.AccountRepository;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.ImageService;
 
+import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +59,30 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findAll(pageable);
     }
 
+    public Image getAvatar(int avatarSize, String userEmail) {
+        Image avatar = new Image();
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(userEmail.getBytes());
+            byte[] digest = md.digest();
+            String hash = DatatypeConverter.printHexBinary(digest).toLowerCase();
+            String avatarSource = "https://www.gravatar.com/avatar/%s?d=identicon&s=%d";
+            String avatarUrl = String.format(avatarSource, hash, avatarSize);
+
+            try(InputStream is = new URL(avatarUrl).openStream()) {
+                String avatarData = Base64.getEncoder().encodeToString(is.readAllBytes());
+                avatar.setData(avatarData);
+            } catch (MalformedURLException ex) {
+                throw new RuntimeException("There is a problem while downloading image", ex);
+            } catch (IOException ioEx) {
+                throw new RuntimeException("Problem with saving image", ioEx);
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+        return avatar;
+    }
+
     @Override
     public Account save(Account account) {
         if (account.getId() != null) {
@@ -67,37 +92,10 @@ public class AccountServiceImpl implements AccountService {
             accountToPut.setRoles(account.getRoles());
             return accountRepository.save(accountToPut);
         }
-
         int avatarSize = 164;
-
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(account.getEmail().getBytes());
-            byte[] digest = md.digest();
-            String hash = DatatypeConverter.printHexBinary(digest).toLowerCase();
-            String avatarSource = "https://www.gravatar.com/avatar/%s?d=identicon&s=%d";
-            String avatarUrl = String.format(avatarSource, hash, avatarSize);
-
-            Image avatar = new Image();
-
-            try(InputStream is = new URL(avatarUrl).openStream()) {
-                String avatarData = Base64.getEncoder().encodeToString(is.readAllBytes());
-                avatar.setData(avatarData);
-
-            } catch (MalformedURLException ex) {
-                throw new RuntimeException("There is a problem while downloading image", ex);
-            } catch (IOException ioEx) {
-                throw new RuntimeException("Problem with saving image", ioEx);
-            }
-
-            account.setAvatar(avatar);
-            account.addRole(Role.USER);
-//            account.addRole(Role.MODERATOR);
-//            account.addRole(Role.ADMIN);
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-        }
-
+        Image avatar = getAvatar(avatarSize, account.getEmail());
+        account.setAvatar(avatar);
+        account.addRole(Role.USER);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
         return accountRepository.save(account);
     }
