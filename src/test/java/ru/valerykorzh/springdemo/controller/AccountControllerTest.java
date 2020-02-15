@@ -148,6 +148,24 @@ class AccountControllerTest extends AbstractControllerTest {
 
     @WithMockUser
     @Test
+    public void getEditForm() throws Exception {
+        mvc.perform(get(String.format("%s/edit/%d", ACCOUNTS_PATH, EXISTED_USER_ID)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(CONTENT_TYPE))
+                .andExpect(content()
+                        .string(containsString(String.format("name=\"name\" value=\"%s\"", DEFAULT_USER_NAME))))
+                .andExpect(content()
+                        .string(containsString(String.format("name=\"email\" value=\"%s\"", DEFAULT_USER_EMAIL))));
+    }
+
+    @WithMockUser
+    @Test
+    public void putAccount() throws Exception {
+
+    }
+
+    @WithMockUser
+    @Test
     public void deleteAccount() throws Exception {
         doNothing().when(accountService).deleteById(any());
         mvc.perform(delete(ACCOUNTS_PATH + "/" + EXISTED_USER_ID).with(csrf()))

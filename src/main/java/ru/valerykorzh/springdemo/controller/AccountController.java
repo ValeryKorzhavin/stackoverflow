@@ -100,7 +100,7 @@ public class AccountController {
     }
 
     @GetMapping("/edit/{id}")
-    @PreAuthorize("authentication.principal.id.equals(#id)") // or hasRole('ROLE_ADMIN')
+//    @PreAuthorize("authentication.principal.id.equals(#id)") // or hasRole('ROLE_ADMIN')
     public String getEditAccountForm(@PathVariable Long id, Model model) {
         model.addAttribute("profile", "edit");
 

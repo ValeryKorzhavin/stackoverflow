@@ -20,8 +20,6 @@ public class QuestionDto extends Auditable<Account> {
 
     private String body;
 
-    private Integer rating;
-
     private String tags;
 
     private Account author;
