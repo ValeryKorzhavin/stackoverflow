@@ -1,15 +1,15 @@
 package ru.valerykorzh.springdemo.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 
 @Getter
 @Setter

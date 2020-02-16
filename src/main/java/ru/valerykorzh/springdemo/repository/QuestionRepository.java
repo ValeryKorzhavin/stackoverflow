@@ -27,7 +27,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long>, JpaSp
     )
     Page<Question> findAllSortByLastActive(Pageable pageable);
 
-    @Query("SELECT q FROM Question q ORDER BY q.positiveVotes.size - q.negativeVotes.size DESC")
+    @Query("SELECT q FROM Question q ORDER BY SIZE(q.positiveVotes) - SIZE(q.negativeVotes) DESC")
     Page<Question> findAllSortByMostVotes(Pageable pageable);
 
 }

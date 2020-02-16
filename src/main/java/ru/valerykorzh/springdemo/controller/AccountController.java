@@ -82,7 +82,10 @@ public class AccountController {
     }
 
     @PutMapping
-    public String updateAccount(@Valid @ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
+    public String updateAccount(@ModelAttribute Account account, @RequestParam("file") MultipartFile file) {
+        System.out.println("??????????????????????????????");
+        System.out.println(account);
+
         if (!file.isEmpty()) {
             imageService.findById(account.getAvatar().getId())
                 .ifPresent(image -> {
@@ -108,6 +111,8 @@ public class AccountController {
                 .findById(id)
                 .orElseThrow(() -> new AccountNotFoundException(id));
 
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(account);
         model.addAttribute("account", account);
 
         return "account/edit";

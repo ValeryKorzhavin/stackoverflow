@@ -9,6 +9,9 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+
 @Getter
 @Setter
 @Entity

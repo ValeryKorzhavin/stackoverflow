@@ -2,7 +2,10 @@ package ru.valerykorzh.springdemo.controller;
 
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
@@ -10,6 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.DataBinder;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
@@ -17,11 +23,15 @@ import ru.valerykorzh.springdemo.controller.exception.TagNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
 import ru.valerykorzh.springdemo.dto.AnswerDto;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
+import ru.valerykorzh.springdemo.dto.mapper.AnswerMapper;
 import ru.valerykorzh.springdemo.dto.mapper.QuestionMapper;
+import ru.valerykorzh.springdemo.dto.mapper.TagMapper;
 import ru.valerykorzh.springdemo.repository.spec.QuestionSpecifications;
 import ru.valerykorzh.springdemo.service.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -38,7 +48,26 @@ public class QuestionController {
     private final AccountService accountService;
     private final TagService tagService;
     private final QuestionMapper questionMapper;
+    private final TagMapper tagMapper;
+    private final AnswerMapper answerMapper;
     private final List<QuestionSortService> questionSortServices;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Set.class, "tags", new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String tags) {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                System.out.println(tags);
+                Set<Tag> tagSet = new HashSet<>();
+                    Arrays.stream(tags.split("\\s+"))
+                            .forEach(tag -> tagService.findByName(tag)
+                                    .ifPresentOrElse(tagSet::add, () -> tagSet.add(new Tag(tag))));
+//                setValue(tagMapper.toTagsDto(tagSet));
+                setValue(tagSet);
+            }
+        });
+    }
 
     @ModelAttribute("module")
     public String module() {
@@ -86,6 +115,7 @@ public class QuestionController {
     @GetMapping("/new")
     public String askQuestion(Model model) {
 
+//        model.addAttribute("questionDto", new QuestionDto());
         model.addAttribute("questionDto", new QuestionDto());
 
         return "question/new";
@@ -98,8 +128,9 @@ public class QuestionController {
                 .findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("User with this email not found: " + userEmail));
 
-        Question question = questionMapper.toQuestion(questionDto, tagService);
-
+        Question question = questionMapper.toQuestion(questionDto);
+        System.out.println("???????????????????????????????????????");
+        System.out.println(question);
         question.setAuthor(author);
         questionService.save(question);
 
@@ -112,11 +143,19 @@ public class QuestionController {
                 .findById(id)
                 .orElseThrow(() -> new QuestionNotFoundException(id));
 
-        model.addAttribute("question", question);
+        QuestionDto questionDto = questionMapper.toQuestionDto(question);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(questionDto);
+        model.addAttribute("questionDto", questionDto);
+
         Answer answer = new Answer();
-        answer.setQuestion(question);
-        model.addAttribute("answer", answer);
-//        model.addAttribute("answer", new Answer());
+//        answer.setQuestion(question);
+        AnswerDto answerDto = answerMapper.toAnswerDto(answer);
+        answerDto.setQuestion(questionMapper.toQuestionDto(question));
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(answerDto);
+
+        model.addAttribute("answerDto", answerDto);
 
         return "question/view";
     }
@@ -167,7 +206,7 @@ public class QuestionController {
     @PutMapping
     public String editQuestion(@Valid @ModelAttribute QuestionDto questionDto) {
         Long updatedQuestionId = questionService
-                .save(questionMapper.toQuestion(questionDto, tagService))
+                .save(questionMapper.toQuestion(questionDto))
                 .getId();
 
         return String.format("redirect:%s/%d", QUESTIONS_PATH, updatedQuestionId);

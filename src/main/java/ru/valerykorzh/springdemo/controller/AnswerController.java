@@ -50,15 +50,22 @@ public class AnswerController {
     }
 
     @PostMapping
-    public String createAnswer(@Valid @ModelAttribute Answer answer,
+    public String createAnswer(@Valid @ModelAttribute AnswerDto answerDto,
                                Principal principal) {
+
+        System.out.println("?????????????????????????????????????????????????");
+        System.out.println(answerDto);
+
         String userEmail = principal.getName();
         Account author = accountService.findByEmail(userEmail)
                 .orElseThrow(() -> new AccountNotFoundException(userEmail));
 //        Question question = questionService.findById(id)
 //                .orElseThrow(() -> new QuestionNotFoundException(id));
 
-//        Answer answer = answerMapper.toAnswer(answerDto);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(answerDto.getQuestion());
+        Answer answer = answerMapper.toAnswer(answerDto);
+
         answer.setAuthor(author);
 //        answer.setQuestion(question);
         answerService.save(answer);

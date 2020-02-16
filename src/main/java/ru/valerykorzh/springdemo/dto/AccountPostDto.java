@@ -22,6 +22,7 @@ public class AccountPostDto {
     private String email;
 
     @NotBlank(message = "Password can't be empty")
+    @Size(message = "Password can't be less 6 characters", min = 6)
     private String password;
 
     @NotBlank(message = "Password confirm can't be empty")
