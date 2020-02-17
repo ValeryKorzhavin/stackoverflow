@@ -20,8 +20,8 @@
 
 		<!-- Code Coverage -->
 		<jacoco-maven-plugin.version>0.8.4</jacoco-maven-plugin.version>
-		<jacoco-maven-plugin.lines-coverage-ratio>10%</jacoco-maven-plugin.lines-coverage-ratio>
-		<jacoco-maven-plugin.methods-coverage-ratio>10%</jacoco-maven-plugin.methods-coverage-ratio>
+		<jacoco-maven-plugin.lines-coverage-ratio>5%</jacoco-maven-plugin.lines-coverage-ratio>
+		<jacoco-maven-plugin.methods-coverage-ratio>5%</jacoco-maven-plugin.methods-coverage-ratio>
 
 		<maven.build.timestamp.format>yyyyMMdd-HHmmssSSS</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
