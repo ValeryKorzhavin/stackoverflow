@@ -26,13 +26,10 @@ public class AnswerDto extends Auditable<Account> {
 
     private Boolean isAccepted;
 
-//    @JsonIgnoreProperties("answers")
     private Set<AccountDto> negativeVotes;
 
-//    @JsonIgnoreProperties("answers")
     private Set<AccountDto> positiveVotes;
 
-    @JsonIgnoreProperties("answers")
     private QuestionDto question;
 
 }

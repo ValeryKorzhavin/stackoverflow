@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.repository.TagRepository;
 import ru.valerykorzh.springdemo.service.TagService;
@@ -21,26 +22,31 @@ public class TagServiceImpl implements TagService {
     private final TagRepository tagRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Tag> findAll(Pageable pageable) {
         return tagRepository.findAll(pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Tag> findAll() {
         return tagRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Tag> findById(Long id) {
         return tagRepository.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Tag> findByName(String name) {
         return tagRepository.findByName(name);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Tag> findAllByMostPopular(Pageable pageable) {
         return tagRepository.findAllSortByMostPopular(pageable);
     }

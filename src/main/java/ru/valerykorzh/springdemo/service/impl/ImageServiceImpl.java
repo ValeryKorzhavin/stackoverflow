@@ -2,6 +2,7 @@ package ru.valerykorzh.springdemo.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.valerykorzh.springdemo.domain.Image;
 import ru.valerykorzh.springdemo.repository.ImageRepository;
 import ru.valerykorzh.springdemo.service.ImageService;
@@ -15,6 +16,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Image> findById(Long id) {
         return imageRepository.findById(id);
     }

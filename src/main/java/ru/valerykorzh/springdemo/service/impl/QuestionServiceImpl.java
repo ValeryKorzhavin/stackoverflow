@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.repository.QuestionRepository;
 import ru.valerykorzh.springdemo.service.QuestionService;
@@ -26,16 +27,19 @@ public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Question> findAll(Pageable pageable) {
         return questionRepository.findAll(pageable);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Question> findAll() {
         return questionRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Question> findById(Long id) {
         return questionRepository.findById(id);
     }

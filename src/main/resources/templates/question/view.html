@@ -27,8 +27,8 @@
                 <div class="content m-3 ">
                     <div class="d-flex question-header">
                         <div class="flex-grow-1 section-title mb-3">
-                            <a class="text-secondary h3" th:href="${'/questions/' + questionDto.id}"
-                               th:text="${questionDto.title}"></a>
+                            <a class="text-secondary h3" th:href="${'/questions/' + question.id}"
+                               th:text="${question.title}"></a>
                         </div>
                         <div class="ml-2">
                             <a class="btn btn-primary" th:text="#{question.action.new}"
@@ -38,7 +38,7 @@
                     <div class="question-details d-flex mb-3 border-bottom">
                         <div class="small mr-3 mb-2">
                             <span class="text-muted">Asked</span>
-                            <span th:text="${questionDto.getFormattedDate(questionDto.createdDate, 'd MMM yy hh:mm')}">
+                            <span th:text="${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                             </span>
                         </div>
                         <div class="small mr-3 mb-2">
@@ -50,70 +50,70 @@
                             38 times
                         </div>
                     </div>
-                    <div class="question d-flex mb-3" th:attr="data-question-id=${questionDto.id}">
+                    <div class="question d-flex mb-3" th:attr="data-question-id=${question.id}">
                         <div class="vote text-center mr-3">
                             <a href=""><div class="vote-up"></div></a>
                             <div class="vote-count my-3">
-                                <span th:text="${questionDto.getRating()}"
+                                <span th:text="${question.getRating()}"
                                       class="question_rating text-muted h5 font-weight-bold">
                                </span>
                             </div>
                             <a href=""><div class="vote-down"></div></a>
                         </div>
                         <div class="content w-100">
-                            <div class="question-body" th:text="${questionDto.body}"></div>
+                            <div class="question-body" th:text="${question.body}"></div>
                             <div class="d-flex tags-wrapper mb-3">
-                                <div th:each="tag : ${questionDto.tags}">
+                                <div th:each="tag : ${question.tags}">
                                     <a class="mr-1 bg-light small rounded p-1 text-info" th:href="${'/tags/' + tag.id}"
                                        th:text="${tag.name}"></a>
                                 </div>
                             </div>
-                            <a class="float-left" th:href="${'/questions/edit/' + questionDto.id}">
-                                <div class="edit-question text-muted small" th:attr="data-question-id=${questionDto.id}">
+                            <a class="float-left" th:href="${'/questions/edit/' + question.id}">
+                                <div class="edit-question text-muted small" th:attr="data-question-id=${question.id}">
                                     edit question
                                 </div>
                             </a>
                             <div class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
-                                     th:text="'asked ' + ${questionDto.getFormattedDate(questionDto.createdDate, 'd MMM yy hh:mm')}">
+                                     th:text="'asked ' + ${question.getFormattedDate(question.createdDate, 'd MMM yy hh:mm')}">
                                 </div>
-                                <div th:if="${questionDto.author.avatar}"
+                                <div th:if="${question.author.avatar}"
                                      class="user-gravatar gravatar-32 float-left mr-2">
-                                    <img th:src="@{'data:image/jpeg;base64,' + ${questionDto.author.avatar.data}}"
-                                         th:alt="${'user-avatar-' + questionDto.author.id}">
+                                    <img th:src="@{'data:image/jpeg;base64,' + ${question.author.avatar.data}}"
+                                         th:alt="${'user-avatar-' + question.author.id}">
                                 </div>
                                 <div class="user-details float-left small">
-                                    <a th:href="${'/accounts/' + questionDto.author.id}"
-                                       th:text="${questionDto.author.name}"></a>
+                                    <a th:href="${'/accounts/' + question.author.id}"
+                                       th:text="${question.author.name}"></a>
                                 </div>
                             </div>
-                            <div th:if="${questionDto.createdDate != questionDto.lastModifiedDate}"
+                            <div th:if="${question.createdDate != question.lastModifiedDate}"
                                  class="user-info float-right w-25">
                                 <div class="text-muted small user-action-time"
-                                     th:text="'edited ' + ${questionDto.getFormattedDate(questionDto.lastModifiedDate, 'd MMM yy hh:mm')}">
+                                     th:text="'edited ' + ${question.getFormattedDate(question.lastModifiedDate, 'd MMM yy hh:mm')}">
 
                                 </div>
-                                <div th:if="${questionDto.lastModifiedBy.avatar}"
+                                <div th:if="${question.lastModifiedBy.avatar}"
                                      class="user-gravatar gravatar-32 float-left mr-2">
-                                    <img th:src="@{'data:image/jpeg;base64,' + ${questionDto.lastModifiedBy.avatar.data}}"
-                                         th:alt="${'user-avatar-' + questionDto.lastModifiedBy.id}">
+                                    <img th:src="@{'data:image/jpeg;base64,' + ${question.lastModifiedBy.avatar.data}}"
+                                         th:alt="${'user-avatar-' + question.lastModifiedBy.id}">
                                 </div>
                                 <div class="user-details float-left small">
-                                    <a th:href="${'/accounts/' + questionDto.lastModifiedBy.id}"
-                                       th:text="${questionDto.lastModifiedBy.name}"></a>
+                                    <a th:href="${'/accounts/' + question.lastModifiedBy.id}"
+                                       th:text="${question.lastModifiedBy.name}"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div th:unless="${questionDto.answers.isEmpty()}">
+                    <div th:unless="${question.answers.isEmpty()}">
                         <div class="answers-header border-bottom mb-3">
                             <div class="mb-2 h5 text-muted"
-                                 th:text="${questionDto.answers.size()} + ' Answers'">
+                                 th:text="${question.answers.size()} + ' Answers'">
                             </div>
                         </div>
 
-                        <div th:each="answer : ${questionDto.answers}">
+                        <div th:each="answer : ${question.answers}">
                             <div class="answer d-flex mb-3 border-bottom pb-3" th:attr="data-answer-id=${answer.id}">
 
                                 <div class="vote text-center mr-3">
@@ -171,9 +171,9 @@
                     </div>
 
                     <form action="#" th:action="@{/answers}"
-                          method="post" th:object="${answerDto}">
+                          method="post" th:object="${answer}">
                         <input type="hidden" th:field="*{id}">
-                        <input type="hidden" th:field="*{question.id}">
+                        <input type="hidden" th:field="*{question}">
                         <div class="form-group">
                             <label for="answer-body" th:text="#{answer.form.title}">Your Answer</label>
                             <textarea class="form-control" th:field="*{content}" name="content"

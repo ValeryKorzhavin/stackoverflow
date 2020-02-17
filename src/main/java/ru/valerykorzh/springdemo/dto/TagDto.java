@@ -19,7 +19,6 @@ public class TagDto {
 
     private String description;
 
-    @JsonIgnoreProperties("tags")
     private Set<QuestionDto> questions;
 
 }

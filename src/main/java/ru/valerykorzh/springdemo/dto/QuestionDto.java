@@ -25,28 +25,15 @@ public class QuestionDto extends Auditable<Account> {
 
     private String body;
 
-    @JsonIgnoreProperties("questions")
-    private Set<Tag> tags;
+    private Set<TagDto> tags;
 
-    @JsonIgnoreProperties({"questions", "answers"})
-    private Account author;
+    private Set<AccountDto> positiveVotes;
 
-    private Set<Account> positiveVotes;
+    private Set<AccountDto> negativeVotes;
 
-    private Set<Account> negativeVotes;
+    @NotNull(message = "Account NOT NULL")
+    private AccountDto author;
 
-//    @NotNull(message = "Account NOT NULL")
-//    @JsonIgnoreProperties("questions")
-//    private AccountDto author;
-
-    @JsonIgnoreProperties("question")
     private List<AnswerDto> answers;
-
-    public Integer getRating() {
-        if (positiveVotes != null && negativeVotes != null) {
-            return positiveVotes.size() - negativeVotes.size();
-        }
-        return 0;
-    }
 
 }

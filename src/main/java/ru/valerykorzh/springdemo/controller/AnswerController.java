@@ -36,7 +36,6 @@ public class AnswerController {
 
     private final AnswerService answerService;
     private final AccountService accountService;
-    private final AnswerMapper answerMapper;
     @Qualifier("questionServiceImpl")
     private final QuestionService questionService;
 
@@ -50,66 +49,24 @@ public class AnswerController {
     }
 
     @PostMapping
-    public String createAnswer(@Valid @ModelAttribute AnswerDto answerDto,
+    public String createAnswer(@Valid @ModelAttribute Answer answer,
                                Principal principal) {
-
-        System.out.println("?????????????????????????????????????????????????");
-        System.out.println(answerDto);
 
         String userEmail = principal.getName();
         Account author = accountService.findByEmail(userEmail)
                 .orElseThrow(() -> new AccountNotFoundException(userEmail));
-//        Question question = questionService.findById(id)
-//                .orElseThrow(() -> new QuestionNotFoundException(id));
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(answerDto.getQuestion());
-        Answer answer = answerMapper.toAnswer(answerDto);
+        Long id = answer.getQuestion().getId();
+
+        Question question = questionService.findById(id)
+                .orElseThrow(() -> new QuestionNotFoundException(id));
 
         answer.setAuthor(author);
-//        answer.setQuestion(question);
+        answer.setQuestion(question);
         answerService.save(answer);
 
-        return String.format("redirect:/questions/%d", answer.getQuestion().getId());
+        return String.format("redirect:/questions/%d", id);
     }
-
-//    @PostMapping
-//    public String createAnswer(@Valid @ModelAttribute Answer answer,
-//                               @RequestParam("questionId") Long id,
-//                               Principal principal) {
-//
-//        String userEmail = principal.getName();
-//        Account author = accountService.findByEmail(userEmail)
-//                .orElseThrow(() -> new RuntimeException("This user email not found: " + userEmail));
-//        Question question = questionService.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Question id not found: " + id));
-//
-//
-//        if (answer.getId() != null) {
-//            Answer editedAnswer = answerService.findById(answer.getId())
-//                    .orElseThrow(() -> new RuntimeException("Error occurred: answer not found"));
-//            editedAnswer.setContent(answer.getContent());
-//            answerService.save(editedAnswer);
-//        } else {
-//            answer.setAuthor(author);
-//            answer.setQuestion(question);
-//            answerService.save(answer);
-//        }
-//
-//        return String.format("redirect:/questions/%d", id);
-//    }
-
-//    @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseBody
-//    public Map editAnswer(@PathVariable Long id, @RequestBody EditAnswerRequestBody body) {
-////        String userEmail = principal.getName();
-////        Account editor = accountService.findByEmail(userEmail).orElseThrow(() -> new AccountNotFoundException(userEmail));
-//        Answer answer = answerService.findById(id).orElseThrow(() -> new AnswerNotFoundException(id));
-//        answer.setContent(body.getBody());
-//        answerService.save(answer);
-//
-//        return Collections.singletonMap("body", body.getBody());
-//    }
 
     @PatchMapping(value = "/{id}/like", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -142,14 +99,13 @@ public class AnswerController {
         Answer answer = answerService.findById(id)
                 .orElseThrow(() -> new AnswerNotFoundException(id));
 
-        model.addAttribute("answer", answer);//answerMapper.toAnswerDto(answer));
+        model.addAttribute("answer", answer);
 
         return "answer/edit";
     }
 
     @PutMapping
     public String editAnswer(@Valid @ModelAttribute Answer answer) {
-//        Answer answer = answerMapper.toAnswer(answerDto);
         answerService.save(answer);
 
         return String.format("redirect:%s/%d", QUESTIONS_PATH, answer.getQuestion().getId());

@@ -8,8 +8,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
+//@Data
+//@EqualsAndHashCode(callSuper = true)
 
 @Getter
 @Setter

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Image;
 import ru.valerykorzh.springdemo.domain.Role;
@@ -35,26 +36,31 @@ public class AccountServiceImpl implements AccountService {
     private final ImageService imageService;
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Account> findById(Long id) {
         return accountRepository.findById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Account> findByEmail(String email) {
         return accountRepository.findOneByEmail(email);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Account> findByName(String name) {
         return accountRepository.findByName(name);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Account> findAll() {
         return accountRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Account> findAll(Pageable pageable) {
         return accountRepository.findAll(pageable);
     }

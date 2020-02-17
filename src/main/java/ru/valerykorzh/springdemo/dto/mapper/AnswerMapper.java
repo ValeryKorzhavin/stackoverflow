@@ -18,34 +18,18 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
 
-    @Mapping(target = "question", qualifiedByName = "questionToQuestionDto")
+    @Mappings({
+            @Mapping(target = "question.answers", ignore = true),
+            @Mapping(target = "question.author", ignore = true),
+            @Mapping(target = "author.answers", ignore = true),
+            @Mapping(target = "author.questions", ignore = true),
+    })
     AnswerDto toAnswerDto(Answer answer);
-
-    @Named("questionToQuestionDto")
-    QuestionDto toQuestionDto(Question question);
 
     List<AnswerDto> toAnswersDto(List<Answer> answers);
 
     List<Answer> toAnswers(List<AnswerDto> answersDto);
-//    @Mappings({
-//            @Mapping(target = "question", qualifiedByName = "questionDtoToQuestion"),
-//    })
+
     Answer toAnswer(AnswerDto answerDto);
-
-//    @Named("questionDtoToQuestion")
-//    Question toQuestion(QuestionDto questionDto);
-
-    default Set<Tag> map(String tags) {
-        return Arrays
-                .stream(tags.split("\\s+"))
-                .map(tag -> new Tag())
-                .collect(Collectors.toSet());
-    }
-
-    default String map(Set<Tag> tags) {
-        return tags.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(" "));
-    }
 
 }

@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import ru.valerykorzh.springdemo.domain.Question;
+import ru.valerykorzh.springdemo.domain.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -28,6 +30,14 @@ public class AccountDto {
     @Email(message = "Invalid email")
     private String email;
 
-//    @JsonIgnoreProperties("author")
-//    private Set<QuestionDto> questions;
+    private ImageDto avatar;
+
+    private Set<Role> roles;
+
+    private List<AnswerDto> answers;
+
+    private List<QuestionDto> questions;
+
+
+
 }
