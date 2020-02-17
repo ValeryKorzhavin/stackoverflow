@@ -4,11 +4,13 @@ import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.format.Formatter;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ru.valerykorzh.springdemo.config.LocaleConfig;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.TagNotFoundException;
@@ -22,7 +24,9 @@ import ru.valerykorzh.springdemo.service.*;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
 import java.security.Principal;
+import java.text.ParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS_PATH;
 
@@ -35,6 +39,25 @@ public class QuestionController {
     private final AccountService accountService;
     private final TagService tagService;
     private final List<QuestionSortService> questionSortServices;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addCustomFormatter(new Formatter<Set<Tag>>() {
+            @Override
+            public Set<Tag> parse(String s, Locale locale) throws ParseException {
+                Set<Tag> tagSet = new HashSet<>();
+                Arrays.stream(s.split("\\s+"))
+                        .forEach(tag -> tagService.findByName(tag)
+                                .ifPresentOrElse(tagSet::add, () -> tagSet.add(new Tag(tag))));
+                return tagSet;
+            }
+
+            @Override
+            public String print(Set<Tag> tags, Locale locale) {
+                return tags.stream().map(Tag::toString).collect(Collectors.joining(" "));
+            }
+        }, "tags");
+    }
 
     @ModelAttribute("module")
     public String module() {

@@ -43,35 +43,4 @@ public class LocaleConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-    @Override
-    public void addFormatters(final FormatterRegistry registry) {
-        WebMvcConfigurer.super.addFormatters(registry);
-        registry.addFormatter(tagSetFormatter());
-
-    }
-
-    @Bean
-    public TagSetFormatter tagSetFormatter() {
-        return new TagSetFormatter();
-    }
-
-    private static class TagSetFormatter implements Formatter<Set<Tag>> {
-
-        @Autowired
-        private TagService tagService;
-
-        @Override
-        public Set<Tag> parse(String s, Locale locale) throws ParseException {
-            Set<Tag> tagSet = new HashSet<>();
-            Arrays.stream(s.split("\\s+"))
-                    .forEach(tag -> tagService.findByName(tag)
-                            .ifPresentOrElse(tagSet::add, () -> tagSet.add(new Tag(tag))));
-            return tagSet;
-        }
-
-        @Override
-        public String print(Set<Tag> tags, Locale locale) {
-            return tags.stream().map(Tag::toString).collect(Collectors.joining(" "));
-        }
-    }
 }
