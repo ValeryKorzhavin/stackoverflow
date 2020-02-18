@@ -1,4 +1,4 @@
-package ru.valerykorzh.springdemo.service;
+package ru.valerykorzh.springdemo.service.impl.question;
 
 public enum QuestionSortType {
 

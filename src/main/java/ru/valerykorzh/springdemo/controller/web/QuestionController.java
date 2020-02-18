@@ -1,4 +1,4 @@
-package ru.valerykorzh.springdemo.controller;
+package ru.valerykorzh.springdemo.controller.web;
 
 import com.google.common.base.CaseFormat;
 import lombok.AllArgsConstructor;
@@ -15,6 +15,7 @@ import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.controller.exception.TagNotFoundException;
 import ru.valerykorzh.springdemo.domain.*;
 import ru.valerykorzh.springdemo.service.*;
+import ru.valerykorzh.springdemo.service.impl.question.QuestionSortType;
 
 import javax.validation.Valid;
 import java.security.Principal;

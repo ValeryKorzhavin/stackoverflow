@@ -1,4 +1,4 @@
-package ru.valerykorzh.springdemo.controller;
+package ru.valerykorzh.springdemo.controller.web;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

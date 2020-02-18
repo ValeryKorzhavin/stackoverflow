@@ -1,4 +1,4 @@
-package ru.valerykorzh.springdemo.service.impl;
+package ru.valerykorzh.springdemo.service.impl.question;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
