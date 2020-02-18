@@ -31,11 +31,11 @@ Spring Boot, PostgreSQL, Liquibase, Lombok, Bootstrap, Heroku, JUnit
 - Mapstruct
 - Twitter Bootstrap 4
 - JQuery
-- Build with Maven
+- Built with Maven
 - Deployed on Heroku
 
 ### Compile and Run
-```
+```shell script
 $ make # build & run
 $ make test # compile & tests
 ```
@@ -44,14 +44,12 @@ $ make test # compile & tests
 Liquibase is used for creating and updating database schema. Schemas are located at /src/main/resources/db/changelog.
 
 Run this command for generating new migration:
-```
+```shell script
 $ make generate-migration
 ```
 
 ### Features
-- Create/Update/Delete Accounts
-- Upload/Delete avatar
-- Sending email for account confirmation
-- Vote for questions/answers
-- Ajax search with autocomplete
-- Sorting Questions and Answers by Rating
+- Create/Update Accounts/Questions/Answers
+- Upload avatar
+- Vote for Questions/Answers
+- Sorting Questions/Accounts/Tags by votes, name, creation date

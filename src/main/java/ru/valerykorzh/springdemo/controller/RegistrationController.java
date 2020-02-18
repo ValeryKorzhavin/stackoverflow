@@ -19,9 +19,11 @@ import ru.valerykorzh.springdemo.service.AccountService;
 import java.util.Locale;
 import java.util.Optional;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.REGISTRATION_PATH;
+
 @Controller
 @AllArgsConstructor
-@RequestMapping("/registration")
+@RequestMapping(REGISTRATION_PATH)
 public class RegistrationController {
 
     private final AccountService accountService;

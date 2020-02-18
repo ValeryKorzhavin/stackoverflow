@@ -31,14 +31,14 @@ public class HomeController {
     public String index(Model model) {
         List<Question> questions = questionService.findAll();
 
+        int tagsCount = 20;
         List<Tag> tags = tagService
                 .findAll()
                 .stream()
-                .limit(20)
+                .limit(tagsCount)
                 .collect(Collectors.toList());
 
         model.addAttribute("tags", tags);
-
         model.addAttribute("questions", questions);
 
         return "index";

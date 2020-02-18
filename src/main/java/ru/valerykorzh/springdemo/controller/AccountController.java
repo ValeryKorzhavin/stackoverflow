@@ -25,6 +25,12 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.ACCOUNTS_
 @AllArgsConstructor
 public class AccountController {
 
+    private static final String TEMPLATE_DIR = "account";
+    private static final String PROFILE_TEMPLATE = TEMPLATE_DIR + "/profile";
+    private static final String LIST_TEMPLATE = TEMPLATE_DIR + "/list";
+    private static final String EDIT_TEMPLATE = TEMPLATE_DIR + "/edit";
+    private static final String ACTIVITY_TEMPLATE = TEMPLATE_DIR + "/activity";
+
     private final AccountService accountService;
     private final ImageService imageService;
     private final List<AccountSortService> accountSortServices;
@@ -51,7 +57,7 @@ public class AccountController {
                 .filter(service -> service.isSuitableFor(accountSortType))
                 .findFirst()).ifPresent(service -> model.addAttribute("accounts", service.sort(pageable)));
 
-        return "account/list";
+        return LIST_TEMPLATE;
     }
 
     @GetMapping("/{id}")
@@ -61,7 +67,7 @@ public class AccountController {
         model.addAttribute("account", account);
         model.addAttribute("profile", "view");
 
-        return "account/profile";
+        return PROFILE_TEMPLATE;
     }
 
     @GetMapping("/activity/{id}")
@@ -69,7 +75,7 @@ public class AccountController {
         Account account = accountService.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
         model.addAttribute("profile", "activity");
         model.addAttribute("account", account);
-        return "account/activity";
+        return ACTIVITY_TEMPLATE;
     }
 
     @PutMapping
@@ -91,7 +97,7 @@ public class AccountController {
     }
 
     @GetMapping("/edit/{id}")
-//    @PreAuthorize("authentication.principal.id.equals(#id)") // or hasRole('ROLE_ADMIN')
+//    @PreAuthorize("authentication.principal.id.equals(#id)")
     public String getEditAccountForm(@PathVariable Long id, Model model) {
         model.addAttribute("profile", "edit");
 
@@ -101,12 +107,11 @@ public class AccountController {
 
         model.addAttribute("account", account);
 
-        return "account/edit";
+        return EDIT_TEMPLATE;
     }
 
     @PostMapping("/new")
     public String createAccount() {
-
         return "/account/list";
     }
 

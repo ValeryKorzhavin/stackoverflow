@@ -10,12 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.service.TagService;
 
 import java.util.Optional;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.TAGS_PATH;
+
 @Controller
+@RequestMapping(TAGS_PATH)
 @AllArgsConstructor
 public class TagController {
 
@@ -26,7 +30,7 @@ public class TagController {
         return "tags";
     }
 
-    @GetMapping("/tags")
+    @GetMapping
     public String findAll(Model model, @PageableDefault(
             sort = { "name" }, direction = Sort.Direction.DESC, size = 40) Pageable pageable) {
         Page<Tag> tags;

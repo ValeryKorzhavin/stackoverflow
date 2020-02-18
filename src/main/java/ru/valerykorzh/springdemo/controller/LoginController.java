@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Locale;
 
+import static ru.valerykorzh.springdemo.controller.ControllerConstants.LOGIN_PATH;
+
 @Controller
-@RequestMapping("/login")
+@RequestMapping(LOGIN_PATH)
 @AllArgsConstructor
 public class LoginController {
 

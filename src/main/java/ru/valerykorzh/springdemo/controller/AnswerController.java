@@ -30,10 +30,14 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS
 @AllArgsConstructor
 public class AnswerController {
 
-    private final AnswerService answerService;
-    private final AccountService accountService;
+    private static final String TEMPLATE_DIR = "answer";
+    private static final String LIST_TEMPLATE = TEMPLATE_DIR + "/list";
+    private static final String EDIT_TEMPLATE = TEMPLATE_DIR + "/edit";
+
     @Qualifier("questionServiceImpl")
     private final QuestionService questionService;
+    private final AnswerService answerService;
+    private final AccountService accountService;
 
     @GetMapping
     public String findAll(Model model) {
@@ -41,7 +45,7 @@ public class AnswerController {
 
         model.addAttribute("answers", answers);
 
-        return "answer/list";
+        return LIST_TEMPLATE;
     }
 
     @PostMapping
@@ -97,7 +101,7 @@ public class AnswerController {
 
         model.addAttribute("answer", answer);
 
-        return "answer/edit";
+        return EDIT_TEMPLATE;
     }
 
     @PutMapping
