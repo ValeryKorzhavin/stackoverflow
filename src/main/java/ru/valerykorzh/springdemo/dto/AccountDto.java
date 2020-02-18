@@ -1,9 +1,7 @@
 package ru.valerykorzh.springdemo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.domain.Role;
 
 import javax.validation.constraints.Email;

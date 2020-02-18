@@ -10,12 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.valerykorzh.springdemo.service.converter.LocalDateTimeConverter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 @Getter
 @Setter
@@ -42,18 +38,6 @@ public abstract class Auditable<U> {
     @Column(name = "last_modified_date")
     @Convert(converter = LocalDateTimeConverter.class)
     protected LocalDateTime lastModifiedDate;
-
-    protected Long daysBetween(LocalDateTime today) {
-        return ChronoUnit.DAYS.between(createdDate, today);
-    }
-
-    public LocalDate getDate() {
-        return null;
-    }
-
-    public LocalTime getTime() {
-        return null;
-    }
 
     public String getFormattedDate(LocalDateTime timestamp, String pattern) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);

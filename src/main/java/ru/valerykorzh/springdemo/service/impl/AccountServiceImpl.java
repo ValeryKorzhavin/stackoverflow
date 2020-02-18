@@ -15,7 +15,6 @@ import ru.valerykorzh.springdemo.repository.AccountRepository;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.ImageService;
 
-import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +23,6 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j

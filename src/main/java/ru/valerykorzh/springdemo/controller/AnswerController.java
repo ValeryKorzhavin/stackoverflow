@@ -12,13 +12,9 @@ import ru.valerykorzh.springdemo.controller.exception.QuestionNotFoundException;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Answer;
 import ru.valerykorzh.springdemo.domain.Question;
-import ru.valerykorzh.springdemo.dto.AnswerDto;
-import ru.valerykorzh.springdemo.dto.QuestionDto;
-import ru.valerykorzh.springdemo.dto.mapper.AnswerMapper;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.AnswerService;
 import ru.valerykorzh.springdemo.service.QuestionService;
-import ru.valerykorzh.springdemo.service.impl.QuestionServiceImpl;
 
 import javax.validation.Valid;
 import java.security.Principal;

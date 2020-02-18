@@ -1,7 +1,6 @@
 package ru.valerykorzh.springdemo.dto.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import ru.valerykorzh.springdemo.domain.Tag;
 import ru.valerykorzh.springdemo.dto.TagDto;
 

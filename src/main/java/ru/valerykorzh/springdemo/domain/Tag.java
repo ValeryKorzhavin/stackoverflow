@@ -1,11 +1,9 @@
 package ru.valerykorzh.springdemo.domain;
 
 import lombok.*;
-import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,8 +51,8 @@ public class Tag {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
         Tag tag = (Tag) o;
         return name.equals(tag.name);
     }

@@ -1,6 +1,5 @@
 package ru.valerykorzh.springdemo.audit;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;

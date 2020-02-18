@@ -1,10 +1,6 @@
 package ru.valerykorzh.springdemo.controller;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator;
-import org.mockito.Mock;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import ru.valerykorzh.springdemo.domain.Account;
 import ru.valerykorzh.springdemo.domain.Image;
 import ru.valerykorzh.springdemo.domain.Question;
@@ -12,7 +8,6 @@ import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.AnswerService;
 import ru.valerykorzh.springdemo.service.QuestionService;
 
-import java.security.Principal;
 import java.util.Collections;
 
 public abstract class AbstractControllerTest {
@@ -20,9 +15,6 @@ public abstract class AbstractControllerTest {
     protected final String DEFAULT_USER_NAME = "Test user";
 
     protected final String DEFAULT_USER_PASSWORD = "password";
-
-//    @MockBean
-//    protected Principal principal;
 
     @MockBean
     protected AccountService accountService;

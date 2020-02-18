@@ -13,7 +13,6 @@ public interface AccountService {
 
     Optional<Account> findByEmail(String email);
 
-    // cause users may have same names
     List<Account> findByName(String name);
 
     List<Account> findAll();

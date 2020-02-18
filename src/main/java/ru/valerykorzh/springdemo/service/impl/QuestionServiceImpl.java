@@ -2,11 +2,9 @@ package ru.valerykorzh.springdemo.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.valerykorzh.springdemo.domain.Question;
@@ -15,9 +13,6 @@ import ru.valerykorzh.springdemo.service.QuestionService;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.Specification.where;
-import static org.springframework.data.jpa.domain.Specification.not;
 
 @Service
 @Slf4j

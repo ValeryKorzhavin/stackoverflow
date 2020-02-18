@@ -5,26 +5,18 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.valerykorzh.springdemo.controller.exception.AccountNotFoundException;
 import ru.valerykorzh.springdemo.domain.Account;
-import ru.valerykorzh.springdemo.domain.Image;
-import ru.valerykorzh.springdemo.dto.AccountDto;
-import ru.valerykorzh.springdemo.dto.mapper.AccountMapper;
 import ru.valerykorzh.springdemo.service.*;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static ru.valerykorzh.springdemo.controller.ControllerConstants.ACCOUNTS_PATH;
 
@@ -35,7 +27,6 @@ public class AccountController {
 
     private final AccountService accountService;
     private final ImageService imageService;
-    private final AccountMapper accountMapper;
     private final List<AccountSortService> accountSortServices;
 
     @ModelAttribute("module")

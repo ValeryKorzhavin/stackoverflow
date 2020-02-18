@@ -1,8 +1,6 @@
 package ru.valerykorzh.springdemo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import ru.valerykorzh.springdemo.domain.Tag;
 
 import java.util.Set;
 

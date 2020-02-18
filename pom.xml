@@ -49,20 +49,7 @@
 	</properties>
 
 	<dependencies>
-<!--		<dependency>-->
-<!--			<groupId>com.google.code.findbugs</groupId>-->
-<!--			<artifactId>jsr305</artifactId>-->
-<!--			<version>3.0.2</version>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>org.hibernate</groupId>-->
-<!--			<artifactId>hibernate-jpamodelgen</artifactId>-->
-<!--			<version>${hibernate.version}</version>-->
-<!--			<optional>true</optional>-->
-<!--		</dependency>-->
-
-		<dependency>
+        <dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>r05</version>
@@ -191,11 +178,6 @@
 							<artifactId>lombok</artifactId>
 							<version>${lombok.version}</version>
 						</path>
-<!--						<path>-->
-<!--							<groupId>org.hibernate</groupId>-->
-<!--							<artifactId>hibernate-jpamodelgen</artifactId>-->
-<!--							<version>${hibernate.version}</version>-->
-<!--						</path>-->
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
@@ -290,62 +272,29 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.bsc.maven</groupId>-->
-<!--				<artifactId>maven-processor-plugin</artifactId>-->
-<!--				<version>2.0.5</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>process</id>-->
-<!--						<goals>-->
-<!--							<goal>process</goal>-->
-<!--						</goals>-->
-<!--						<phase>generate-sources</phase>-->
-<!--						<configuration>-->
-<!--							<processors>-->
-<!--								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
-<!--								<processor>org.mapstruct.ap.MappingProcessor</processor>-->
-<!--							</processors>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--				<dependencies>-->
-<!--					<dependency>-->
-<!--						<groupId>org.hibernate</groupId>-->
-<!--						<artifactId>hibernate-jpamodelgen</artifactId>-->
-<!--						<version>${hibernate.version}</version>-->
-<!--					</dependency>-->
-<!--					<dependency>-->
-<!--						<groupId>org.mapstruct</groupId>-->
-<!--						<artifactId>mapstruct-processor</artifactId>-->
-<!--						<version>${mapstruct.version}</version>-->
-<!--					</dependency>-->
-<!--				</dependencies>-->
-<!--			</plugin>-->
-
-<!--			<plugin>-->
-<!--				<groupId>org.apache.maven.plugins</groupId>-->
-<!--				<artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--				<version>${maven-checkstyle-plugin.version}</version>-->
-<!--				<configuration>-->
-<!--					<encoding>UTF-8</encoding>-->
-<!--					<consoleOutput>true</consoleOutput>-->
-<!--					<failsOnError>true</failsOnError>-->
-<!--					<logViolationsToConsole>true</logViolationsToConsole>-->
-<!--				</configuration>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>validate</id>-->
-<!--						<phase>validate</phase>-->
-<!--						<goals>-->
-<!--							<goal>check</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<configLocation>${checkstyle.config.location}</configLocation>-->
-<!--						</configuration>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--			</plugin>-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${maven-checkstyle-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<consoleOutput>true</consoleOutput>
+					<failsOnError>true</failsOnError>
+					<logViolationsToConsole>true</logViolationsToConsole>
+				</configuration>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<configLocation>${checkstyle.config.location}</configLocation>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

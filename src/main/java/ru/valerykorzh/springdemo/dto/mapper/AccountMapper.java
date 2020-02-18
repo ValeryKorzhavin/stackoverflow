@@ -7,8 +7,6 @@ import ru.valerykorzh.springdemo.dto.AccountDto;
 import ru.valerykorzh.springdemo.dto.AccountPostDto;
 import ru.valerykorzh.springdemo.dto.QuestionDto;
 
-import java.beans.ConstructorProperties;
-
 @Mapper(componentModel = "spring")
 public interface AccountMapper {
 

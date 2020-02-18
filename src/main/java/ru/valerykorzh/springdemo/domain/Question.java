@@ -2,15 +2,10 @@ package ru.valerykorzh.springdemo.domain;
 
 import lombok.*;
 import ru.valerykorzh.springdemo.audit.Auditable;
-import ru.valerykorzh.springdemo.service.converter.LocalDateTimeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.*;
-
-@Data
-@EqualsAndHashCode(callSuper = true)
 
 @Getter
 @Setter

@@ -1,16 +1,10 @@
 package ru.valerykorzh.springdemo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import ru.valerykorzh.springdemo.audit.Auditable;
 import ru.valerykorzh.springdemo.domain.Account;
-import ru.valerykorzh.springdemo.domain.Question;
 
 import java.util.Set;
-
-
-@Data
-@EqualsAndHashCode(callSuper = true)
 
 @Setter
 @Getter
