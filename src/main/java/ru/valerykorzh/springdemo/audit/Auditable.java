@@ -39,7 +39,7 @@ public abstract class Auditable<U> {
     @Convert(converter = LocalDateTimeConverter.class)
     protected LocalDateTime lastModifiedDate;
 
-    public String getFormattedDate(LocalDateTime timestamp, String pattern) {
+    protected String getFormattedDate(LocalDateTime timestamp, String pattern) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return timestamp.format(formatter);
     }

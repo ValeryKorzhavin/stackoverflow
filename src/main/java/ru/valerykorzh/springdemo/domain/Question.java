@@ -5,11 +5,14 @@ import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "question")
@@ -103,6 +106,11 @@ public class Question extends Auditable<Account> {
 
     public boolean hasAcceptedAnswer() {
         return answers.stream().anyMatch(Answer::getIsAccepted);
+    }
+
+    public String getFormattedDate(LocalDateTime timestamp, String pattern) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return timestamp.format(formatter);
     }
 
 }

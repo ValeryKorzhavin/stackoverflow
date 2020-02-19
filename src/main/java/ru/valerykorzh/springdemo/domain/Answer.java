@@ -84,4 +84,5 @@ public class Answer extends Auditable<Account> {
         }
         return 0;
     }
+
 }
