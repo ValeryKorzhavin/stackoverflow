@@ -23,6 +23,9 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.TAGS_PATH
 @AllArgsConstructor
 public class TagController {
 
+    private static final String TEMPLATE_DIR = "tag";
+    private static final String LIST_TEMPLATE = TEMPLATE_DIR + "/list";
+
     private final TagService tagService;
 
     @ModelAttribute("module")
@@ -48,7 +51,7 @@ public class TagController {
             }
         });
 
-        return "tag/list";
+        return LIST_TEMPLATE;
     }
 
 

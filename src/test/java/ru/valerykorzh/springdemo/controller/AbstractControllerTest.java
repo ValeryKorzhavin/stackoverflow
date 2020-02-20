@@ -26,9 +26,9 @@ public abstract class AbstractControllerTest {
 
     protected final String DEFAULT_USER_PASSWORD = "password";
 
-    AuditingHandler auditingHandler;
+    protected AuditingHandler auditingHandler;
 
-    AuditorAware auditorAware;
+    protected AuditorAware auditorAware;
 
     @MockBean
     protected AccountService accountService;

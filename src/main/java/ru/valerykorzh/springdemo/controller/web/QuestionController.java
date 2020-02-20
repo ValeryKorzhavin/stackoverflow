@@ -30,6 +30,12 @@ import static ru.valerykorzh.springdemo.controller.ControllerConstants.QUESTIONS
 @AllArgsConstructor
 public class QuestionController {
 
+    private static final String TEMPLATE_DIR = "question";
+    private static final String NEW_TEMPLATE = TEMPLATE_DIR + "/new";
+    private static final String LIST_TEMPLATE = TEMPLATE_DIR + "/list";
+    private static final String EDIT_TEMPLATE = TEMPLATE_DIR + "/edit";
+    private static final String VIEW_TEMPLATE = TEMPLATE_DIR + "/view";
+
     private final QuestionService questionService;
     private final AccountService accountService;
     private final TagService tagService;
@@ -66,7 +72,6 @@ public class QuestionController {
 
         if (!Objects.isNull(filters)) {
             List<String> filtersList = List.of(filters.split(","));
-            System.out.println(filtersList);
         }
 
         Optional<QuestionSortType> sortType = pageable
@@ -82,7 +87,7 @@ public class QuestionController {
                 .filter(service -> service.isSuitableFor(questionSortType))
                 .findFirst()).ifPresent(service -> model.addAttribute("questions", service.sort(pageable)));
 
-        return "question/list";
+        return LIST_TEMPLATE;
     }
 
     @GetMapping("/tagged/{tagName}")
@@ -93,14 +98,14 @@ public class QuestionController {
                                           size = 5) Pageable pageable) {
         Tag tag = tagService.findByName(tagName).orElseThrow(() -> new TagNotFoundException(tagName));
 
-        return "question/list";
+        return LIST_TEMPLATE;
     }
 
     @GetMapping("/new")
     public String askQuestion(Model model) {
         model.addAttribute("question", new Question());
 
-        return "question/new";
+        return NEW_TEMPLATE;
     }
 
     @PostMapping
@@ -127,7 +132,7 @@ public class QuestionController {
         model.addAttribute("question", question);
         model.addAttribute("answer", answer);
 
-        return "question/view";
+        return VIEW_TEMPLATE;
     }
 
     @PatchMapping(value = "/{id}/like", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -162,7 +167,7 @@ public class QuestionController {
 
         model.addAttribute("question", question);
 
-        return "question/edit";
+        return EDIT_TEMPLATE;
     }
 
     @PutMapping

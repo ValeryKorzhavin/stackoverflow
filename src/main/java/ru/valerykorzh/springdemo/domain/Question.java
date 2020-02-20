@@ -39,14 +39,17 @@ public class Question extends Auditable<Account> {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(
         name = "question_tag",
         joinColumns = @JoinColumn(name = "question_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+    @ManyToMany(cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
             name = "question_like",
@@ -55,7 +58,8 @@ public class Question extends Auditable<Account> {
     )
     private Set<Account> positiveVotes;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+    @ManyToMany(cascade = {
+            CascadeType.MERGE, CascadeType.PERSIST,
             CascadeType.REFRESH, CascadeType.DETACH})
     @JoinTable(
             name = "question_dislike",

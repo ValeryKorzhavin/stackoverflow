@@ -1,4 +1,4 @@
-package ru.valerykorzh.springdemo.controller;
+package ru.valerykorzh.springdemo.controller.web;
 
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;

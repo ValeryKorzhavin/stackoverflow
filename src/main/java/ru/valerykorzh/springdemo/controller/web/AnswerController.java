@@ -65,7 +65,7 @@ public class AnswerController {
         answer.setQuestion(question);
         answerService.save(answer);
 
-        return String.format("redirect:/questions/%d", id);
+        return String.format("redirect:%s/%d", QUESTIONS_PATH, id);
     }
 
     @PatchMapping(value = "/{id}/like", produces = MediaType.APPLICATION_JSON_VALUE)
