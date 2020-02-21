@@ -10,6 +10,7 @@ import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.service.AccountService;
 import ru.valerykorzh.springdemo.service.AnswerService;
 import ru.valerykorzh.springdemo.service.QuestionService;
+import ru.valerykorzh.springdemo.service.TagService;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -37,7 +38,7 @@ public abstract class AbstractControllerTest {
     protected QuestionService questionService;
 
     @MockBean
-    protected AnswerService answerService;
+    protected TagService tagService;
 
     protected AuditingHandler getAuditingHandler() {
         return new AuditingHandler(PersistentEntities.of());
@@ -87,8 +88,5 @@ public abstract class AbstractControllerTest {
     protected void deleteQuestion(final Long id) {
         questionService.deleteById(id);
     }
-
-
-
 
 }
