@@ -40,6 +40,9 @@ public abstract class AbstractControllerTest {
     @MockBean
     protected TagService tagService;
 
+    @MockBean
+    protected AnswerService answerService;
+
     protected AuditingHandler getAuditingHandler() {
         return new AuditingHandler(PersistentEntities.of());
     }
