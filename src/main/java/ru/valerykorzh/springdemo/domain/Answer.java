@@ -4,12 +4,15 @@ import lombok.*;
 import ru.valerykorzh.springdemo.audit.Auditable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "answer")
@@ -83,6 +86,11 @@ public class Answer extends Auditable<Account> {
             return positiveVotes.size() - negativeVotes.size();
         }
         return 0;
+    }
+
+    public String getFormattedDate(LocalDateTime timestamp, String pattern) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return timestamp.format(formatter);
     }
 
 }

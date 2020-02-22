@@ -5,6 +5,7 @@ import org.springframework.data.auditing.AuditingHandler;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.mapping.context.PersistentEntities;
 import ru.valerykorzh.springdemo.domain.Account;
+import ru.valerykorzh.springdemo.domain.Answer;
 import ru.valerykorzh.springdemo.domain.Image;
 import ru.valerykorzh.springdemo.domain.Question;
 import ru.valerykorzh.springdemo.service.AccountService;
@@ -13,6 +14,7 @@ import ru.valerykorzh.springdemo.service.QuestionService;
 import ru.valerykorzh.springdemo.service.TagService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class AbstractControllerTest {
@@ -65,12 +67,23 @@ public abstract class AbstractControllerTest {
         return account;
     }
 
+    protected Answer createAnswer(Account account, Question question) {
+        return Answer.builder()
+                .author(account)
+                .content("test answer")
+                .question(question)
+                .negativeVotes(Collections.emptySet())
+                .positiveVotes(Collections.emptySet())
+                .build();
+
+    }
+
     protected Question createQuestion(Account account) {
         return Question.builder()
                 .title("test question")
                 .author(account)
                 .body("text for test question")
-                .answers(Collections.emptyList())
+                .answers(new ArrayList<Answer>())
                 .negativeVotes(Collections.emptySet())
                 .positiveVotes(Collections.emptySet())
                 .tags(Collections.emptySet())
