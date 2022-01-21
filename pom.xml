@@ -44,7 +44,7 @@
 		<javax.validation.version>2.0.1.Final</javax.validation.version>
 		<maven-checkstyle-plugin.version>3.1.0</maven-checkstyle-plugin.version>
 		<spring-boot.version>2.2.2.RELEASE</spring-boot.version>
-		<h2database.version>1.4.199</h2database.version>
+		<h2database.version>2.1.210</h2database.version>
 		<hibernate.version>5.4.9.Final</hibernate.version>
 	</properties>
 
